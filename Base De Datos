@@ -1,0 +1,173 @@
+CREATE TABLE tipo_persona (
+    id_tipo_persona INT AUTO_INCREMENT PRIMARY KEY,
+    nombre_tipo VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE persona (
+    numero_doc INT PRIMARY KEY,
+    tipo_doc VARCHAR(20) NOT NULL,
+    id_tipo_persona INT,
+    nombre VARCHAR(100) NOT NULL,
+    apellido VARCHAR(100) NOT NULL,
+    sexo VARCHAR(20),
+    celular VARCHAR(20),
+    numero_whatsapp VARCHAR(20),
+    fecha_nacimiento DATE,
+    avatar TEXT,
+    email VARCHAR(100),
+    estado VARCHAR(30),
+    contrasena VARCHAR(255),
+    fecha_registro DATE,
+    nombre_artistico VARCHAR(100),
+    FOREIGN KEY (id_tipo_persona) REFERENCES tipo_persona(id_tipo_persona) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE redes_sociales (
+    id_red_social INT AUTO_INCREMENT PRIMARY KEY,
+    nombre_red VARCHAR(50),
+    url TEXT,
+    numero_doc INT, 
+    FOREIGN KEY (numero_doc) REFERENCES persona(numero_doc) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE experiencia_laboral (
+    id_experiencia INT AUTO_INCREMENT PRIMARY KEY,
+    anio_inicio INT,
+    anio_fin INT,
+    eventos_realizados INT,
+    titulo_obtenido VARCHAR(100),
+    habilidades_principales TEXT,
+    academia_formacion VARCHAR(100),
+    estudios VARCHAR(100),
+    publico_privado VARCHAR(20),
+    numero_doc INT, 
+    FOREIGN KEY (numero_doc) REFERENCES persona(numero_doc) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE resenas (
+    id_resena INT AUTO_INCREMENT PRIMARY KEY,
+    numero_estrellas INT,
+    comentario TEXT,
+    fecha DATE,
+    numero_doc INT, 
+    FOREIGN KEY (numero_doc) REFERENCES persona(numero_doc) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE grupo_musical (
+    nit INT PRIMARY KEY, 
+    nombre_grupo VARCHAR(100),
+    telefono VARCHAR(20),
+    email VARCHAR(100),
+    avatar TEXT,
+    descripcion TEXT,
+    numero_doc INT, 
+    FOREIGN KEY (numero_doc) REFERENCES persona(numero_doc) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE instrumento (
+    id_instrumento INT AUTO_INCREMENT PRIMARY KEY, 
+    nombre_instrumento VARCHAR(100),
+    descripcion TEXT,
+    foto TEXT
+);
+
+CREATE TABLE musico_instrumento (
+    numero_doc INT,
+    id_instrumento INT,
+    PRIMARY KEY (numero_doc, id_instrumento),
+    FOREIGN KEY (numero_doc) REFERENCES persona(numero_doc) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (id_instrumento) REFERENCES instrumento(id_instrumento) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE categoria_instrumento (
+    id_categoria INT AUTO_INCREMENT PRIMARY KEY,
+    tipo_instrumento VARCHAR(100),
+    nombre_marca VARCHAR(100),
+    nombre_modelo VARCHAR(100),
+    id_instrumento INT, 
+    FOREIGN KEY (id_instrumento) REFERENCES instrumento(id_instrumento) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE genero (
+    id_genero INT AUTO_INCREMENT PRIMARY KEY, 
+    nombre_genero VARCHAR(100)
+);
+
+CREATE TABLE subgenero (
+    id_subgenero INT AUTO_INCREMENT PRIMARY KEY, 
+    nombre_subgenero VARCHAR(100),
+    id_genero INT, 
+    numero_doc INT,
+    nit INT,
+    FOREIGN KEY (id_genero) REFERENCES genero(id_genero) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (numero_doc) REFERENCES persona(numero_doc) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (nit) REFERENCES grupo_musical(nit) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE paquete_grupo (
+    id_paquete INT AUTO_INCREMENT PRIMARY KEY,
+    nombre_paquete VARCHAR(100),
+    contenido TEXT,
+    descripcion TEXT,
+    precio DECIMAL(10,2),
+    duracion VARCHAR(50),
+    nit INT, 
+    FOREIGN KEY (nit) REFERENCES grupo_musical(nit) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE reserva (
+    id_reserva INT AUTO_INCREMENT PRIMARY KEY,
+    fecha DATE,
+    hora TIME,
+    direccion VARCHAR(200),
+    valor DECIMAL(10,2),
+    estado VARCHAR(30),
+    numero_doc INT, 
+    nit INT,     
+    FOREIGN KEY (numero_doc) REFERENCES persona(numero_doc) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (nit) REFERENCES grupo_musical(nit) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE evento (
+    id_evento INT AUTO_INCREMENT PRIMARY KEY,
+    fecha DATE,
+    hora TIME,
+    lugar VARCHAR(200),
+    estado VARCHAR(30),
+    nombre VARCHAR(100),
+    formato VARCHAR(50),
+    tematica VARCHAR(100),
+    tamano VARCHAR(50),
+    publico VARCHAR(100),
+    descripcion TEXT,
+    nit INT, 
+    FOREIGN KEY (nit) REFERENCES grupo_musical(nit) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE pago (
+    numero_serie INT AUTO_INCREMENT PRIMARY KEY, 
+    fecha_pago DATE,
+    precio_total DECIMAL(10,2),
+    iva DECIMAL(5,2),
+    precio_con_iva DECIMAL(10,2),
+    descuento DECIMAL(10,2),
+    estado_pago VARCHAR(30),
+    id_cliente INT,   
+    id_reserva INT,   
+    FOREIGN KEY (id_cliente) REFERENCES persona(numero_doc) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (id_reserva) REFERENCES reserva(id_reserva) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE factura (
+    id_factura INT AUTO_INCREMENT PRIMARY KEY, 
+    numero_serie INT,               
+    FOREIGN KEY (numero_serie) REFERENCES pago(numero_serie) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE detalle_factura (
+    id_detalle INT AUTO_INCREMENT PRIMARY KEY, 
+    id_factura INT,
+    numero_serie INT,
+    FOREIGN KEY (id_factura) REFERENCES factura(id_factura) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (numero_serie) REFERENCES pago(numero_serie) ON DELETE CASCADE ON UPDATE CASCADE
+);
