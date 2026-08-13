@@ -1,0 +1,87 @@
+
+body{
+    background: #000;    /* fondo negro para toda la página */
+}
+
+.contenido{
+    width: 90%;                    /* ocupa el 90% del ancho de la pantalla */
+    max-width: 1400px;             /* pero nunca crece más de 1400px, aunque la pantalla sea gigante */
+    margin: 40px auto;             /* 40px arriba/abajo, y "auto" centra la caja horizontalmente */
+    font-family: 'Segoe UI', sans-serif;
+    color: #333;                    /* color de texto gris oscuro por defecto */
+    padding: 50px;                  /* espacio interno grande alrededor de todo el contenido */
+    display: flex;                 /* activa flexbox */
+    flex-direction: column;        /* en vez de fila, los hijos se acomodan uno debajo del otro */
+    align-items: center;           /* centra los hijos horizontalmente (porque la dirección es columna) */
+}
+
+.dashboard{
+    width: 95%;    /* ocupa el 95% del ancho de su contenedor (.contenido) */
+}
+
+.dashboard h2{
+    text-align: center;
+    font-size: 2.2rem;      /* tamaño relativo: 2.2 veces el tamaño de fuente base */
+    color: #C9A24A;          /* color dorado */
+    margin-bottom: 40px;
+    position: relative;      /* necesario para que el ::after de abajo se pueda ubicar correctamente */
+}
+
+.dashboard h2::after{
+    content: "";                  /* crea un elemento "fantasma" vacío después del h2 (no existe en el HTML) */
+    width: 200px;
+    height: 4px;
+    background: #C9A24A;          /* barra dorada decorativa */
+    display: block;                /* la convierte en un bloque para poder darle ancho/alto */
+    margin: 10px auto;             /* la centra debajo del texto del h2 */
+    border-radius: 5px;            /* le redondea las puntas, como una píldora */
+}
+/* En resumen: esto dibuja una rayita dorada centrada debajo del título, sin necesitar una etiqueta extra en el HTML */
+
+.subtitulo-dashboard{
+    text-align: center;
+    color: #ffffff;         /* texto blanco (se nota porque el fondo del body es negro) */
+    margin-bottom: 40px;
+}
+
+.dashboard-cards{
+    display: grid;                          /* activa CSS Grid en vez de Flexbox */
+    grid-template-columns: repeat(2, 1fr);  /* crea 2 columnas, cada una del mismo ancho (1 fracción = igual tamaño) */
+    gap: 25px;                              /* espacio entre las tarjetas (tanto horizontal como vertical) */
+    max-width: 1200px;
+    margin: 0 auto;                         /* centra la cuadrícula completa */
+}
+/* En resumen: esto acomoda las tarjetas en una tabla de 2 columnas automáticamente,
+   sin tener que calcular tamaños ni usar floats */
+
+.dashboard-card{
+    background: #C9A24A;          /* fondo dorado de cada tarjeta */
+    padding: 35px;                 /* espacio interno de la tarjeta */
+    border-radius: 15px;           /* esquinas redondeadas */
+    text-align: center;
+    text-decoration: none;         /* quita el subrayado si la tarjeta es un link <a> */
+    color: #ffffff;
+    box-shadow: 0 5px 20px rgba(0,0,0,.1);  /* sombra suave debajo de la tarjeta (le da profundidad) */
+    transition: all .3s ease;      /* hace que los cambios (como el hover) se vean animados/suaves, no bruscos */
+}
+
+.dashboard-card:hover{
+    transform: translateY(-10px);            /* al pasar el mouse, la tarjeta "sube" 10px */
+    box-shadow: 0 10px 25px rgba(0,0,0,.2);  /* la sombra se hace más grande/oscura, dando efecto de que "flota" */
+}
+/* En resumen: esto crea el efecto de que la tarjeta se levanta un poquito cuando pasas el mouse encima */
+
+.dashboard-card i{
+    font-size: 55px;       /* tamaño grande del ícono (ej. de Font Awesome) dentro de la tarjeta */
+    color: #ffffff;
+    margin-bottom: 15px;
+}
+
+.dashboard-card h3{
+    margin-bottom: 10px;
+    color: #ffffff;
+}
+
+.dashboard-card p{
+    color: #ffffff;
+}

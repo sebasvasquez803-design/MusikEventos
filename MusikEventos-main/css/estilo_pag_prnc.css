@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Aguafina+Script&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+/* INICIALIZACIÓN DE ESTILOS */
+
+*{
+    margin:0;
+    padding:0;
+}
+
+/* ESTILOS DE LOS ITEMS DE LA PAG PRINCIPAL */
+
+.titulolo ul {
+    list-style: none;
+    margin-top: 10%;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+
+.titulolo a {
+    display: flex;
+    padding: 10px 20px;
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    font-size: 15px;
+    font-family: "Roboto", sans-serif;
+    border: solid 2px #C9A24A;
+    border-radius: 20px;
+}
+
+.titulolo li :hover {
+    color: #C9A24A;
+}
+
+/* IMAGEN DE FONDO DE LA PAGINA PRINCIPAL */
+
+body{
+    background-image: url("../img/fonditou.jpg");
+     background-size: cover;
+}
+

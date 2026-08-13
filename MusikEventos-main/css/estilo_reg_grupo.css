@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Aguafina+Script&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+/* trae 3 fuentes desde Google Fonts para poder usarlas en el CSS */
+
+*{
+    padding: 0;               /* quita el relleno interno por defecto de todos los elementos */
+    margin: 0;                 /* quita el margen externo por defecto de todos los elementos */
+    box-sizing: border-box;    /* el padding y el borde NO suman al width/height, quedan incluidos adentro */
+}
+
+body{
+    background: rgb(241, 237, 237);   /* color de fondo gris claro para toda la página */
+    font-family: "Roboto", sans-serif; /* fuente por defecto de todo el texto */
+}
+
+header{
+   width: 100%;                /* ocupa todo el ancho de la pantalla */
+    background: #000000;       /* fondo negro */
+    padding: 20px;              /* espacio interno alrededor del contenido */
+    height: auto;                /* la altura se ajusta sola según el contenido */
+    display: flex;             /* organiza sus hijos automáticamente en fila */
+    align-items: center;       /* centra los hijos verticalmente */
+    justify-content: center;   /* centra los hijos horizontalmente */
+}
+
+h1{
+    color: #C9A24A;            /* color dorado del texto */
+    font-size: 46px;           /* tamaño grande de letra */
+    text-align: center;        /* centra el texto dentro de su propia caja */
+   font-family: "Roboto", sans-serif;
+}
+
+.logo{
+    display: flex;    /* activa flexbox para organizar lo que haya adentro (ej. imagen del logo) */
+    width: 200px;      /* ancho fijo de la caja del logo */
+}
+
+.conte {
+    display: flex;       /* pone .contenedor y .form-basico uno al lado del otro (en fila) */
+    min-height: 100vh;   /* altura mínima = 100% del alto visible de la pantalla */
+}
+
+.contenedor {
+    width: 20%;                        /* ocupa el 20% del ancho de .conte */
+    background:  rgb(241, 237, 237);   /* mismo color de fondo que el body */
+    align-self: stretch;               /* se estira para igualar la altura del elemento más alto a su lado (el form) */
+}
+
+.img-contenedor{
+    width: 100%;          /* la imagen ocupa todo el ancho de su contenedor */
+    height: 100%;          /* la imagen ocupa todo el alto de su contenedor */
+    object-fit: cover;    /* la imagen se recorta para llenar el espacio SIN deformarse */
+}
+
+.form-basico  {
+    max-width: 640px;              /* el formulario nunca crece más de 640px de ancho */
+    margin: 10px auto;             /* 10px arriba/abajo, y "auto" centra horizontalmente la caja */
+    padding: 55px;                  /* espacio interno grande alrededor del contenido del form */
+    box-sizing: border-box;
+    background-color: #dedcdc;     /* fondo gris claro para la caja del formulario */
+    font: bold 14px sans-serif;    /* fuente en negrita, tamaño 14px, tipo sans-serif */
+    text-align: center;            /* centra el texto dentro del formulario */
+    border-radius: 15px;           /* redondea las esquinas de la caja */
+}
+
+.titulo {
+    display: inline-block;               /* se comporta como bloque pero no ocupa toda la fila */
+    text-align: center;
+    box-sizing: border-box;
+    color: #000000;                       /* texto negro */
+    font-size: 24px;                      /* ⚠ se sobreescribe por la línea de abajo, no se aplica */
+    padding: 0 10px 15px;                 /* 0 arriba, 10px a los lados, 15px abajo */
+    border-bottom: 2px solid #C9A24A;     /* línea dorada debajo del título, como subrayado decorativo */
+    font-size: 22px;                      /* este es el tamaño que realmente se usa */
+    margin-bottom: 30px;                  /* separación entre el título y lo que viene después */
+}
+
+.form-basico  label {
+    display: inline-block;      /* permite darle ancho fijo sin romper el flujo del texto */
+    box-sizing: border-box;
+    color: #000000;
+    width: 180px;                /* todas las etiquetas miden lo mismo, para que queden alineadas */
+    text-align: left;            /* el texto de la etiqueta se alinea a la izquierda */
+    vertical-align: top;         /* alinea la etiqueta arriba si el campo de al lado es más alto */
+    padding: 12px 25px;          /* espacio interno de la etiqueta */
+}
+
+.entrada input, select {
+    text-align: left;
+    margin-bottom: 22px;   /* separa cada campo del siguiente, verticalmente */
+    border: none;          /* quita el borde por defecto del navegador */
+    outline: none;         /* quita el contorno azul que aparece al hacer clic (focus) */
+}
+
+.entrada input, textarea{
+    color: #000000;             /* color del texto que el usuario escribe */
+    width: 240px;                /* ancho fijo del campo */
+    padding: 12px;               /* espacio interno para que el texto no toque el borde */
+    border-radius: 5px;          /* esquinas ligeramente redondeadas */
+    border: none;
+    outline: none;
+}
+
+.boton {
+  display: block;    /* necesario para que "margin: auto" pueda centrar el botón */
+  margin: 0 auto;    /* centra el botón horizontalmente dentro de su contenedor */
+}
+.form-basico .boton input[type=button],input[type=submit]{
+    background: #C9A24A;       /* fondo dorado del botón */
+    border-radius: 8px;        /* esquinas redondeadas */
+    color: #000000;            /* texto negro */
+    padding: 14px 22px;        /* espacio interno (alto x ancho) del botón */
+    border: 0;                 /* sin borde */
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 50px;          /* separa el botón de lo que está arriba */
+     cursor: pointer;          /* el mouse se convierte en "manito" al pasar por encima */
+}
+
+.campo:valid + .icon {
+    color: #C9A24A;   /* si el input con clase .campo cumple sus reglas de validación, el icono al lado se pinta dorado */
+}
+
+.campo:invalid + .icon {
+    color: rgb(0, 0, 0);   /* si el input NO es válido (o está vacío), el icono se pinta negro */
+}
+
+.icon{
+    font-size: 20px;   /* tamaño de los iconos (ej. de Font Awesome) */
+}
+
