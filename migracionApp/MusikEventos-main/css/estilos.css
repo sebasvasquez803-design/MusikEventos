@@ -1,0 +1,76 @@
+/* CONTENEDOR DE LA TABLA */
+
+.contenido{
+    display: flex;
+    justify-content: center;
+    padding: 40px;
+}
+
+.boxers{
+    width: 90%;
+    max-width: 1100px;
+    background: white;
+    border: 3px solid #C9A24A;
+    border-radius: 10px;
+    padding: 25px;
+}
+
+/* TABLA */
+
+.tabla-usuarios{
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+.tabla-usuarios thead{
+    background: black;
+    color: #C9A24A;
+}
+
+.tabla-usuarios th{
+    padding: 15px;
+    border: 1px solid #C9A24A;
+}
+
+.tabla-usuarios td{
+    padding: 12px;
+    border: 1px solid #C9A24A;
+}
+
+.tabla-usuarios tbody tr:nth-child(even){
+    background: #f5f5f5;
+}
+
+.tabla-usuarios tbody tr:hover{
+    background: #fff5d6;
+    transition: 0.3s;
+}
+
+/* BOTON AGREGAR */
+
+.contenedor-btn-agregar{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.agregar_usuario{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: black;
+    color: #C9A24A;
+    border: 2px solid #C9A24A;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 28px;
+    transition: 0.3s;
+}
+
+.agregar_usuario:hover{
+    background: #C9A24A;
+    color: black;
+}
