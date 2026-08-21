@@ -11,12 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tipo_persona', function (Blueprint $table) {
-            $table->id('id_tipo_persona');
-            $table->string('nombre_tipo', 50);
-            $table->timestamps();
+        Schema::disableForeignKeyConstraints();
+
+        Schema::create('calendario', function (Blueprint $table) {
+            $table->interger('id_calendario');
+            $table->datetime('hora_inicio');
+            $table->datetime('hora_fin');    
         });
-        
+
+        Schema::enableForeignKeyConstraints();
     }
 
     /**
@@ -24,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tipo_persona');
+        Schema::dropIfExists('usuario');
     }
 };

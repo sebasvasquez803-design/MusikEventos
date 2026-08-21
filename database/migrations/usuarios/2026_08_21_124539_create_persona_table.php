@@ -29,6 +29,7 @@ return new class extends Migration
             $table->string('estado', 30)->nullable();
             $table->string('contrasena', 30)->nullable();
             $table->date('fecha_registro')->nullable();
+            $table->float('numero_estrellas', 5, 4)->nullable();
             $table->string('nombre_artistico', 100)->nullable();
         });
 
@@ -40,6 +41,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('persona');
+        Schema::dropIfExists('usuario');
     }
 };

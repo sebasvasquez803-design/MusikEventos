@@ -13,16 +13,17 @@ return new class extends Migration
     {
         Schema::create('usuario', function (Blueprint $table) {
             $table->id('id_usuario');
-            $table->string('tipo_doc', 10);
-            $table->string('numero_doc', 20)->unique();
+            $table->string('tipo_doc', 10)->nullable();
+            $table->string('numero_doc', 20)->unique()->nullable();
             $table->unsignedBigInteger('id_tipo_persona')->nullable();
-            $table->string('nombre', 30);
-            $table->string('apellido', 30);
+            $table->string('nombre', 30)->nullable();
+            $table->string('apellido', 30)->nullable();
             $table->string('sexo', 1)->nullable();
             $table->string('celular', 10)->nullable();
             $table->date('fecha_nacimiento')->nullable();
             $table->text('avatar')->nullable();
-            $table->string('estado', 30)->nullable()->default('activo');
+            $table->boolean('estado')->nullable()->default(true);
+            $table->date('fecha_registro')->nullable();
             $table->string('nombre_artistico', 100)->nullable();
             $table->timestamps();
         });
