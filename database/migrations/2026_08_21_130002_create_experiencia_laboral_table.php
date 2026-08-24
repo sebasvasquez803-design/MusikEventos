@@ -16,12 +16,11 @@ return new class extends Migration
             $table->unsignedBigInteger('id_persona');
             $table->timestamp('anio_inicio')->nullable();
             $table->integer('anio_fin')->nullable();
-            $table->integer('eventos_realizados',3)->nullable()->default(0);
-            $table->blob('titulo_obtenido', )->nullable();
-            $table->text('habilidades_principales')->nullable();
+            $table->text('titulo_obtenido', 300)->nullable();
+            $table->string('habilidades_principales', 150)->nullable();
             $table->string('academia_formacion', 50)->nullable();
-            $table->blob('estudios')->nullable();
-            $table->boolval('publico_privado')->nullable();
+            $table->string('estudios',150)->nullable();
+            $table->boolean('publico_privado')->nullable();
             $table->timestamps();
         });
     }

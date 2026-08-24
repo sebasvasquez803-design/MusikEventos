@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('nombre_paquete', 50)->nullable();
             $table->text('contenido',300)->nullable();
             $table->text('descripcion',500)->nullable();
-            $table->decimal('precio', 10, 5)->nullable();
-            $table->time('duracion', )->nullable();
+            $table->decimal('precio', 6, 5)->nullable();
+            $table->time('duracion', 6, 5)->nullable();
             $table->integer('nit')->nullable();
         });
 

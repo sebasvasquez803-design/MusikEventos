@@ -18,10 +18,10 @@ return new class extends Migration
             $table->integer('anio_inicio')->nullable();
             $table->integer('anio_fin')->nullable();
             $table->integer('eventos_realizados')->nullable();
-            $table->blob('titulo_obtenido')->nullable();
-            $table->text('habilidades_principales')->nullable();
-            $table->string('academia_formacion',50)->nullable();
-            $table->string('estudios',100)->nullable();
+            $table->text('titulo_obtenido', 300)->nullable();
+            $table->string('habilidades_principales', 150)->nullable();
+            $table->string('academia_formacion', 50)->nullable();
+            $table->string('estudios', 100)->nullable();
             $table->string('publico_privado', 20)->nullable();
             $table->integer('numero_doc')->nullable();
         });

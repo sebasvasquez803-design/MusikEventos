@@ -17,7 +17,6 @@ return new class extends Migration
             $table->integer('id_instrumento');
             $table->string('nombre_instrumento', 500)->nullable();
             $table->text('descripcion',500)->nullable();
-            $table->blob('foto')->nullable();
             $table->string('tipo_instrumento');
         });
 

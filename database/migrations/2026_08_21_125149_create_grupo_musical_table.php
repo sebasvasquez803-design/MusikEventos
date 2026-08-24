@@ -18,10 +18,10 @@ return new class extends Migration
             $table->string('nombre_grupo', 50)->nullable();
             $table->string('telefono', 10)->nullable();
             $table->string('email', 50)->nullable();
-            $table->blob('avatar')->nullable();
+            $table->text('avatar',200)->nullable();
             $table->text('descripcion',500)->nullable();
             $table->integer('numero_doc')->nullable();
-            $table->decimal('precio_hora',12,5)>nullable();
+            $table->decimal('precio_hora',12,5)->nullable();
         });
 
         Schema::enableForeignKeyConstraints();
