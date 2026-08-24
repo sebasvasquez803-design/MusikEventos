@@ -14,9 +14,8 @@ return new class extends Migration
         Schema::disableForeignKeyConstraints();
 
         Schema::create('factura', function (Blueprint $table) {
-            $table->integer('id_factura')->primary()->autoIncrement();;
+            $table->integer('id_factura');
             $table->integer('numero_serie')->nullable();
-            $table->foreign('numero_serie')->references('numero_serie')->on('detalle_pago');
         });
 
         Schema::enableForeignKeyConstraints();

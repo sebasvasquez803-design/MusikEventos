@@ -14,14 +14,14 @@ return new class extends Migration
         Schema::create('experiencia_laboral', function (Blueprint $table) {
             $table->id('id_experiencia');
             $table->unsignedBigInteger('id_persona');
-            $table->integer('anio_inicio')->nullable();
+            $table->timestamp('anio_inicio')->nullable();
             $table->integer('anio_fin')->nullable();
-            $table->integer('eventos_realizados')->nullable()->default(0);
-            $table->string('titulo_obtenido', 100)->nullable();
+            $table->integer('eventos_realizados',3)->nullable()->default(0);
+            $table->blob('titulo_obtenido', )->nullable();
             $table->text('habilidades_principales')->nullable();
-            $table->string('academia_formacion', 100)->nullable();
-            $table->string('estudios', 100)->nullable();
-            $table->string('publico_privado', 20)->nullable();
+            $table->string('academia_formacion', 50)->nullable();
+            $table->blob('estudios')->nullable();
+            $table->boolval('publico_privado')->nullable();
             $table->timestamps();
         });
     }

@@ -13,10 +13,9 @@ return new class extends Migration
     {
         Schema::disableForeignKeyConstraints();
 
-        Schema::create('factura', function (Blueprint $table) {
-            $table->integer('id_factura')->primary()->autoIncrement();;
-            $table->integer('numero_serie')->nullable();
-            $table->foreign('numero_serie')->references('numero_serie')->on('detalle_pago');
+        Schema::create('genero', function (Blueprint $table) {
+            $table->integer('id_genero');
+            $table->string('nombre_genero', 50)->nullable();
         });
 
         Schema::enableForeignKeyConstraints();
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('factura');
+        Schema::dropIfExists('genero');
     }
 };

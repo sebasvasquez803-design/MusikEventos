@@ -15,12 +15,11 @@ return new class extends Migration
 
         Schema::create('reserva', function (Blueprint $table) {
             $table->integer('id_reserva');
-            $table->foreign('id_reserva')->references('id_reserva')->on('detalle_pago');
             $table->date('fecha')->nullable();
             $table->time('hora')->nullable();
-            $table->string('direccion', 200)->nullable();
-            $table->decimal('valor', 10, 2)->nullable();
-            $table->string('estado', 30)->nullable();
+            $table->string('direccion', 60)->nullable();
+            $table->decimal('valor', 10, 5)->nullable();
+            $table->boolval('estado')->nullable()->default(true);
             $table->integer('numero_doc')->nullable();
             $table->integer('nit')->nullable();
         });
