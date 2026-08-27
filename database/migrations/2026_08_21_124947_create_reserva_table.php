@@ -14,13 +14,13 @@ return new class extends Migration
         Schema::disableForeignKeyConstraints();
 
         Schema::create('reserva', function (Blueprint $table) {
-            $table->integer('id_reserva');
+            $table->increments('id_reserva');
             $table->date('fecha')->nullable();
             $table->time('hora')->nullable();
             $table->string('direccion', 60)->nullable();
             $table->decimal('valor', 10, 5)->nullable();
             $table->string('estado',)->nullable()->default(true);
-            $table->integer('numero_doc')->nullable();
+            $table->string('numero_doc', 10)->nullable();
             $table->integer('nit')->nullable();
         });
 

@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('teams', function (Blueprint $table) {
-            $table->id('id_teams');
+            $table->id();
             $table->string('name');
             $table->string('slug')->unique();
             $table->boolean('is_personal')->default(false);
@@ -21,9 +21,9 @@ return new class extends Migration
         });
 
         Schema::create('team_members', function (Blueprint $table) {
-            $table->id('id_team_members');
-            $table->foreignId('team_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->id();
+            $table->foreignId('team_id')->constrained('teams')->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->string('role');
             $table->timestamps();
 
@@ -31,9 +31,9 @@ return new class extends Migration
         });
 
         Schema::create('team_invitations', function (Blueprint $table) {
-            $table->id('id_team_invitations');
+            $table->id();
             $table->string('code', 64)->unique();
-            $table->foreignId('team_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('team_id')->constrained('teams')->cascadeOnDelete();
             $table->string('email');
             $table->string('role');
             $table->foreignId('invited_by')->constrained('users')->cascadeOnDelete();

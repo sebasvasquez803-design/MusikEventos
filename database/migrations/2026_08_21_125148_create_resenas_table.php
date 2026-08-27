@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::disableForeignKeyConstraints();
 
         Schema::create('resenas', function (Blueprint $table) {
-            $table->integer('id_resena');
+            $table->increments('id_resena');
             $table->integer('numero_estrellas')->nullable();
             $table->text('comentario',300)->nullable();
             $table->date('fecha')->nullable();
-            $table->integer('numero_doc')->nullable();
+            $table->string('numero_doc', 10)->nullable();
         });
 
         Schema::enableForeignKeyConstraints();

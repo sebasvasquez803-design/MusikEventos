@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('detalle_pago', function (Blueprint $table) {
-            $table->integer('numero_serie');
+            $table->increments('numero_serie');
             $table->timestamp('fecha_pago')->nullable();
             $table->decimal('precio_total', 10, 5)->nullable();
             $table->decimal('precio_con_iva', 10, 5)->nullable();

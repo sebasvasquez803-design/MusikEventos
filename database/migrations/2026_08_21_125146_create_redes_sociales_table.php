@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::disableForeignKeyConstraints();
 
         Schema::create('redes_sociales', function (Blueprint $table) {
-            $table->integer('id_red_social');
+            $table->increments('id_red_social');
             $table->string('nombre_red', 25)->nullable();
             $table->text('url')->nullable();
-            $table->integer('numero_doc')->nullable();
+            $table->string('numero_doc', 10)->nullable();
         });
 
         Schema::enableForeignKeyConstraints();

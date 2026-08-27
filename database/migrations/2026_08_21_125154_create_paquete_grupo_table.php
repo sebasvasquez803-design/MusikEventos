@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::disableForeignKeyConstraints();
 
         Schema::create('paquete_grupo', function (Blueprint $table) {
-            $table->integer('id_paquete');
+            $table->increments('id_paquete');
             $table->string('nombre_paquete', 50)->nullable();
             $table->text('contenido',300)->nullable();
             $table->text('descripcion',500)->nullable();

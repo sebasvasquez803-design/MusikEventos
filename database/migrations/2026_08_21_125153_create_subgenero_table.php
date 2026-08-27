@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::disableForeignKeyConstraints();
 
         Schema::create('subgenero', function (Blueprint $table) {
-            $table->integer('id_subgenero');
+            $table->increments('id_subgenero');
             $table->string('nombre_subgenero', 50)->nullable();
-            $table->integer('id_genero')->nullable();
-            $table->integer('numero_doc')->nullable();
+            $table->unsignedInteger('id_genero')->nullable();
+            $table->string('numero_doc', 10)->nullable();
             $table->integer('nit')->nullable();
         });
 
@@ -27,7 +27,7 @@ return new class extends Migration
     /**
      * Reverse the migrations.
      */
-    public function down(): void 
+    public function down(): void
     {
         Schema::dropIfExists('subgenero');
     }

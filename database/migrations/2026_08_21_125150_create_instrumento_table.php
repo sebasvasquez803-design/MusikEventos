@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::disableForeignKeyConstraints();
 
         Schema::create('instrumento', function (Blueprint $table) {
-            $table->integer('id_instrumento');
+            $table->increments('id_instrumento');
             $table->string('nombre_instrumento', 500)->nullable();
             $table->text('descripcion',500)->nullable();
             $table->string('tipo_instrumento');

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id('id_usuario');
             $table->string('tipo_doc', 5)->nullable();
             $table->string('numero_doc', 10)->unique()->nullable();
-            $table->unsignedBigInteger('id_tipo_persona')->nullable();
+            $table->foreignId('id_tipo_persona')->nullable()->constrained('tipo_persona', 'id_tipo_persona')->nullOnDelete();
             $table->string('nombre', 25)->nullable();
             $table->string('apellido', 25)->nullable();
             $table->string('sexo', 1)->nullable();

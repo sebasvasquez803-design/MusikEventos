@@ -14,13 +14,13 @@ return new class extends Migration
         Schema::disableForeignKeyConstraints();
 
         Schema::create('grupo_musical', function (Blueprint $table) {
-            $table->integer('nit');
+            $table->integer('nit')->primary();
             $table->string('nombre_grupo', 50)->nullable();
             $table->string('telefono', 10)->nullable();
             $table->string('email', 50)->nullable();
             $table->text('avatar',200)->nullable();
             $table->text('descripcion',500)->nullable();
-            $table->integer('numero_doc')->nullable();
+            $table->string('numero_doc', 10)->nullable();
             $table->decimal('precio_hora',12,5)->nullable();
         });
 
