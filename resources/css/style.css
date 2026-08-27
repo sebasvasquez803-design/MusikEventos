@@ -1,0 +1,410 @@
+@import url('https://fonts.googleapis.com/css2?family=Aguafina+Script&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap');
+
+
+/* ================================
+   RESET GENERAL
+================================ */
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    overflow-x: hidden;
+}
+
+body {
+    background: rgb(241, 237, 237);
+    font-family: "Roboto", sans-serif;
+}
+
+
+/* ================================
+   ENCABEZADO
+   display flex pone la hamburguesa,
+   el menu y el logo en una sola fila
+================================ */
+header {
+    width: 100%;
+    background: #000000;
+    padding: 20px;
+    height: auto;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+
+/* ================================
+   BOTON HAMBURGUESA
+================================ */
+.hambu a {
+    color: #C9A24A;
+    font-size: 22px;
+    margin-right: 15px;
+    text-decoration: none;
+}
+
+.hambu a:hover {
+    color: white;
+}
+
+
+/* ================================
+   MENU PRINCIPAL HORIZONTAL
+   flex 1 hace que ocupe todo el
+   espacio entre la hamburguesa y el logo
+================================ */
+.menu {
+    display: flex;
+    flex: 1;
+    background: #000000;
+}
+
+.menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+
+.menu li {
+    position: relative;
+}
+
+.menu a {
+    display: flex;
+    padding: 12px 18px;
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    font-size: 15px;
+    align-items: center;
+    justify-content: center;
+}
+
+.menu a:hover {
+    color: #C9A24A;
+}
+
+.carro a:hover,
+.usuario a:hover {
+    color: #C9A24A;
+}
+
+
+/* ================================
+   LOGO
+================================ */
+.logo {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: block;
+}
+
+
+/* ================================
+   LAYOUT PRINCIPAL
+   display flex pone el sub_menu
+   y el contenido uno al lado del otro
+================================ */
+.layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+
+/* ================================
+   MENU LATERAL
+   Por defecto width 0 = oculto
+   Con clase active = width 250px
+   transition hace la animacion suave
+================================ */
+.sub_menu {
+    width: 0;
+    overflow: hidden;
+    transition: width 0.3s ease;
+    background: #1a1a1a;
+    align-self: stretch;
+}
+
+.sub_menu.active {
+    width: 250px;
+}
+
+.sub_menu ul {
+    list-style: none;
+    padding: 10px;
+}
+
+.sub_menu a {
+    display: block;
+    padding: 15px;
+    color: #C9A24A;
+    text-decoration: none;
+    border: 1px solid #C9A24A;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    white-space: nowrap;
+}
+
+.sub_menu a:hover {
+    background: #C9A24A;
+    color: #000;
+}
+
+
+/* ================================
+   CONTENIDO PRINCIPAL
+   flex 1 hace que ocupe todo el
+   espacio que deja el sub_menu
+================================ */
+.contenido-principal {
+    flex: 1;
+    padding: 30px;
+}
+
+
+/* ================================
+   BARRA DE BUSQUEDA
+================================ */
+.barra-busqueda {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.barra-busqueda input[type=text] {
+    width: 400px;
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.barra-busqueda button {
+    padding: 10px 20px;
+    background: #C9A24A;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.barra-busqueda button:hover {
+    background: #a07f35;
+}
+
+
+/* ================================
+   GRID DE CARDS
+   3 columnas de igual tamaño
+   cuando el sub_menu se abre, el grid
+   se achica solo porque contenido-principal
+   tiene flex 1
+================================ */
+.grid-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    justify-items: center;
+}
+
+
+/* ================================
+   CARD
+   flex-direction column apila imagen,
+   descripcion y boton verticalmente
+================================ */
+.contenedor {
+    display: flex;
+    flex-direction: column;
+    border: 3px solid #C9A24A;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 300px;
+    padding: 10px;
+    background: white;
+}
+
+
+/* ================================
+   IMAGEN CON TEXTO ENCIMA
+   position relative es necesario para
+   que el texto absolute se ancle aqui
+================================ */
+.img-contenedor {
+    position: relative;
+    width: 100%;
+}
+
+.img_art {
+    border-radius: 10px;
+    width: 100%;
+    display: block;
+}
+
+/* El texto se pone encima de la imagen
+   con position absolute */
+.img-texto {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px 10px 8px 10px;
+    color: white;
+    font-weight: bold;
+    font-size: 13px;
+    background: linear-gradient(to top, rgba(0,0,0,0.75), transparent);
+    border-radius: 0 0 10px 10px;
+}
+
+.img-texto p {
+    margin: 1px 0;
+}
+
+
+/* ================================
+   DESCRIPCION
+   flex 1 hace que ocupe el espacio
+   sobrante y empuje el boton hacia abajo
+================================ */
+.descripcion {
+    flex: 1;
+    font-size: 10px;
+    text-align: justify;
+    margin-top: 8px;
+    color: #444;
+    line-height: 1.4;
+}
+
+
+/* ================================
+   BOTON
+================================ */
+.boton {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.boton input[type=button] {
+    background: #000000;
+    border-radius: 25px;
+    color: #C9A24A;
+    padding: 10px 20px;
+    border: 2px solid #C9A24A;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 80%;
+}
+
+.boton input[type=button]:hover {
+    background: #C9A24A;
+    color: #000;
+}
+
+
+/* ================================
+   PAGINACION
+================================ */
+.paginacion {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+.paginacion a,
+.paginacion span {
+    padding: 8px 14px;
+    border: 1px solid #C9A24A;
+    border-radius: 5px;
+    color: #C9A24A;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.paginacion a:hover {
+    background: #C9A24A;
+    color: #000;
+}
+
+.paginacion a.activo {
+    background: #C9A24A;
+    color: #000;
+    font-weight: bold;
+}
+
+
+/*==========================
+        FOOTER
+===========================*/
+
+footer{
+    background: black;
+    color: white;
+    margin-top: 40px;
+    padding: 20px;
+    border-top: 3px solid #C9A24A;
+}
+
+.contenedor-footer{
+    display: flex;
+    justify-content: space-between;
+}
+
+.info p{
+    width:60%;
+
+}
+.info,
+.info1{
+    width: 45%;
+}
+
+.info h2,
+.info1 h2{
+    color: #C9A24A;
+    margin-bottom: 10px;
+}
+
+.info p{
+    line-height: 25px;
+}
+
+.info a{
+    color: #C9A24A;
+    text-decoration: none;
+}
+
+.redes_sociales{
+    margin-top: 15px;
+}
+
+.redes_sociales a{
+    color: white;
+    font-size: 28px;
+    margin-right: 15px;
+    text-decoration: none;
+}
+
+.redes_sociales a:hover{
+    color: #C9A24A;
+}
+
+.direccion{
+    text-align: center;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #C9A24A;
+}
