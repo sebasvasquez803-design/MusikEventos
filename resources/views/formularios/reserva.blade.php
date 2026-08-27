@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/RESERVA.css">
+   @vite('resources/css/RESERVA.css')
     <title>FORMULARIO RESERVA DE EVENTO</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
          integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
@@ -18,12 +18,12 @@
 <body>
   <!--Encabezado del sitio-->
     <header>
-          <h1>BIENVENIDO A LA RESERVA DE EVENTOS</h1>          
+          <h1>BIENVENIDO A LA RESERVA DE EVENTOS</h1>
     </header>
-<div class="panel_fondo">   
+<div class="panel_fondo">
     <div class="contenido">
-    <!--Banner izquierda--> 
-    <!--formulario-->       
+    <!--Banner izquierda-->
+    <!--formulario-->
         <form class="form-basico" action="#">
             <div class="titulo">
                 <h2>RESERVA DE EVENTO</h2>
@@ -37,7 +37,7 @@
                 <span class="icon"><i class="fa-solid fa-circle-check"></i></span>
             </div>
 
-            <!-- nit --> 
+            <!-- nit -->
             <div class="entrada">
                 <label>NIT del grupo musical:</label>
                 <input type="number" placeholder="Ej. 900123456" class="campo" required>
@@ -74,7 +74,7 @@
 
             <!--condiciones-->
             <div class="entrada">
-                <input type="checkbox" name="condiciones" value="aceptado" 
+                <input type="checkbox" name="condiciones" value="aceptado"
                 style="margin-left: 100px;"><a href=""> He leido y acepto las condiciones</a>
             </div>
             <!--boton del formulario-->
@@ -83,7 +83,7 @@
             </div>
         </form><!--cierre del formulario-->
     </div><!--cierre del formulario-->
-</div> 
+</div>
 
 <!--pie de pagina-->
 <footer>
@@ -103,7 +103,7 @@
             </div>
         </div>
     </div>
-    
+
 
     <div class="direccion">
        <p><strong>Direccion</strong> calle 50 # 2-90 Soacha   <br><i class="fa-sharp fa-regular fa-copyright"></i>copyrigth 2026</p>

@@ -10,8 +10,10 @@ export default defineConfig({
         laravel({
             input: [
                 'resources/css/app.css',
+                'resources/css/style.css',
                 'resources/js/app.js',
-                'resources/js/passkeys.js',
+                'resources/js/passkeys.js',`
+                'resources/css/RESERVA.css',`
             ],
             refresh: true,
             fonts: [
