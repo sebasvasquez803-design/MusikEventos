@@ -1,6 +1,12 @@
-@assets
-@vite('resources/js/passkeys.js')
-@endassets
+@php
+    $hasViteAssets = file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot'));
+@endphp
+
+@if ($hasViteAssets)
+    @assets
+    @vite('resources/js/passkeys.js')
+    @endassets
+@endif
 
 <div
     x-data="{
