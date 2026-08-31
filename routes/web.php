@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserController;
 use App\Http\Middleware\EnsureTeamMembership;
 use Illuminate\Support\Facades\Route;
 
@@ -9,6 +10,10 @@ Route::view('/grupo-musical', 'sesion.registro_grp')->name('grupo.musical');
 Route::view('/reserva', 'formularios.reserva')->name('reserva');
 Route::view('/registro-clientes', 'formularios.registro_clientes')->name('registro.clientes');
 
+
+Route::middleware('auth')->group(function () {
+    Route::apiResource('users', UserController::class);
+});
 
 Route::prefix('{current_team}')
     ->middleware(['auth', 'verified', EnsureTeamMembership::class])
