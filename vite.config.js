@@ -12,8 +12,9 @@ export default defineConfig({
                 'resources/css/app.css',
                 'resources/css/style.css',
                 'resources/js/app.js',
-                'resources/js/passkeys.js',`
-                'resources/css/RESERVA.css',`
+                'resources/js/passkeys.js',
+                'resources/css/reserva.css',
+                'resources/css/registroClientes.css',
             ],
             refresh: true,
             fonts: [

@@ -34,7 +34,7 @@ header h1 {
 }
 
 /* ======================================================
-   CONTENEDOR PRINCIPAL 
+   CONTENEDOR PRINCIPAL
 ====================================================== */
 
 .panel_fondo{
@@ -256,7 +256,7 @@ footer {
 }
 
 /* ======================================================
-   RESPONSIVE - pantallas pequeñas (celular)
+RESPONSIVE - pantallas pequeñas (celular)
 ====================================================== */
 @media (max-width: 600px) {
     .contenido {

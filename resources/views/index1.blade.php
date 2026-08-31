@@ -36,7 +36,7 @@
 
     <!-- Logo -->
     <a href="{{ route('home') }}">
-        <img class="logo" src="../MusikEventos-main/img/logoMusikEventos.png" alt="logo">
+        <img class="logo" src="{{ asset('storage/img/grupos/logoMusikEventos.png') }}" alt="logo">
     </a>
 
 </header>
@@ -77,8 +77,8 @@
             <div class="contenedor">
                 <!-- Imagen con texto encima -->
                 <div class="img-contenedor">
-                    <a href="{{ route('home') }}">
-                        <img class="img_art" src="img/arcangel.jpg" alt="Arcangel">
+                    <a href="#">
+                        <img class="img_art" src="{{ asset('storage/img/artistas/arcangel.jpg') }}" alt="Artista 1">
                     </a>
                     <div class="img-texto">
                         <p>Arcangel</p>
@@ -94,8 +94,8 @@
             <!-- CARD 2 -->
             <div class="contenedor">
                 <div class="img-contenedor">
-                    <a href="#">
-                        <img class="img_art" src="../MusikEventos-main/img/la33.jpeg" alt="Artista 2">
+                   <a href="#">
+                    <img class="img_art" src="{{ asset('storage/img/artistas/la33.jpeg') }}" alt="Artista 2">
                     </a>
                     <div class="img-texto">
                         <p>LA 33</p>
@@ -112,7 +112,7 @@
             <div class="contenedor">
                 <div class="img-contenedor">
                     <a href="#">
-                        <img class="img_art" src="../MusikEventos-main/img/yatra.jpeg" alt="Artista 3">
+                        <img class="img_art" src="{{ asset('storage/img/artistas/yatra.jpeg') }}" alt="Artista 3">
                     </a>
                     <div class="img-texto">
                         <p>Sebastian Yatra</p>
@@ -129,7 +129,7 @@
             <div class="contenedor">
                 <div class="img-contenedor">
                     <a href="#">
-                        <img class="img_art" src="../MusikEventos-main/img/mañas.jpeg" alt="Artista 4">
+                        <img class="img_art" src="{{ asset('storage/img/artistas/mañas.jpeg') }}" alt="Artista 4">
                     </a>
                     <div class="img-texto">
                         <p>Mañas Rufiño</p>
@@ -146,7 +146,7 @@
             <div class="contenedor">
                 <div class="img-contenedor">
                     <a href="#">
-                        <img class="img_art" src="../MusikEventos-main/img/grupo_firme.jpeg" alt="Artista 5">
+                        <img class="img_art" src="{{ asset('storage/img/artistas/grupo_firme.jpeg') }}" alt="Artista 5">
                     </a>
                     <div class="img-texto">
                         <p>Grupo Firme</p>
@@ -163,7 +163,7 @@
             <div class="contenedor">
                 <div class="img-contenedor">
                     <a href="#">
-                        <img class="img_art" src="../MusikEventos-main/img/metallica.jpeg" alt="Artista 6">
+                        <img class="img_art" src="{{ asset('storage/img/artistas/metallica.jpeg') }}" alt="Artista 6">
                     </a>
                     <div class="img-texto">
                         <p>Metallica</p>

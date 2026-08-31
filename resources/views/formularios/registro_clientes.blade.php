@@ -4,18 +4,18 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Registro de Clientes</title>
-  <link rel="stylesheet" href="../css/REGISTRO DE CLIENTES.css" />
+  @vite ('resources/css/registroClientes.css')
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 </head>
 <body>
   <main class="card" role="main">
-    
+
     <div class="sidebar">
       <div class="logo-container">
         <img src="../img/musike.png" alt="Logo de la Empresa" class="logo-img" />
       </div>
       <h2>BIENVENIDO AL REGISTRO DE CLIENTES</h2>
-      
+
       <div class="photo-upload-zone">
         <i class="fa-solid fa-camera camera-icon"></i>
         <span>FOTO DE PERFIL / LOGO</span>
@@ -33,7 +33,7 @@
       </header>
 
       <form id="clienteForm" class="form" novalidate>
-        
+
         <section class="section">
           <h2>DATOS GENERALES</h2>
           <div class="form-row">
