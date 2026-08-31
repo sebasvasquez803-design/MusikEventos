@@ -513,3 +513,18 @@ Al usar `php artisan make:model <Nombre>`, puedes combinar las siguientes bander
 | `-R`       | `--requests`   | Crea las clases`FormRequest` (Store y Update).                                          |
 | `--policy` | `--policy`     | Crea la clase Policy de autorización.                                                    |
 | `-a`       | `--all`        | Genera**Migración, Factory, Seeder, Policy, Resource Controller y Form Requests**. |
+
+
+
+
+----------------------------------------------------------------------
+php artisan storage:link 
+¿Por qué es necesario?
+
+En Laravel, por razones de seguridad y organización, hay dos carpetas de almacenamiento separadas:
+
+storage/app/public/ → aquí se guardan los archivos "públicos" que suben los usuarios (imágenes de perfil, fotos de grupos, documentos, etc.). Esta carpeta no es accesible directamente desde el navegador, porque storage/ está fuera del directorio raíz que sirve tu servidor web (que es public/).
+public/ → esta sí es la carpeta que tu servidor (Apache/Nginx/php artisan serve) expone al navegador. Todo lo que está aquí es accesible por URL.
+
+El problema: si guardas un archivo en storage/app/public/img/logo.png, nadie puede verlo desde el navegador porque storage/ no es pública.
+---------------------------------------------------------------------
