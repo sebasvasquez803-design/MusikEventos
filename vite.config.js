@@ -15,6 +15,8 @@ export default defineConfig({
                 'resources/js/passkeys.js',
                 'resources/css/reserva.css',
                 'resources/css/registroClientes.css',
+                'resources/js/transicion.js',
+
             ],
             refresh: true,
             fonts: [

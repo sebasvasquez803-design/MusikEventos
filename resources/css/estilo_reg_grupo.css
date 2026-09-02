@@ -31,7 +31,7 @@ h1{
 
 .logo{
     display: flex;    /* activa flexbox para organizar lo que haya adentro (ej. imagen del logo) */
-    width: 200px;      /* ancho fijo de la caja del logo */
+    width: 100px;      /* ancho fijo de la caja del logo */
 }
 
 .conte {

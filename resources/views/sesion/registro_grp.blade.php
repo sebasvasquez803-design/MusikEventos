@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/estilo_reg_grupo.css">
+     @vite('resources/css/estilo_reg_grupo.css')
     <title>Registro de Grupo</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
          integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
@@ -20,16 +20,17 @@
 <body>
   <!--Encabezado del sitio-->
     <header>
-        <a href="../index1.php"><img class="logo" src="../img/logoMusikEventos.png" alt="Logo"></a>
+        <a href="../index1.php">  <img class="logo" src="{{ asset('storage/img/grupos/logoMusikEventos.png') }}" alt="logo">
           <h1>BIENVENIDO AL REGISTRO MUSICAL</h1>          
     </header>
 
   <div class="conte">
             <aside class="contenedor">
-                <img class="img-contenedor" src="../img/inside.jpeg" alt="">
+                 <img class="img-contenedor" src="{{asset('storage/img/inside.jpeg') }}" alt="barra lateral">
             </aside>
 
-<!--formulario-->       
+                     
+<!--formulario-->           
 <form class="form-basico" name="formulario" onsubmit="return validar()">
        
 <!--campos del formulario-->
@@ -63,7 +64,7 @@
 
             <div class="entrada">
             <label>Avatar</label>
-            <input type="image" src="../img/avatar.jpeg" alt="Avatar">
+            <input type="image" src="{{ asset('storage/img/avatar.jpeg') }}" alt="logo">
         </div>
 
          <div class="entrada">

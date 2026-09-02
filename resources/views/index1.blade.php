@@ -77,7 +77,6 @@
             <div class="contenedor">
                 <!-- Imagen con texto encima -->
                 <div class="img-contenedor">
-                    <a href="#">
                         <img class="img_art" src="{{asset('storage/img/artistas/arcangel.jpg') }}" alt="Artista 1">
                     </a>
                     <div class="img-texto">
@@ -94,7 +93,6 @@
             <!-- CARD 2 -->
             <div class="contenedor">
                 <div class="img-contenedor">
-                   <a href="#">
                     <img class="img_art" src="{{ asset('/storage/img/artistas/la33.jpeg') }}" alt="Artista 2">
                     </a>
                     <div class="img-texto">
@@ -111,7 +109,6 @@
             <!-- CARD 3 -->
             <div class="contenedor">
                 <div class="img-contenedor">
-                    <a href="#">
                         <img class="img_art" src="{{ asset('storage/img/artistas/yatra.jpeg') }}" alt="Artista 3">
                     </a>
                     <div class="img-texto">
@@ -128,7 +125,6 @@
             <!-- CARD 4 -->
             <div class="contenedor">
                 <div class="img-contenedor">
-                    <a href="#">
                         <img class="img_art" src="{{ asset('storage/img/artistas/mañas.jpeg') }}" alt="Artista 4">
                     </a>
                     <div class="img-texto">
@@ -145,7 +141,6 @@
             <!-- CARD 5 -->
             <div class="contenedor">
                 <div class="img-contenedor">
-                    <a href="#">
                         <img class="img_art" src="{{ asset('storage/img/artistas/grupo_firme.jpeg') }}" alt="Artista 5">
                     </a>
                     <div class="img-texto">
@@ -162,7 +157,6 @@
             <!-- CARD 6 -->
             <div class="contenedor">
                 <div class="img-contenedor">
-                    <a href="#">
                         <img class="img_art" src="{{ asset('storage/img/artistas/metallica.jpeg') }}" alt="Artista 6">
                     </a>
                     <div class="img-texto">
@@ -221,6 +215,6 @@
 
 
 
-<script src="../MusikEventos-main/js/transicion.js"></script>
+@vite('resources/js/transicion.js')   
 </body>
 </html>

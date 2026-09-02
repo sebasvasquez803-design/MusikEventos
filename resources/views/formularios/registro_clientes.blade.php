@@ -12,7 +12,7 @@
 
     <div class="sidebar">
       <div class="logo-container">
-        <img src="../img/musike.png" alt="Logo de la Empresa" class="logo-img" />
+        <img src="{{ asset('storage/img/musike.png') }}" alt="logo"/> 
       </div>
       <h2>BIENVENIDO AL REGISTRO DE CLIENTES</h2>
 
