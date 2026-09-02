@@ -78,7 +78,7 @@
                 <!-- Imagen con texto encima -->
                 <div class="img-contenedor">
                     <a href="#">
-                        <img class="img_art" src="{{ asset('storage/img/artistas/arcangel.jpg') }}" alt="Artista 1">
+                        <img class="img_art" src="{{asset('storage/img/artistas/arcangel.jpg') }}" alt="Artista 1">
                     </a>
                     <div class="img-texto">
                         <p>Arcangel</p>
@@ -95,12 +95,12 @@
             <div class="contenedor">
                 <div class="img-contenedor">
                    <a href="#">
-                    <img class="img_art" src="{{ asset('storage/img/artistas/la33.jpeg') }}" alt="Artista 2">
+                    <img class="img_art" src="{{ asset('/storage/img/artistas/la33.jpeg') }}" alt="Artista 2">
                     </a>
                     <div class="img-texto">
                         <p>LA 33</p>
                         <p>Salsa - 12 Integrantes</p>
-                    </div>
+                    </div>  
                 </div>
                 <p class="descripcion">La-33 es una famosa orquesta colombiana de salsa urbana fundada en Bogotá en 2001. Su nombre proviene de una casa en la Calle 33 del barrio Teusaquillo donde ensayaban inicialmente. La banda combina ritmos caribeños, como la Salsa brava.</p>
                 <div class="boton">

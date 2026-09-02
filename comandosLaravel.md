@@ -528,3 +528,11 @@ public/ → esta sí es la carpeta que tu servidor (Apache/Nginx/php artisan ser
 
 El problema: si guardas un archivo en storage/app/public/img/logo.png, nadie puede verlo desde el navegador porque storage/ no es pública.
 ---------------------------------------------------------------------
+
+PARA PODER MOSTRAR LOS ESTILO/IMAGENES TOCA ABRIR DOS POWERSHELL PARA EN UNO CORRER LOS ESTILOS Y EL OTRO EL SERVIDOR
+COMANDOS 
+EN UNA PANTALLA
+PHP ARTISAN SERVE 
+NPM RUN DEV
+
+---------------------------------------------------------------------
