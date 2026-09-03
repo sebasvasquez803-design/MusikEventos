@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::disableForeignKeyConstraints();
 
         Schema::create('subgenero', function (Blueprint $table) {
-            $table->increments('id_subgenero');
+            $table->id('id_subgenero');
             $table->string('nombre_subgenero', 50)->nullable();
             $table->unsignedInteger('id_genero')->nullable();
             $table->string('numero_doc', 10)->nullable();
-            $table->integer('nit')->nullable();
+            $table->string('nit', 10)->nullable();
         });
 
         Schema::enableForeignKeyConstraints();

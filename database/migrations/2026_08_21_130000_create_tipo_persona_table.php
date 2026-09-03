@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('nombre_tipo', 50);
             $table->timestamps();
         });
-        
+
     }
 
     /**

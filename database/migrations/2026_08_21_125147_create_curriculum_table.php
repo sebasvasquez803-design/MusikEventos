@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::disableForeignKeyConstraints();
 
         Schema::create('curriculum', function (Blueprint $table) {
-            $table->increments('id_experiencia');
+            $table->id('id_experiencia');
             $table->integer('anio_inicio')->nullable();
             $table->integer('anio_fin')->nullable();
             $table->integer('eventos_realizados')->nullable();

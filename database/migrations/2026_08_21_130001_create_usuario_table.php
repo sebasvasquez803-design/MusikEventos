@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('sexo', 1)->nullable();
             $table->string('celular', 10)->nullable();
             $table->date('fecha_nacimiento')->nullable();
-            $table->text('avatar', 200)->nullable();
+            $table->text('avatar')->nullable();
             $table->boolean('estado')->nullable()->default(true);
             $table->date('fecha_registro')->nullable();
             $table->string('nombre_artistico', 25)->nullable();

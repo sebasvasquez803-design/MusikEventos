@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::disableForeignKeyConstraints();
 
         Schema::create('resenas', function (Blueprint $table) {
-            $table->increments('id_resena');
+            $table->id('id_resena');
             $table->integer('numero_estrellas')->nullable();
             $table->text('comentario',300)->nullable();
             $table->date('fecha')->nullable();

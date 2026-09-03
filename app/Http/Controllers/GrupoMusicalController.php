@@ -8,6 +8,29 @@ use Illuminate\Http\Request;
 
 class GrupoMusicalController extends Controller
 {
+    public function home()
+    {
+        return view('index1', [
+            'grupos' => GrupoMusical::query()->latest('nit')->get(),
+        ]);
+    }
+
+    public function storeFromForm(Request $request)
+    {
+        $validated = $request->validate([
+            'nit' => ['required', 'integer', 'unique:grupo_musical,nit'],
+            'nombre_grupo' => ['required', 'string', 'max:50'],
+            'telefono' => ['required', 'string', 'max:10'],
+            'email' => ['required', 'email', 'max:50'],
+            'avatar' => ['nullable', 'string', 'max:200'],
+            'descripcion' => ['nullable', 'string', 'max:500'],
+        ]);
+
+        GrupoMusical::create($validated);
+
+        return redirect()->route('home')->with('success', 'Grupo musical registrado correctamente.');
+    }
+
     public function index(): JsonResponse
     {
         return response()->json([

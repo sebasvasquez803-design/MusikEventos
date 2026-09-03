@@ -14,13 +14,13 @@ return new class extends Migration
         Schema::disableForeignKeyConstraints();
 
         Schema::create('paquete_grupo', function (Blueprint $table) {
-            $table->increments('id_paquete');
+            $table->id('id_paquete');
             $table->string('nombre_paquete', 50)->nullable();
             $table->text('contenido',300)->nullable();
             $table->text('descripcion',500)->nullable();
             $table->decimal('precio', 6, 5)->nullable();
             $table->time('duracion', 6, 5)->nullable();
-            $table->integer('nit')->nullable();
+            $table->string('nit', 10)->nullable();
         });
 
         Schema::enableForeignKeyConstraints();

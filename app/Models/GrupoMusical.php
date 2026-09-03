@@ -9,12 +9,6 @@ class GrupoMusical extends Model
 {
     protected $table = 'grupo_musical';
 
-    protected $primaryKey = 'nit';
-
-    public $incrementing = false;
-
-    protected $keyType = 'int';
-
     public $timestamps = false;
 
     protected $fillable = [

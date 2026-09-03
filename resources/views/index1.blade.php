@@ -73,102 +73,23 @@
         <!-- Grid de cards de artistas -->
         <div class="grid-cards">
 
-            <!-- CARD 1 -->
-            <div class="contenedor">
-                <!-- Imagen con texto encima -->
-                <div class="img-contenedor">
-                        <img class="img_art" src="{{asset('storage/img/artistas/arcangel.jpg') }}" alt="Artista 1">
-                    </a>
-                    <div class="img-texto">
-                        <p>Arcangel</p>
-                        <p>Urbano - 1 Integrante</p>
-                    </div>
-                </div>
-                <p class="descripcion">Una leyenda viva del genero urbano. Su Flow inconfundible y su lista de exitos iconicos aseguran un show de clase mundial y maximo prestigio para tu evento.</p>
-                <div class="boton">
-                    <input type="button" value="Mas Informacion" onclick="">
+        @forelse ($grupos as $grupo)
+        <div class="contenedor">
+            <div class="img-contenedor">
+                <img class="img_art" src="{{ $grupo->avatar ? asset($grupo->avatar) : asset('storage/img/' . $grupo->avatar . '.jpeg') }}" alt="{{ $grupo->nombre_grupo }}">
+                <div class="img-texto">
+                    <p>{{ $grupo->nombre_grupo }}</p>
+                    <p>Grupo musical</p>
                 </div>
             </div>
-
-            <!-- CARD 2 -->
-            <div class="contenedor">
-                <div class="img-contenedor">
-                    <img class="img_art" src="{{ asset('/storage/img/artistas/la33.jpeg') }}" alt="Artista 2">
-                    </a>
-                    <div class="img-texto">
-                        <p>LA 33</p>
-                        <p>Salsa - 12 Integrantes</p>
-                    </div>  
-                </div>
-                <p class="descripcion">La-33 es una famosa orquesta colombiana de salsa urbana fundada en Bogotá en 2001. Su nombre proviene de una casa en la Calle 33 del barrio Teusaquillo donde ensayaban inicialmente. La banda combina ritmos caribeños, como la Salsa brava.</p>
-                <div class="boton">
-                    <input type="button" value="Mas Informacion" onclick="">
-                </div>
+            <p class="descripcion">{{ $grupo->descripcion ?: 'Grupo musical disponible para eventos.' }}</p>
+            <div class="boton">
+                <input type="button" value="Mas Informacion" onclick="">
             </div>
-
-            <!-- CARD 3 -->
-            <div class="contenedor">
-                <div class="img-contenedor">
-                        <img class="img_art" src="{{ asset('storage/img/artistas/yatra.jpeg') }}" alt="Artista 3">
-                    </a>
-                    <div class="img-texto">
-                        <p>Sebastian Yatra</p>
-                        <p>POP - 1 Integrante</p>
-                    </div>
-                </div>
-                <p class="descripcion"> Sebastián Yatra, es un cantante, compositor y actor colombiano.​ Se caracteriza por sus letras románticas, fusionando el lirismo tradicional con las influencias del reguetón moderno.</p>
-                <div class="boton">
-                    <input type="button" value="Mas Informacion" onclick="">
-                </div>
-            </div>
-
-            <!-- CARD 4 -->
-            <div class="contenedor">
-                <div class="img-contenedor">
-                        <img class="img_art" src="{{ asset('storage/img/artistas/mañas.jpeg') }}" alt="Artista 4">
-                    </a>
-                    <div class="img-texto">
-                        <p>Mañas Rufiño</p>
-                        <p>Hip Hop, RAP - 1 Integrante</p>
-                    </div>
-                </div>
-                <p class="descripcion"> Mañas Ru-Fino, es un destacado rapero y compositor colombiano originario de Envigado, Antioquia. Es ampliamente reconocido por ser el cofundador de Doble Porción, uno de los grupos de hip-hop underground más influyentes de Colombia.</p>
-                <div class="boton">
-                    <input type="button" value="Mas Informacion" onclick="">
-                </div>
-            </div>
-
-            <!-- CARD 5 -->
-            <div class="contenedor">
-                <div class="img-contenedor">
-                        <img class="img_art" src="{{ asset('storage/img/artistas/grupo_firme.jpeg') }}" alt="Artista 5">
-                    </a>
-                    <div class="img-texto">
-                        <p>Grupo Firme</p>
-                        <p>Banda, Norteno, Corridos - 6 Integrantes</p>
-                    </div>
-                </div>
-                <p class="descripcion"> Grupo Firme es una de las agrupaciones más influyentes y exitosas de la música regional mexicana en la actualidad. Originaria de Tijuana, Baja California, destacados por su energía en el escenario, colaboraciones masivas y un repertorio lleno de éxitos que mezclan el género de banda, norteño y corridos.</p>
-                <div class="boton">
-                    <input type="button" value="Mas Informacion" onclick="">
-                </div>
-            </div>
-
-            <!-- CARD 6 -->
-            <div class="contenedor">
-                <div class="img-contenedor">
-                        <img class="img_art" src="{{ asset('storage/img/artistas/metallica.jpeg') }}" alt="Artista 6">
-                    </a>
-                    <div class="img-texto">
-                        <p>Metallica</p>
-                        <p>Rock, Metal - 4 Integrantes</p>
-                    </div>
-                </div>
-                <p class="descripcion"> Metallica es una de las bandas de heavy metal más exitosas e influyentes de la historia, con más de 125 millones de álbumes vendidos a nivel mundial. Fundada en 1981 en Los Ángeles por el baterista Lars Ulrich y el vocalista/guitarrista rítmico James Hetfield, el grupo se convirtió en el pilar fundamental del thrash metal.</p>
-                <div class="boton">
-                    <input type="button" value="Mas Informacion" onclick="">
-                </div>
-            </div>
+        </div>
+        @empty
+            <p>No hay grupos musicales registrados.</p>
+        @endforelse
 
         </div><!-- fin grid-cards -->
 
@@ -215,6 +136,6 @@
 
 
 
-@vite('resources/js/transicion.js')   
+@vite('resources/js/transicion.js')
 </body>
 </html>

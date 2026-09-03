@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::disableForeignKeyConstraints();
 
         Schema::create('redes_sociales', function (Blueprint $table) {
-            $table->increments('id_red_social');
+            $table->id('id_red_social');
             $table->string('nombre_red', 25)->nullable();
             $table->text('url')->nullable();
             $table->string('numero_doc', 10)->nullable();

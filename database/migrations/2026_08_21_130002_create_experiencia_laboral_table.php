@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('numero_doc', 10)->nullable();
             $table->timestamp('anio_inicio')->nullable();
             $table->integer('anio_fin')->nullable();
-            $table->text('titulo_obtenido', 300)->nullable();
+            $table->text('titulo_obtenido')->nullable();
             $table->string('habilidades_principales', 150)->nullable();
             $table->string('academia_formacion', 50)->nullable();
             $table->string('estudios',150)->nullable();

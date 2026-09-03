@@ -1,0 +1,48 @@
+Ruta del archivo index1.blade.php "resources\views\index1.blade.php"
+
+
+
+    <!-- Contenido principal: buscador + cards -->
+    <div class="contenido-principal">
+
+        <!-- Barra de busqueda -->
+        <div class="barra-busqueda">
+            <input type="text" placeholder="Busca tu grupo de genero">
+            <button>Buscar</button>
+        </div>
+
+        <!-- Grid de cards de artistas -->
+        <div class="grid-cards">
+
+        <!-- CARD 1 -->
+        <div class="contenedor">
+            <!-- Imagen con texto encima -->
+            <div class="img-contenedor">
+                    <img class="img_art" src="{{asset('storage/img/artistas/arcangel.jpg') }}" alt="Artista 1">
+                </a>
+                <div class="img-texto">
+                    <p>Arcangel</p>
+                    <p>Urbano - 1 Integrante</p>
+                </div>
+            </div>
+            <p class="descripcion">Una leyenda viva del genero urbano. Su Flow inconfundible y su lista de exitos iconicos aseguran un show de clase mundial y maximo prestigio para tu evento.</p>
+            <div class="boton">
+                <input type="button" value="Mas Informacion" onclick="">
+            </div>
+        </div>
+
+            <!-- CARD 2 -->
+            <div class="contenedor">
+                <div class="img-contenedor">
+                    <img class="img_art" src="{{ asset('/storage/img/artistas/la33.jpeg') }}" alt="Artista 2">
+                    </a>
+                    <div class="img-texto">
+                        <p>LA 33</p>
+                        <p>Salsa - 12 Integrantes</p>
+                    </div>
+                </div>
+                <p class="descripcion">La-33 es una famosa orquesta colombiana de salsa urbana fundada en Bogotá en 2001. Su nombre proviene de una casa en la Calle 33 del barrio Teusaquillo donde ensayaban inicialmente. La banda combina ritmos caribeños, como la Salsa brava.</p>
+                <div class="boton">
+                    <input type="button" value="Mas Informacion" onclick="">
+                </div>
+            </div>

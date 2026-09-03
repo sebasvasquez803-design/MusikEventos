@@ -13,15 +13,15 @@
          crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
          <script src="../js/validar.js"></script>
-        
+
 <!--funcion de js para mensaje por pantalla-->
 
 </head>
 <body>
   <!--Encabezado del sitio-->
     <header>
-        <a href="../index1.php">  <img class="logo" src="{{ asset('storage/img/grupos/logoMusikEventos.png') }}" alt="logo">
-          <h1>BIENVENIDO AL REGISTRO MUSICAL</h1>          
+        <a href="../index1.php">  <img class="logo" src="{{ asset('storage/img/grupos/logoMusikEventos.png') }}" alt="logo"></a>
+          <h1>REGISTRO DE GRUPOS MUSICALES</h1>
     </header>
 
   <div class="conte">
@@ -29,30 +29,31 @@
                  <img class="img-contenedor" src="{{asset('storage/img/inside.jpeg') }}" alt="barra lateral">
             </aside>
 
-                     
-<!--formulario-->           
-<form class="form-basico" name="formulario" onsubmit="return validar()">
-       
+
+<!--formulario-->
+<form class="form-basico" name="formulario" action="{{ route('grupo-musical.store') }}" method="POST" onsubmit="return validar()">
+@csrf
+
 <!--campos del formulario-->
-        
+
         <div class="entrada">
             <label>NIT</label>
-            <input type="text" placeholder="Ejemplo: 123456789" name="NIT" class="campo" required >
+            <input type="text" placeholder="Ejemplo: 123456789" name="nit" class="campo" required >
                <span class="icon"><i class="fa-solid fa-circle-check"></i></span>
-            
+
             </div>
 
-       
+
         <div class="entrada">
             <label>Nombre Del Grupo</label>
-            <input type="text" placeholder="Nombre del grupo" name="NOMBRE" class="campo" required>
+            <input type="text" placeholder="Nombre del grupo" name="nombre_grupo" class="campo" required>
             <span class="icon"><i class="fa-solid fa-circle-check"></i></span>
 
         </div>
 
             <div class="entrada">
             <label>Telefono</label>
-            <input type="number" placeholder="Número de teléfono" name="phone" class="campo" required>
+            <input type="number" placeholder="Número de teléfono" name="telefono" class="campo" required>
             <span class="icon"><i class="fa-solid fa-circle-check"></i></span>
         </div>
 
@@ -62,27 +63,73 @@
             <span class="icon"><i class="fa-solid fa-circle-check"></i></span>
         </div>
 
-            <div class="entrada">
-            <label>Avatar</label>
-            <input type="image" src="{{ asset('storage/img/avatar.jpeg') }}" alt="logo">
+        <div class="entrada">
+
+            <img id="avatar" src="" alt="Avatar del grupo" width="200">
+
+              <input type="file" id="inputImagen" accept="image/*">
+              <button onclick="subirAvatar()">Subir</button>
+
+              <script>
+                async function cargarAvatar() {
+                  const res = await fetch('/grupo');
+                  const data = await res.json();
+                  document.getElementById('avatar').src = data.avatar;
+                }
+
+                async function subirAvatar() {
+                  const archivo = document.getElementById('inputImagen').files[0];
+                  if (!archivo) return alert('Selecciona una imagen.');
+
+                  const formData = new FormData();
+                  formData.append('avatar', archivo);
+
+                  const res = await fetch('/grupo', {
+                    method: 'POST',
+                    headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' },
+                    body: formData,
+                  });
+
+                  if (res.ok) {
+                    alert('Avatar actualizado.');
+                    cargarAvatar();
+                  } else {
+                    alert('Error al subir.');
+                  }
+                }
+
+                cargarAvatar();
+              </script>
+
+               <!--ACTUALIZAR PREVIEW DEL NOMBRE DE ARCHIVO-->
+
+               function actualizarPreview() {
+
+                const item = document.getElementById('item').value;
+                const nombre = document.getElementById('nombre_item').value;
+
+                if (item && nombre) {
+                  const itemFormateado = string(item).value
+
+                }
+        }
+
         </div>
 
          <div class="entrada">
             <label>Descripcion</label>
-            <textarea name="textarea"></textarea>
+            <textarea name="descripcion"></textarea>
         </div>
-               
+
         <!--boton del formulario-->
          <div class="boton">
-            <form action="../index1.php">
             <input type="submit" value="Registrar" name="botingresar">
-            </form>
         </div>
 
-           
+
     </form><!--cierre del formulario-->
 
-        
- 
+
+
 </body>
 </html>
