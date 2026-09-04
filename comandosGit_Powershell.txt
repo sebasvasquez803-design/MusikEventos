@@ -1,0 +1,225 @@
+# 🛠️ Guía Rápida de Comandos Git (Cheat Sheet)
+
+Esta guía de referencia rápida te servirá durante el taller y en toda tu vida profesional como desarrollador.
+
+---
+
+## 🗺️ El Flujo de Trabajo en Git
+
+```text
++-----------------------+      git add       +-----------------------+      git commit     +-----------------------+      git push      +-----------------------+
+|   Directorio Local    | -----------------> |      Área de Staging  | ------------------> |   Repositorio Local   | -----------------> |  Repositorio Remoto   |
+|  (Working Directory)  |                    |     (Preparación)     |                     |        (.git)         |                    |       (GitHub)        |
++-----------------------+ <----------------- +-----------------------+                     +-----------------------+ <----------------- +-----------------------+
+                              git restore                                                                                          git pull / fetch
+```
+
+---
+
+## 📋 Comandos Esenciales por Categoría
+
+### 1. Configuración Inicial (Solo se hace una vez)
+| Comando | Descripción |
+| :--- | :--- |
+| `git config --global user.name "Tu Nombre"` | Define tu nombre de autor para los commits. |
+| `git config --global user.email "tu@correo.com"` | Define tu correo de autor (vinculado a GitHub). |
+| `git config --list` | Muestra la configuración actual de Git. |
+
+### 2. Iniciar y Clonar
+| Comando | Descripción |
+| :--- | :--- |
+| `git init` | Inicializa un nuevo repositorio Git en la carpeta actual. |
+| `git clone <URL>` | Descarga una copia completa de un repositorio remoto a tu máquina. |
+
+### 3. Estados e Inspección
+| Comando | Descripción |
+| :--- | :--- |
+| `git status` | Muestra el estado de los archivos (modificados, en staging, sin seguimiento). |
+| `git log --oneline` | Muestra el historial de commits resumido en una línea por cambio. |
+| `git log --graph --oneline --all` | Muestra el árbol visual de ramas y commits. |
+| `git diff` | Muestra las diferencias exactas de código sin añadir al staging. |
+
+### 4. Preparar y Guardar Cambios (Staging & Commit)
+| Comando | Descripción |
+| :--- | :--- |
+| `git add <archivo>` | Agrega un archivo específico al área de preparación (staging). |
+| `git add .` | Agrega todos los archivos nuevos y modificados al staging. |
+| `git commit -m "mensaje"` | Guarda permanentemente los cambios del staging con un mensaje explicativo. |
+| `git commit --amend -m "nuevo mensaje"` | Corrige el mensaje del último commit realizado. |
+
+### 5. Trabajo con Ramas (Branches)
+| Comando | Descripción |
+| :--- | :--- |
+| `git branch` | Lista todas las ramas locales existentes. |
+| `git branch <nombre-rama>` | Crea una nueva rama sin moverse a ella. |
+| `git checkout -b <nombre-rama>` | Crea una nueva rama y se mueve inmediatamente a ella. |
+| `git checkout <nombre-rama>` | Cambia a una rama existente. |
+| `git switch <nombre-rama>` | Forma moderna para cambiar de rama. |
+| `git merge <nombre-rama>` | Fusiona la rama especificada dentro de la rama en la que estás ubicado. |
+| `git branch -d <nombre-rama>` | Elimina una rama local que ya fue fusionada. |
+
+### 6. Sincronización con GitHub (Remotos)
+| Comando | Descripción |
+| :--- | :--- |
+| `git remote -v` | Lista los servidores remotos conectados (`origin`, `upstream`, etc.). |
+| `git remote add origin <URL>` | Vincula el repositorio local a un repositorio remoto en GitHub. |
+| `git remote set-url origin <URL>` | Cambia la URL del repositorio remoto `origin`. |
+| `git push -u origin <rama>` | Sube la rama al repositorio remoto y la establece como seguimiento por defecto. |
+| `git push` | Sube los nuevos commits a la rama remota configurada. |
+| `git pull` | Descarga e integra automáticamente los cambios del repositorio remoto al local. |
+
+---
+
+## 💡 Buenas Prácticas para Mensajes de Commit (`Conventional Commits`)
+
+Un buen commit explica **qué se hizo** y **por qué**:
+
+- `feat(perfil): agregar tarjeta de presentación de Juan Perez` (Nueva funcionalidad)
+- `fix(css): corregir desbordamiento del avatar en pantallas móviles` (Corrección de error)
+- `docs(readme): actualizar instrucciones de despliegue en GitHub Pages` (Documentación)
+- `style(cards): ajustar espaciado y colores institucionales SENA` (Formato visual sin cambio de lógica)
+- `refactor(js): optimizar función de filtrado de aprendices` (Refactorización de código)
+
+---
+
+## 🆘 Preguntas Frecuentes y Casos de Emergencia
+
+### ¿Cómo descarto los cambios de un archivo antes de hacer commit?
+```bash
+git restore ruta/al/archivo.ext
+```
+
+### ¿Cómo saco un archivo del Staging Area si le di `git add` por error?
+```bash
+git restore --staged ruta/al/archivo.ext
+```
+
+### ¿Cómo veo qué rama tengo activa en este momento?
+```bash
+git branch --show-current
+```
+
+### Git me pide usuario y contraseña al hacer push:
+Desde 2021, GitHub requiere un **Personal Access Token (PAT)** o autenticación mediante **GitHub Desktop / SSH / VS Code OAuth** en lugar de tu contraseña tradicional. En VS Code, simplemente haz clic en "Permitir / Iniciar sesión con GitHub" en la ventana emergente.
+
+---
+
+*Conserva esta guía como referencia para tus proyectos formativos y de desarrollo.*
+
+
+Skip to content
+Using Gmail with screen readers
+in:sent 
+Enable desktop notifications for Gmail.
+   OK  No thanks
+1 of 22
+(no subject)
+
+Wiliam <senawilliamt@gmail.com>
+8:30 AM (1 minute ago)
+to jhoniersebastian45
+
+GUÍA DE COMANDOS DE LARAVEL ARTISAN
+===================================
+A continuación se presenta una lista detallada de los comandos más utilizados y esenciales de Laravel Artisan, organizados por categoría.
+
+1. COMANDOS BÁSICOS Y DE ENTORNO
+--------------------------------
+php artisan list : Muestra la lista completa de todos los comandos de Artisan disponibles.
+php artisan help [cmd] : Muestra información de ayuda y opciones para un comando específico.
+php artisan serve : Inicia el servidor de desarrollo local de Laravel (usualmente en el puerto 8000).
+php artisan up : Saca la aplicación del modo de mantenimiento.
+php artisan down : Pone la aplicación en modo de mantenimiento (muestra una vista de error 503).
+php artisan env : Muestra el entorno actual del framework (local, production, etc.).
+php artisan key:generate: Genera la clave de aplicación (APP_KEY) en el archivo .env.
+
+2. GENERACIÓN DE CÓDIGO (MAKE)
+------------------------------
+php artisan make:controller [Nombre] : Crea un nuevo controlador. (Usa --resource o --api para métodos CRUD).
+php artisan make:model [Nombre] : Crea un nuevo modelo Eloquent. (Usa -m para migración, -c para controlador).
+php artisan make:migration [Nombre] : Crea un nuevo archivo de migración de base de datos.
+php artisan make:seeder [Nombre] : Crea un nuevo seeder para poblar la base de datos.
+php artisan make:factory [Nombre] : Crea un factory para generar datos de prueba en los modelos.
+php artisan make:middleware [Nombre] : Crea un nuevo middleware para filtrar peticiones HTTP.
+php artisan make:component [Nombre] : Crea un nuevo componente de Blade.
+php artisan make:mail [Nombre] : Crea una nueva clase Mailable para enviar correos.
+php artisan make:job [Nombre] : Crea una nueva clase Job para procesos en cola.
+php artisan make:event [Nombre] : Crea una nueva clase de Evento.
+php artisan make:listener [Nombre] : Crea una nueva clase Listener para escuchar eventos.
+php artisan make:command [Nombre] : Crea un nuevo comando Artisan personalizado.
+
+3. BASE DE DATOS (MIGRACIONES Y SEEDERS)
+----------------------------------------
+php artisan migrate : Ejecuta todas las migraciones pendientes.
+php artisan migrate:rollback : Revierte el último lote de migraciones ejecutadas.
+php artisan migrate:reset : Revierte todas las migraciones de la aplicación.
+php artisan migrate:refresh : Revierte todas las migraciones y las vuelve a ejecutar.
+php artisan migrate:fresh : Elimina todas las tablas y vuelve a ejecutar todas las migraciones desde cero.
+php artisan db:seed : Ejecuta los seeders para poblar la base de datos con registros.
+php artisan db:wipe : Elimina todas las tablas, vistas y tipos de la base de datos sin ejecutar migraciones.
+
+4. RUTAS (ROUTING)
+------------------
+php artisan route:list : Muestra una tabla con todas las rutas registradas en la aplicación.
+php artisan route:cache : Crea un archivo de caché de rutas para acelerar el registro (ideal en producción).
+php artisan route:clear : Elimina el archivo de caché de las rutas.
+
+5. CACHÉ Y OPTIMIZACIÓN
+-----------------------
+php artisan optimize : Cachea configuración, rutas y vistas para mejorar el rendimiento.
+php artisan optimize:clear : Elimina toda la caché compilada (vistas, configuración, rutas, etc.).
+php artisan cache:clear : Limpia la caché de la aplicación.
+php artisan config:cache : Crea un archivo de caché para la configuración.
+php artisan config:clear : Elimina el archivo de caché de la configuración.
+php artisan view:cache : Compila todas las plantillas Blade de la aplicación.
+php artisan view:clear : Limpia todas las vistas Blade compiladas.
+
+6. COLAS Y TRABAJOS (QUEUES)
+----------------------------
+php artisan queue:work : Comienza a procesar los trabajos en cola.
+php artisan queue:listen : Escucha y procesa trabajos (reinicia el worker si hay cambios en el código).
+php artisan queue:clear : Elimina todos los trabajos pendientes en la cola predeterminada.
+php artisan queue:restart : Reinicia los workers de la cola después de que terminen su trabajo actual.
+
+7. PAQUETES COMUNES (Ej. LIVEWIRE)
+----------------------------------
+php artisan livewire:make [Nombre] : Crea un nuevo componente de Livewire (Clase + Vista).
+php artisan livewire:discover : Regenera el manifiesto de componentes de Livewire (útil si ocurren errores de caché).
+
+===================================
+Nota: Puedes encadenar banderas (flags) en los comandos make. Por ejemplo:
+php artisan make:model Producto -mcr 
+(Crea el Modelo "Producto", junto con su Migración, Controlador y rutas Resource).
+
+descargar el node modo Yojhan
+primero que todo tiene que descargar el node en google y descargar el .zip la version mas reciente y dejarla en descargar y descomprimirla.
+que quede una carpeta de node y no quede otra dentro de otra.
+muy importante revisarmla version y modificar si es el caso
+PowerShell
+$env:Path += ";C:\Users\Aprendiz\Downloads\node-v24.19.0-win-x64"
+Set-Alias node "C:\Users\Aprendiz\Downloads\node-v24.19.0-win-x64\node.exe"
+Set-Alias npm "C:\Users\Aprendiz\Downloads\node-v24.19.0-win-x64\npm.cmd"
+Set-Alias npx "C:\Users\Aprendiz\Downloads\node-v24.19.0-win-x64\npx.cmd"
+& "C:\Users\Aprendiz\Downloads\node-v24.19.0-win-x64\node.exe" -v
+& "C:\Users\Aprendiz\Downloads\node-v24.19.0-win-x64\npm.cmd" -v
+despues entrar al visual y poner control + shift + P.
+y buscar Open User settings (JSON) y poner el codigo.
+{
+    "workbench.iconTheme": "material-icon-theme",
+    "files.autoSave": "afterDelay",
+    "terminal.integrated.env.windows": {
+        "PATH": "${env:PATH};C:\\Users\\Aprendiz\\Downloads\\node-v24.19.0-win-x64"
+    },
+    "terminal.integrated.profiles.windows": {
+        "PowerShell": {
+            "source": "PowerShell",
+            "args": ["-ExecutionPolicy", "Bypass"]
+        }
+    }
+} tambien revisar la version muy importante.
+descargar el node modo profe
+primero que todo tiene que descargar el node en google y descargar el .zip la version mas reciente y ponerlo en la carpeta laravel y descomprimirla.
+que quede una carpeta de node y no quede otra dentro de otra.
+abrir la terminal dentro del proyecto y poner: $env:Path += ";C:\laravel\node"
+y: winget install Schniz.fnm
+y listo eso fue todo.
