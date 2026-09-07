@@ -76,7 +76,7 @@
         @forelse ($grupos as $grupo)
         <div class="contenedor">
             <div class="img-contenedor">
-                <img class="img_art" src="{{ $grupo->avatar ? asset($grupo->avatar) : asset('storage/img/' . $grupo->avatar . '.jpeg') }}" alt="{{ $grupo->nombre_grupo }}">
+                <img class="img_art" src="{{ $grupo->avatar_url ?? asset('storage/img/inside.jpeg') }}" alt="{{ $grupo->nombre_grupo }}">
                 <div class="img-texto">
                     <p>{{ $grupo->nombre_grupo }}</p>
                     <p>Grupo musical</p>

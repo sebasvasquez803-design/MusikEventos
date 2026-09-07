@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
 :root {
   --gold: #c59d5f;
   --gold-dark: #aa844c;
@@ -9,7 +10,7 @@
   --text-light: #ffffff;
   --radius: 12px;
 }
-@import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+
 .Kaushan {
   font-family: 'Kaushan Script', cursive;
 }
@@ -33,7 +34,7 @@ body {
   border-radius: var(--radius);
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
   display: flex;
-  overflow: hidden; 
+  overflow: hidden;
 }
 
 .sidebar {
@@ -58,14 +59,14 @@ body {
   justify-content: center;
   margin-bottom: 15px;
   overflow: hidden;
-  background-color: #ffffff; 
+  background-color: #ffffff;
   box-shadow: 0 0 10px rgba(197, 157, 95, 0.3);
 }
 
 .logo-img {
   width: 100%;
   height: 100%;
-  object-fit: cover; 
+  object-fit: cover;
 }
 
 .sidebar h2 {
@@ -243,7 +244,7 @@ input:focus, select:focus {
 .actions {
   display: flex;
   justify-content: flex-end;
-  margin-top: auto; 
+  margin-top: auto;
 }
 
 .btn-primary {

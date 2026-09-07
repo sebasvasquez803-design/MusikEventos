@@ -22,13 +22,24 @@ class GrupoMusicalController extends Controller
             'nombre_grupo' => ['required', 'string', 'max:50'],
             'telefono' => ['required', 'string', 'max:10'],
             'email' => ['required', 'email', 'max:50'],
-            'avatar' => ['nullable', 'string', 'max:200'],
+            'avatar' => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp', 'max:2048'],
             'descripcion' => ['nullable', 'string', 'max:500'],
+            'numero_doc' => ['nullable', 'string', 'max:10', 'exists:usuario,numero_doc'],
+            'precio_hora' => ['nullable', 'numeric'],
         ]);
 
-        GrupoMusical::create($validated);
+        if ($request->hasFile('avatar')) {
+            $validated['avatar'] = $request->file('avatar')->store('grupos', 'public');
+        }
 
-        return redirect()->route('home')->with('success', 'Grupo musical registrado correctamente.');
+        $grupoMusical = new GrupoMusical();
+        $grupoMusical->fill($validated);
+        $grupoMusical->save();
+
+        return redirect()->route('home')->with([
+            'success' => 'Grupo musical registrado correctamente.',
+            'grupoMusical' => $grupoMusical,
+        ]);
     }
 
     public function index(): JsonResponse

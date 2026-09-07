@@ -12,8 +12,6 @@
         "sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA=="
          crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-         <script src="../js/validar.js"></script>
-
 <!--funcion de js para mensaje por pantalla-->
 
 </head>
@@ -31,7 +29,7 @@
 
 
 <!--formulario-->
-<form class="form-basico" name="formulario" action="{{ route('grupo-musical.store') }}" method="POST" onsubmit="return validar()">
+<form class="form-basico" name="formulario" action="{{ route('grupo-musical.store') }}" method="POST" enctype="multipart/form-data">
 @csrf
 
 <!--campos del formulario-->
@@ -65,54 +63,8 @@
 
         <div class="entrada">
 
-            <img id="avatar" src="" alt="Avatar del grupo" width="200">
-
-              <input type="file" id="inputImagen" accept="image/*">
-              <button onclick="subirAvatar()">Subir</button>
-
-              <script>
-                async function cargarAvatar() {
-                  const res = await fetch('/grupo');
-                  const data = await res.json();
-                  document.getElementById('avatar').src = data.avatar;
-                }
-
-                async function subirAvatar() {
-                  const archivo = document.getElementById('inputImagen').files[0];
-                  if (!archivo) return alert('Selecciona una imagen.');
-
-                  const formData = new FormData();
-                  formData.append('avatar', archivo);
-
-                  const res = await fetch('/grupo', {
-                    method: 'POST',
-                    headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' },
-                    body: formData,
-                  });
-
-                  if (res.ok) {
-                    alert('Avatar actualizado.');
-                    cargarAvatar();
-                  } else {
-                    alert('Error al subir.');
-                  }
-                }
-
-                cargarAvatar();
-              </script>
-
-               <!--ACTUALIZAR PREVIEW DEL NOMBRE DE ARCHIVO-->
-
-               function actualizarPreview() {
-
-                const item = document.getElementById('item').value;
-                const nombre = document.getElementById('nombre_item').value;
-
-                if (item && nombre) {
-                  const itemFormateado = string(item).value
-
-                }
-        }
+            <label for="inputImagen">Imagen del grupo</label>
+            <input type="file" id="inputImagen" name="avatar" accept="image/jpeg,image/png,image/jpg,image/webp">
 
         </div>
 
