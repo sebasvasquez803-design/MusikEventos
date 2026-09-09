@@ -11,6 +11,8 @@ Route::view('/grupo-musical', 'sesion.registro_grp')->name('grupo.musical');
 Route::view('/reserva', 'formularios.reserva')->name('reserva');
 Route::view('/registro-clientes', 'formularios.registro_clientes')->name('registro.clientes');
 Route::post('/grupo-musical', [GrupoMusicalController::class, 'storeFromForm'])->name('grupo-musical.store');
+Route::view('/mas-info', 'formularios.mas_info')->name('mas_info');
+
 
 
 Route::middleware('auth')->group(function () {

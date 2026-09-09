@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @vite('resources/css/style.css')
-    <title>principal</title>
-    <link rel="shortcut icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
+    <title>MusikEventos</title>
+    <link rel="shortcut icon" href="{{ asset('storage/img/imagen20.png') }}" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 </head>
@@ -84,7 +84,7 @@
             </div>
             <p class="descripcion">{{ $grupo->descripcion ?: 'Grupo musical disponible para eventos.' }}</p>
             <div class="boton">
-                <input type="button" value="Mas Informacion" onclick="">
+                <input type="button" value="Mas Informacion" onclick=" window.location.href='{{ route('mas_info') }}'">
             </div>
         </div>
         @empty

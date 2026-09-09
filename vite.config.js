@@ -16,6 +16,7 @@ export default defineConfig({
                 'resources/css/reserva.css',
                 'resources/css/registroClientes.css',
                 'resources/js/transicion.js',
+                'resources/css/mas_info.css',
 
             ],
             refresh: true,

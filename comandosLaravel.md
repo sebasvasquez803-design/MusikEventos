@@ -537,3 +537,8 @@ NPM RUN DEV
 EN OTRO POWERSHELL PONER EL COMANDO NPM RUN BUILD PARA ACTULIZAR LOS ESTILOS
 
 ---------------------------------------------------------------------
+
+\DB::table('nombre de la tabla ')->get();
+ESTO SIRVE PARA VER LOS DATOS DE UNA TABLA ESPECIFICA DE UNA BD
+
+---------------------------------------------------------------------
