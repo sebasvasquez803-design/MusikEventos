@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\GrupoMusical;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class GrupoMusicalController extends Controller
@@ -15,7 +16,7 @@ class GrupoMusicalController extends Controller
         ]);
     }
 
-    public function storeFromForm(Request $request)
+    public function storeFromForm(Request $request): RedirectResponse
     {
         $validated = $request->validate([
             'nit' => ['required', 'integer', 'unique:grupo_musical,nit'],
@@ -96,11 +97,4 @@ class GrupoMusicalController extends Controller
 
         return response()->json(status: 204);
     }
-
-
-
-
-
-
-
 }
