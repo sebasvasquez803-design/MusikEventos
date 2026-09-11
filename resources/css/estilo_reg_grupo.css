@@ -1,19 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Aguafina+Script&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 /* trae 3 fuentes desde Google Fonts para poder usarlas en el CSS */
 
-*{
+* {
     padding: 0;               /* quita el relleno interno por defecto de todos los elementos */
     margin: 0;                 /* quita el margen externo por defecto de todos los elementos */
     box-sizing: border-box;    /* el padding y el borde NO suman al width/height, quedan incluidos adentro */
 }
 
-body{
+body {
     background: rgb(241, 237, 237);   /* color de fondo gris claro para toda la página */
     font-family: "Roboto", sans-serif; /* fuente por defecto de todo el texto */
 }
 
-header{
-   width: 100%;                /* ocupa todo el ancho de la pantalla */
+header {
+    width: 100%;                /* ocupa todo el ancho de la pantalla */
     background: #000000;       /* fondo negro */
     padding: 20px;              /* espacio interno alrededor del contenido */
     height: auto;                /* la altura se ajusta sola según el contenido */
@@ -22,14 +22,14 @@ header{
     justify-content: center;   /* centra los hijos horizontalmente */
 }
 
-h1{
+h1 {
     color: #C9A24A;            /* color dorado del texto */
     font-size: 46px;           /* tamaño grande de letra */
     text-align: center;        /* centra el texto dentro de su propia caja */
-   font-family: "Roboto", sans-serif;
+    font-family: "Roboto", sans-serif;
 }
 
-.logo{
+.logo {
     display: flex;    /* activa flexbox para organizar lo que haya adentro (ej. imagen del logo) */
     width: 100px;      /* ancho fijo de la caja del logo */
 }
@@ -41,25 +41,27 @@ h1{
 
 .contenedor {
     width: 20%;                        /* ocupa el 20% del ancho de .conte */
-    background:  rgb(241, 237, 237);   /* mismo color de fondo que el body */
+    background: rgb(221, 221, 221);   /* mismo color de fondo que el body */
     align-self: stretch;               /* se estira para igualar la altura del elemento más alto a su lado (el form) */
 }
 
-.img-contenedor{
+.img-contenedor {
     width: 100%;          /* la imagen ocupa todo el ancho de su contenedor */
     height: 100%;          /* la imagen ocupa todo el alto de su contenedor */
     object-fit: cover;    /* la imagen se recorta para llenar el espacio SIN deformarse */
 }
 
-.form-basico  {
-    max-width: 640px;              /* el formulario nunca crece más de 640px de ancho */
-    margin: 10px auto;             /* 10px arriba/abajo, y "auto" centra horizontalmente la caja */
-    padding: 55px;                  /* espacio interno grande alrededor del contenido del form */
+.form-basico {
+    flex: 1;                       /* ocupa todo el espacio restante al lado de .contenedor */
+    display: flex;
+    flex-direction: column;
+    align-items: center;           /* centra cada .entrada horizontalmente */
+    justify-content: center;       /* centra todo el bloque verticalmente */
+    margin: 0;
+    padding: 55px;
     box-sizing: border-box;
-    background-color: #dedcdc;     /* fondo gris claro para la caja del formulario */
     font: bold 14px sans-serif;    /* fuente en negrita, tamaño 14px, tipo sans-serif */
     text-align: center;            /* centra el texto dentro del formulario */
-    border-radius: 15px;           /* redondea las esquinas de la caja */
 }
 
 .titulo {
@@ -67,44 +69,64 @@ h1{
     text-align: center;
     box-sizing: border-box;
     color: #000000;                       /* texto negro */
-    font-size: 24px;                      /* ⚠ se sobreescribe por la línea de abajo, no se aplica */
     padding: 0 10px 15px;                 /* 0 arriba, 10px a los lados, 15px abajo */
     border-bottom: 2px solid #C9A24A;     /* línea dorada debajo del título, como subrayado decorativo */
-    font-size: 22px;                      /* este es el tamaño que realmente se usa */
+    font-size: 22px;                      /* tamaño real del título */
     margin-bottom: 30px;                  /* separación entre el título y lo que viene después */
 }
 
-.form-basico  label {
-    display: inline-block;      /* permite darle ancho fijo sin romper el flujo del texto */
+.entrada {
+    display: flex;              /* label, input e icono quedan en la misma fila */
+    align-items: center;
+    flex-wrap: wrap;            /* permite que small.error baje a su propia línea */
+    gap: 15px;
+    width: 100%;
+    max-width: 600px;           /* limita el ancho para que no se estire demasiado */
+    padding: 12px 25px;
+    margin-bottom: 22px;
+    border-bottom: solid 2px #C9A24A;   /* borde dorado debajo de cada campo */
     box-sizing: border-box;
+}
+
+.form-basico label {
+    display: block;
     color: #000000;
-    width: 180px;                /* todas las etiquetas miden lo mismo, para que queden alineadas */
-    text-align: left;            /* el texto de la etiqueta se alinea a la izquierda */
-    vertical-align: top;         /* alinea la etiqueta arriba si el campo de al lado es más alto */
-    padding: 12px 25px;          /* espacio interno de la etiqueta */
-}
-
-.entrada input, select {
     text-align: left;
-    margin-bottom: 22px;   /* separa cada campo del siguiente, verticalmente */
-    border: none;          /* quita el borde por defecto del navegador */
-    outline: none;         /* quita el contorno azul que aparece al hacer clic (focus) */
+    font-size: 20px;
+    width: 220px;                /* ancho fijo: todos los labels quedan alineados */
+    flex-shrink: 0;               /* no se achica aunque el texto sea largo */
+    padding: 0;
+    border-bottom: none;         /* el borde dorado ahora lo pone .entrada */
 }
 
-.entrada input, textarea{
+.entrada input,
+.entrada select,
+.entrada textarea {
+    text-align: left;
     color: #000000;             /* color del texto que el usuario escribe */
     width: 240px;                /* ancho fijo del campo */
     padding: 12px;               /* espacio interno para que el texto no toque el borde */
     border-radius: 5px;          /* esquinas ligeramente redondeadas */
     border: none;
-    outline: none;
+    outline: none;               /* quita el contorno azul que aparece al hacer clic (focus) */
+    margin-bottom: 0;            /* el espaciado entre campos ya lo da .entrada */
+}
+
+.form-basico small.error {
+    flex-basis: 100%;            /* ocupa toda la fila siguiente */
+    margin-left: 235px;          /* queda alineado debajo del input, no del label */
+    color: #c0392b;
+    font-size: 13px;
+    text-align: left;
 }
 
 .boton {
-  display: block;    /* necesario para que "margin: auto" pueda centrar el botón */
-  margin: 0 auto;    /* centra el botón horizontalmente dentro de su contenedor */
+    display: block;    /* necesario para que "margin: auto" pueda centrar el botón */
+    margin: 0 auto;    /* centra el botón horizontalmente dentro de su contenedor */
 }
-.form-basico .boton input[type=button],input[type=submit]{
+
+.form-basico .boton input[type=button],
+input[type=submit] {
     background: #C9A24A;       /* fondo dorado del botón */
     border-radius: 8px;        /* esquinas redondeadas */
     color: #000000;            /* texto negro */
@@ -112,8 +134,8 @@ h1{
     border: 0;                 /* sin borde */
     font-size: 20px;
     font-weight: bold;
-    margin-top: 50px;          /* separa el botón de lo que está arriba */
-     cursor: pointer;          /* el mouse se convierte en "manito" al pasar por encima */
+    margin-top: 20px;          /* separa el botón de lo que está arriba */
+    cursor: pointer;           /* el mouse se convierte en "manito" al pasar por encima */
 }
 
 .campo:valid + .icon {
@@ -124,7 +146,6 @@ h1{
     color: rgb(0, 0, 0);   /* si el input NO es válido (o está vacío), el icono se pinta negro */
 }
 
-.icon{
+.icon {
     font-size: 20px;   /* tamaño de los iconos (ej. de Font Awesome) */
 }
-

@@ -68,6 +68,12 @@
                 @error('descripcion') <small class="error">{{ $message }}</small> @enderror
             </div>
 
+            <div class="entrada">
+                <label>Precio por hora</label>
+                <input type="text" placeholder="Ejemplo: 100.00" name="precio_hora" class="campo" value="{{ old('precio_hora') }}" required>
+                <span class="icon"><i class="fa-solid fa-circle-check"></i></span>
+                @error('precio_hora') <small class="error">{{ $message }}</small> @enderror
+
             <div class="boton">
                 <input type="submit" value="Registrar" name="botingresar">
             </div>
