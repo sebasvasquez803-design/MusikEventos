@@ -196,19 +196,19 @@ primero que todo tiene que descargar el node en google y descargar el .zip la ve
 que quede una carpeta de node y no quede otra dentro de otra.
 muy importante revisarmla version y modificar si es el caso
 PowerShell
-$env:Path += ";C:\Users\Aprendiz\Downloads\node-v24.19.0-win-x64"
-Set-Alias node "C:\Users\Aprendiz\Downloads\node-v24.19.0-win-x64\node.exe"
-Set-Alias npm "C:\Users\Aprendiz\Downloads\node-v24.19.0-win-x64\npm.cmd"
-Set-Alias npx "C:\Users\Aprendiz\Downloads\node-v24.19.0-win-x64\npx.cmd"
-& "C:\Users\Aprendiz\Downloads\node-v24.19.0-win-x64\node.exe" -v
-& "C:\Users\Aprendiz\Downloads\node-v24.19.0-win-x64\npm.cmd" -v
+$env:Path += ";C:\Users\Aprendiz\Downloads\node-v24.21.0-win-x64"
+Set-Alias node "C:\Users\Aprendiz\Downloads\node-v24.21.0-win-x64\node.exe"
+Set-Alias npm "C:\Users\Aprendiz\Downloads\node-v24.21.0-win-x64\npm.cmd"
+Set-Alias npx "C:\Users\Aprendiz\Downloads\node-v24.21.0-win-x64\npx.cmd"
+"C:\Users\Aprendiz\Downloads\node-v24.21.0-win-x64\node.exe"
+"C:\Users\Aprendiz\Downloads\node-v24.21.0-win-x64\npm.cmd"
 despues entrar al visual y poner control + shift + P.
 y buscar Open User settings (JSON) y poner el codigo.
 {
     "workbench.iconTheme": "material-icon-theme",
     "files.autoSave": "afterDelay",
     "terminal.integrated.env.windows": {
-        "PATH": "${env:PATH};C:\\Users\\Aprendiz\\Downloads\\node-v24.19.0-win-x64"
+        "PATH": "${env:PATH};C:\\Users\\Aprendiz\\Downloads\\node-v24.21.0-win-x64"
     },
     "terminal.integrated.profiles.windows": {
         "PowerShell": {
