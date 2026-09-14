@@ -2,3 +2,5 @@
 !.gitignore
 !img/
 !img/**
+!grupos/
+!grupos/**

@@ -18,7 +18,7 @@ class ExperienciaLaboralController extends Controller
     public function store(Request $request): JsonResponse
     {
         $validated = $request->validate([
-            'numero_doc' => ['nullable', 'string', 'max:10', 'exists:usuario,numero_doc'],
+            'numero_doc' => ['nullable', 'string', 'digits:10', 'exists:usuario,numero_doc'],
             'anio_inicio' => ['nullable', 'date'],
             'anio_fin' => ['nullable', 'integer'],
             'titulo_obtenido' => ['nullable', 'string'],
@@ -41,7 +41,7 @@ class ExperienciaLaboralController extends Controller
     public function update(Request $request, ExperienciaLaboral $experienciaLaboral): JsonResponse
     {
         $validated = $request->validate([
-            'numero_doc' => ['sometimes', 'nullable', 'string', 'max:10', 'exists:usuario,numero_doc'],
+            'numero_doc' => ['sometimes', 'nullable', 'string', 'digits:10', 'exists:usuario,numero_doc'],
             'anio_inicio' => ['sometimes', 'nullable', 'date'],
             'anio_fin' => ['sometimes', 'nullable', 'integer'],
             'titulo_obtenido' => ['sometimes', 'nullable', 'string'],

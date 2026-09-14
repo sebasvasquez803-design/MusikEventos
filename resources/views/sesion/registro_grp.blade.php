@@ -58,13 +58,15 @@
 
             <div class="entrada">
                 <label for="inputImagen">Imagen del grupo</label>
-                <input type="file" id="inputImagen" name="avatar" accept="image/jpeg,image/png,image/jpg,image/webp">
+                <input type="file" id="inputImagen" name="avatar" accept="image/jpeg,image/png,image/jpg,image/webp" >
+                <span class="icon"><i class="fa-solid fa-circle-check"></i></span>
                 @error('avatar') <small class="error">{{ $message }}</small> @enderror
             </div>
 
             <div class="entrada">
                 <label>Descripcion</label>
-                <textarea name="descripcion">{{ old('descripcion') }}</textarea>
+                <textarea name="descripcion" required>{{ old('descripcion') }}</textarea>
+                <span class="icon"><i class="fa-solid fa-circle-check"></i></span>
                 @error('descripcion') <small class="error">{{ $message }}</small> @enderror
             </div>
 

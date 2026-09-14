@@ -19,13 +19,13 @@ class GrupoMusicalController extends Controller
     public function storeFromForm(Request $request): RedirectResponse
     {
         $validated = $request->validate([
-            'nit' => ['required', 'integer', 'unique:grupo_musical,nit'],
+            'nit' => ['required', 'string', 'unique:grupo_musical,nit', 'digits:10'],
             'nombre_grupo' => ['required', 'string', 'max:50'],
-            'telefono' => ['required', 'string', 'max:10'],
+            'telefono' => ['required', 'string', 'digits:10'],
             'email' => ['required', 'email', 'max:50'],
             'avatar' => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp', 'max:2048'],
             'descripcion' => ['nullable', 'string', 'max:500'],
-            'numero_doc' => ['nullable', 'string', 'max:10', 'exists:usuario,numero_doc'],
+            'numero_doc' => ['nullable', 'string', ':digits10', 'exists:usuario,numero_doc'],
             'precio_hora' => ['nullable', 'numeric'],
         ]);
 
@@ -42,7 +42,6 @@ class GrupoMusicalController extends Controller
             'grupoMusical' => $grupoMusical,
         ]);
     }
-
     public function index(): JsonResponse
     {
         return response()->json([
@@ -53,7 +52,7 @@ class GrupoMusicalController extends Controller
     public function store(Request $request): JsonResponse
     {
         $validated = $request->validate([
-            'nit' => ['required', 'integer', 'unique:grupo_musical,nit'],
+            'nit' => ['required', 'string', 'unique:grupo_musical,nit', 'digits:10'],
             'nombre_grupo' => ['nullable', 'string', 'max:50'],
             'telefono' => ['nullable', 'string', 'max:10'],
             'email' => ['nullable', 'email', 'max:50'],
@@ -76,7 +75,7 @@ class GrupoMusicalController extends Controller
     public function update(Request $request, GrupoMusical $grupoMusical): JsonResponse
     {
         $validated = $request->validate([
-            'nit' => ['sometimes', 'required', 'integer', 'unique:grupo_musical,nit,' . $grupoMusical->nit . ',nit'],
+            'nit' => ['sometimes', 'required', 'string', 'unique:grupo_musical,nit,' . $grupoMusical->nit . ',nit', 'digits:10'],
             'nombre_grupo' => ['sometimes', 'nullable', 'string', 'max:50'],
             'telefono' => ['sometimes', 'nullable', 'string', 'max:10'],
             'email' => ['sometimes', 'nullable', 'email', 'max:50'],

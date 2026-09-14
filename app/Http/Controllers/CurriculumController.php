@@ -26,7 +26,7 @@ class CurriculumController extends Controller
             'academia_formacion' => ['nullable', 'string', 'max:50'],
             'estudios' => ['nullable', 'string', 'max:100'],
             'publico_privado' => ['nullable', 'string', 'max:20'],
-            'numero_doc' => ['nullable', 'string', 'max:10', 'exists:usuario,numero_doc'],
+            'numero_doc' => ['nullable', 'string', 'digits:10', 'exists:usuario,numero_doc'],
         ]);
 
         $curriculum = Curriculum::create($validated);
@@ -50,7 +50,7 @@ class CurriculumController extends Controller
             'academia_formacion' => ['sometimes', 'nullable', 'string', 'max:50'],
             'estudios' => ['sometimes', 'nullable', 'string', 'max:100'],
             'publico_privado' => ['sometimes', 'nullable', 'string', 'max:20'],
-            'numero_doc' => ['sometimes', 'nullable', 'string', 'max:10', 'exists:usuario,numero_doc'],
+            'numero_doc' => ['sometimes', 'nullable', 'digits:10', 'exists:usuario,numero_doc'],
         ]);
 
         $curriculum->update($validated);
