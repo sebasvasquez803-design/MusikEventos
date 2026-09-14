@@ -4,6 +4,7 @@ namespace Tests\Feature\Auth;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 
 class RegistrationTest extends TestCase
@@ -19,6 +20,7 @@ class RegistrationTest extends TestCase
 
     public function test_new_users_can_register(): void
     {
+        // Comprueba creación, autenticación, redirección y contraseña cifrada.
         $response = $this->post(route('register.store'), [
             'name' => 'John Doe',
             'email' => 'test@example.com',
@@ -29,8 +31,13 @@ class RegistrationTest extends TestCase
         $user = User::where('email', 'test@example.com')->first();
 
         $response->assertSessionHasNoErrors()
-            ->assertRedirect(route('dashboard', absolute: false));
+            ->assertRedirect(route('home', absolute: false));
 
         $this->assertAuthenticated();
+        $this->assertDatabaseHas('users', [
+            'name' => 'John Doe',
+            'email' => 'test@example.com',
+        ]);
+        $this->assertTrue(Hash::check('password', $user->password));
     }
 }

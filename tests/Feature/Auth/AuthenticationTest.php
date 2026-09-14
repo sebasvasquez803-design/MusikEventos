@@ -22,6 +22,7 @@ class AuthenticationTest extends TestCase
 
     public function test_users_can_authenticate_using_the_login_screen(): void
     {
+        // Confirma que un usuario válido inicia sesión y vuelve al inicio público.
         $user = User::factory()->create();
 
         $response = $this->post(route('login.store'), [
@@ -31,7 +32,7 @@ class AuthenticationTest extends TestCase
 
         $response
             ->assertSessionHasNoErrors()
-            ->assertRedirect(route('dashboard', absolute: false));
+            ->assertRedirect(route('home', absolute: false));
 
         $this->assertAuthenticated();
     }

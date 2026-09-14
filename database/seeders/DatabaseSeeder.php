@@ -4,7 +4,9 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
+use App\Models\User;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,6 +17,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        // Carga los tipos de persona base sin duplicarlos al repetir el seeder.
         // User::factory(10)->create();
         DB::table('tipo_persona')->updateOrInsert([
             'id_tipo_persona' => 1,
@@ -32,6 +35,7 @@ class DatabaseSeeder extends Seeder
             'nombre_tipo' => 'Cliente',
         ]);
 
+        // Inserta o actualiza los grupos musicales iniciales usando el NIT como clave.
         DB::table('grupo_musical')->upsert([
             [
                 'nit' => 900000001,
@@ -95,24 +99,30 @@ class DatabaseSeeder extends Seeder
             'descripcion',
             'precio_hora',
         ]);
+
+        // Crea o actualiza las cuentas administrativas del sistema.
+        $this->run2();
     }
+
     public function run2(): void
     {
-        $administrador = users::create([
-            'email' => 'mican@gmail.com',
-            'password' => Hash::make('mican'),
-        ]);
-        $administrador = users::create([
-            'email' => 'jh@gmail.com',
-            'password' => Hash::make('jh'),
-        ]);
-        $administrador = users::create([
-            'email' => 'william@gmail.com',
-            'password' => Hash::make('william'),
-        ]);
-        $administrador = users::create([
-            'email' => 'sebastian@gmail.com',
-            'password' => Hash::make('voceragey'),
-        ]);
+        // Credenciales iniciales de las cuentas autorizadas para administrar grupos.
+        $administradores = [
+            ['name' => 'Mican', 'email' => 'mican@gmail.com', 'password' => 'mican'],
+            ['name' => 'JH', 'email' => 'jh@gmail.com', 'password' => 'jh'],
+            ['name' => 'William', 'email' => 'william@gmail.com', 'password' => 'william'],
+            ['name' => 'Sebastian', 'email' => 'sebastian@gmail.com', 'password' => 'voceragey'],
+        ];
+
+        // updateOrCreate permite ejecutar el seeder varias veces sin duplicar usuarios.
+        foreach ($administradores as $administrador) {
+            User::updateOrCreate(
+                ['email' => $administrador['email']],
+                [
+                    'name' => $administrador['name'],
+                    'password' => Hash::make($administrador['password']),
+                ],
+            );
+        }
     }
 }

@@ -11,6 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // Tabla principal de credenciales y perfil de usuarios.
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
@@ -21,12 +22,14 @@ return new class extends Migration
             $table->timestamps();
         });
 
+        // Tokens utilizados por el restablecimiento de contraseñas.
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email');
             $table->string('token');
             $table->timestamp('created_at')->nullable();
         });
 
+        // Sesiones persistentes de usuarios autenticados.
         Schema::create('sessions', function (Blueprint $table) {
         $table->string('id')->primary();
         $table->foreignId('user_id')
@@ -46,6 +49,7 @@ return new class extends Migration
      */
     public function down(): void
     {
+        // Elimina las tablas creadas por esta migración al revertirla.
         Schema::dropIfExists('users');
         Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('sessions');

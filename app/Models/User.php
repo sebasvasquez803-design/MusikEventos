@@ -39,6 +39,14 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 #[Hidden(['password', 'two_factor_secret', 'two_factor_recovery_codes', 'remember_token'])]
 class User extends Authenticatable implements PasskeyUser
 {
+    // Correos autorizados para administrar grupos musicales.
+    private const GROUP_ADMINISTRATOR_EMAILS = [
+        'mican@gmail.com',
+        'jh@gmail.com',
+        'william@gmail.com',
+        'sebastian@gmail.com',
+    ];
+
     /** @use HasFactory<UserFactory> */
     use HasFactory, HasTeams, Notifiable, PasskeyAuthenticatable, TwoFactorAuthenticatable;
 
@@ -66,5 +74,17 @@ class User extends Authenticatable implements PasskeyUser
         return Str::length($initials) > 1
             ? Str::substr($initials, 0, 1).Str::substr($initials, -1)
             : $initials;
+    }
+
+    public function canManageMusicalGroups(): bool
+    {
+        // Determina si el usuario puede ver y usar las acciones administrativas.
+        return in_array($this->email, self::GROUP_ADMINISTRATOR_EMAILS, true);
+    }
+
+    public function canDeleteMusicalGroups(): bool
+    {
+        // Mantiene una comprobación específica para la eliminación.
+        return $this->canManageMusicalGroups();
     }
 }

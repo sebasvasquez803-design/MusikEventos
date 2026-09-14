@@ -13,6 +13,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
+    <!-- Formulario para registrar grupos musicales en la base de datos. -->
     <header>
         <a href="../index1.php">
             <img class="logo" src="{{ asset('storage/img/grupos/logoMusikEventos.png') }}" alt="logo">
@@ -58,23 +59,24 @@
 
             <div class="entrada">
                 <label for="inputImagen">Imagen del grupo</label>
-                <input type="file" id="inputImagen" name="avatar" accept="image/jpeg,image/png,image/jpg,image/webp" >
+                <input type="file" id="inputImagen" name="avatar" accept="image/jpeg,image/png,image/jpg,image/webp" class="campo" required>
                 <span class="icon"><i class="fa-solid fa-circle-check"></i></span>
                 @error('avatar') <small class="error">{{ $message }}</small> @enderror
             </div>
 
             <div class="entrada">
                 <label>Descripcion</label>
-                <textarea name="descripcion" required>{{ old('descripcion') }}</textarea>
+                <textarea name="descripcion" required class="campo">{{ old('descripcion') }}</textarea>
                 <span class="icon"><i class="fa-solid fa-circle-check"></i></span>
                 @error('descripcion') <small class="error">{{ $message }}</small> @enderror
             </div>
 
             <div class="entrada">
                 <label>Precio por hora</label>
-                <input type="text" placeholder="Ejemplo: 100.00" name="precio_hora" class="campo" value="{{ old('precio_hora') }}" required>
+                <input type="number" placeholder="Ejemplo: 100.00" name="precio_hora" class="campo" value="{{ old('precio_hora') }}" required>
                 <span class="icon"><i class="fa-solid fa-circle-check"></i></span>
                 @error('precio_hora') <small class="error">{{ $message }}</small> @enderror
+            </div>
 
             <div class="boton">
                 <input type="submit" value="Registrar" name="botingresar">

@@ -5,12 +5,23 @@ use App\Http\Controllers\GrupoMusicalController;
 use App\Http\Middleware\EnsureTeamMembership;
 use Illuminate\Support\Facades\Route;
 
+// Página principal con grupos musicales.
 Route::get('/', [GrupoMusicalController::class, 'home'])->name('home');
 Route::view('/welcome', 'welcome')->name('welcome');
 Route::view('/grupo-musical', 'sesion.registro_grp')->name('grupo.musical');
 Route::view('/reserva', 'formularios.reserva')->name('reserva');
 Route::view('/registro-clientes', 'formularios.registro_clientes')->name('registro.clientes');
+// Rutas web para crear, editar y eliminar grupos musicales.
 Route::post('/grupo-musical', [GrupoMusicalController::class, 'storeFromForm'])->name('grupo-musical.store');
+Route::get('/grupo-musical/{grupoMusical}/editar', [GrupoMusicalController::class, 'edit'])
+    ->middleware('auth')
+    ->name('grupo-musical.edit');
+Route::put('/grupo-musical/{grupoMusical}', [GrupoMusicalController::class, 'updateFromForm'])
+    ->middleware('auth')
+    ->name('grupo-musical.update');
+Route::delete('/grupo-musical/{grupoMusical}', [GrupoMusicalController::class, 'destroyFromForm'])
+    ->middleware('auth')
+    ->name('grupo-musical.destroy');
 Route::view('/mas-info', 'formularios.mas_info')->name('mas_info');
 
 

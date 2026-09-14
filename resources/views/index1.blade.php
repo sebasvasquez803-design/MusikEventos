@@ -11,6 +11,8 @@
 </head>
 <body>
 
+<!-- Encabezado con navegación pública y acceso de usuario. -->
+
 <!-- ENCABEZADO -->
 <header>
 
@@ -29,7 +31,18 @@
                 <a href="#"><i class="fa-solid fa-cart-shopping"></i></a>
             </div>
             <div class="usuario">
-                <a href="{{ route('registro.clientes') }}"><i class="fa-solid fa-circle-user"></i></a>
+                @auth
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit" aria-label="Cerrar sesión" title="Cerrar sesión">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                        </button>
+                    </form>
+                @else
+                    <a href="{{ route('login') }}" aria-label="Iniciar sesión" title="Iniciar sesión">
+                        <i class="fa-solid fa-circle-user"></i>
+                    </a>
+                @endauth
             </div>
         </ul>
     </div>
@@ -61,16 +74,16 @@
         </ul>
     </div>
 
-    <!-- Contenido principal: buscador + cards -->
+    <!-- Contenido principal: búsqueda, tarjetas y paginación. -->
     <div class="contenido-principal">
 
         <!-- Barra de busqueda -->
-        <div class="barra-busqueda">
-            <input type="text" placeholder="Busca tu grupo de genero">
-            <button>Buscar</button>
-        </div>
+        <form class="barra-busqueda" method="GET" action="{{ route('home') }}">
+            <input type="search" name="buscar" value="{{ request('buscar') }}" placeholder="Busca tu grupo de genero">
+            <button type="submit">Buscar</button>
+        </form>
 
-        <!-- Grid de cards de artistas -->
+        <!-- Grid de tarjetas de grupos registrados. -->
         <div class="grid-cards">
 
         @forelse ($grupos as $grupo)
@@ -86,6 +99,18 @@
             <div class="boton">
                 <input type="button" value="Mas Informacion" onclick=" window.location.href='{{ route('mas_info') }}'">
             </div>
+            @auth
+                @if (auth()->user()->canManageMusicalGroups())
+                    <div class="acciones-grupo">
+                        <a href="{{ route('grupo-musical.edit', $grupo) }}">Actualizar</a>
+                        <form method="POST" action="{{ route('grupo-musical.destroy', $grupo) }}" onsubmit="return confirm('¿Deseas eliminar este grupo musical?');">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit">Eliminar</button>
+                        </form>
+                    </div>
+                @endif
+            @endauth
         </div>
         @empty
             <p>No hay grupos musicales registrados.</p>
@@ -93,17 +118,39 @@
 
         </div><!-- fin grid-cards -->
 
-        <!-- Paginacion -->
-        <div class="paginacion">
-            <a href="#">Atras</a>
-            <a href="#" class="activo">1</a>
-            <a href="#">2</a>
-            <a href="#">3</a>
-            <span>...</span>
-            <a href="#">67</a>
-            <a href="#">68</a>
-            <a href="#">Siguiente</a>
-        </div>
+                <!-- Paginación real conservando los filtros actuales. -->
+                <div class="paginacion">
+                    @if ($grupos->onFirstPage())
+                        <span>Atras</span>
+                    @else
+                        <a href="{{ $grupos->previousPageUrl() }}">Atras</a>
+                    @endif
+
+                    @if ($grupos->lastPage() >= 1)
+                        <a href="{{ $grupos->url(1) }}" class="{{ $grupos->currentPage() === 1 ? 'activo' : '' }}">1</a>
+                    @endif
+                    @if ($grupos->lastPage() >= 2)
+                        <a href="{{ $grupos->url(2) }}" class="{{ $grupos->currentPage() === 2 ? 'activo' : '' }}">2</a>
+                    @endif
+                    @if ($grupos->lastPage() >= 3)
+                        <a href="{{ $grupos->url(3) }}" class="{{ $grupos->currentPage() === 3 ? 'activo' : '' }}">3</a>
+                    @endif
+                    @if ($grupos->lastPage() > 5)
+                        <span>...</span>
+                    @endif
+                    @if ($grupos->lastPage() >= 67)
+                        <a href="{{ $grupos->url(67) }}" class="{{ $grupos->currentPage() === 67 ? 'activo' : '' }}">67</a>
+                    @endif
+                    @if ($grupos->lastPage() >= 68)
+                        <a href="{{ $grupos->url(68) }}" class="{{ $grupos->currentPage() === 68 ? 'activo' : '' }}">68</a>
+                    @endif
+
+                    @if ($grupos->hasMorePages())
+                        <a href="{{ $grupos->nextPageUrl() }}">Siguiente</a>
+                    @else
+                        <span>Siguiente</span>
+                    @endif
+                </div>
 
     </div><!-- fin contenido-principal -->
 

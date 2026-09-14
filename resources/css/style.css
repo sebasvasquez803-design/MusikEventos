@@ -1,3 +1,4 @@
+/* Fuentes utilizadas por la interfaz principal. */
 @import url('https://fonts.googleapis.com/css2?family=Aguafina+Script&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap');
 
@@ -90,8 +91,22 @@ header {
 }
 
 .carro a:hover,
-.usuario a:hover {
+.usuario a:hover,
+.usuario button:hover {
     color: #C9A24A;
+}
+
+.usuario form {
+    margin: 0;
+}
+
+.usuario button {
+    padding: 12px 18px;
+    border: 0;
+    background: transparent;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
 }
 
 
@@ -178,12 +193,14 @@ header {
     margin-bottom: 30px;
 }
 
-.barra-busqueda input[type=text] {
+.barra-busqueda input[type=text],
+.barra-busqueda input[type=search] {
     width: 400px;
     padding: 10px 15px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 14px;
+    appearance: none;
 }
 
 .barra-busqueda button {
@@ -309,6 +326,30 @@ header {
 .boton input[type=button]:hover {
     background: #C9A24A;
     color: #000;
+}
+
+.acciones-grupo {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.acciones-grupo a,
+.acciones-grupo button {
+    padding: 6px 10px;
+    border: 1px solid #C9A24A;
+    border-radius: 5px;
+    background: transparent;
+    color: #000;
+    font-size: 12px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.acciones-grupo a:hover,
+.acciones-grupo button:hover {
+    background: #C9A24A;
 }
 
 
