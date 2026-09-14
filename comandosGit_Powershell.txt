@@ -185,12 +185,11 @@ php artisan queue:restart : Reinicia los workers de la cola después de que term
 ----------------------------------
 php artisan livewire:make [Nombre] : Crea un nuevo componente de Livewire (Clase + Vista).
 php artisan livewire:discover : Regenera el manifiesto de componentes de Livewire (útil si ocurren errores de caché).
-
 ===================================
 Nota: Puedes encadenar banderas (flags) en los comandos make. Por ejemplo:
 php artisan make:model Producto -mcr 
 (Crea el Modelo "Producto", junto con su Migración, Controlador y rutas Resource).
-
+===================================
 descargar el node modo Yojhan
 primero que todo tiene que descargar el node en google y descargar el .zip la version mas reciente y dejarla en descargar y descomprimirla.
 que quede una carpeta de node y no quede otra dentro de otra.
@@ -223,3 +222,27 @@ que quede una carpeta de node y no quede otra dentro de otra.
 abrir la terminal dentro del proyecto y poner: $env:Path += ";C:\laravel\node"
 y: winget install Schniz.fnm
 y listo eso fue todo.
+===================================
+primero que todo tiene que descargar el node en google y descargar el .zip la version mas reciente y ponerlo en la carpeta laravel y descomprimirla.
+que quede una carpeta de node y no quede otra dentro de otra.
+NOTA: debe quedar dentro de laravel.
+Presione la combinación de teclas Win + R . Escriba el siguiente comando y presione Enter : rundll32.exe sysdm.cpl,EditEnvironmentVariables
+(Este comando abre directamente las Variables de Entorno de la cuenta actual).
+seleccione la variable Path si no existe la tiene que crear.
+Haga clic en Nuevo y agregue la ruta de la carpeta donde extrajo Node: C:\Laravel node Haga clic en Aceptar para guardar.
+luego ponga en powershell este comando: setx PATH "%PATH%;C:\Laravel ode"
+NOTA: cierre o reinicie el visual para que se actualize todo.
+===================================
+El error ocurre porque PowerShell tiene bloqueada la ejecución de scripts (.ps1) por defecto en Windows.
+Para solucionarlo de forma rápida, ejecuta este comando en tu terminal de PowerShell:
+PowerShell
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+Si te pide confirmación, presiona S y luego Enter.
+Solución alternativa (Si prefieres no cambiar las políticas de PowerShell)
+Si no quieres cambiar la política de ejecución de Windows, tienes dos alternativas inmediatas:
+Opción A (Usar npm.cmd directamente): Ejecuta npm.cmd en lugar de npm. Esto fuerza a Windows a usar el 
+script batch nativo en lugar del ejecutable de PowerShell.
+PowerShell
+npm.cmd install
+Opción B (Usar CMD en lugar de PowerShell): Abre Símbolo del sistema (CMD) en lugar de PowerShell. 
+CMD no restringe scripts .ps1 y ejecutará npm install sin ningún inconveniente.
