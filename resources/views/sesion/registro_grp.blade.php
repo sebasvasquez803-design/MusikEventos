@@ -15,7 +15,7 @@
 <body>
     <!-- Formulario para registrar grupos musicales en la base de datos. -->
     <header>
-        <a href="../index1.php">
+        <a href="{{ route('home') }}">
             <img class="logo" src="{{ asset('storage/img/grupos/logoMusikEventos.png') }}" alt="logo">
         </a>
         <h1>REGISTRO DE GRUPOS MUSICALES</h1>
@@ -58,10 +58,31 @@
             </div>
 
             <div class="entrada">
-                <label for="inputImagen">Imagen del grupo</label>
+                <label for="inputImagen">Portada del grupo</label>
                 <input type="file" id="inputImagen" name="avatar" accept="image/jpeg,image/png,image/jpg,image/webp" class="campo" required>
                 <span class="icon"><i class="fa-solid fa-circle-check"></i></span>
                 @error('avatar') <small class="error">{{ $message }}</small> @enderror
+            </div>
+
+            <div class="entrada">
+                <label for="inputLogo">Logo del grupo</label>
+                <input type="file" id="inputLogo" name="logo" accept="image/jpeg,image/png,image/jpg,image/webp" class="campo" required>
+                <span class="icon"><i class="fa-solid fa-circle-check"></i></span>
+                @error('logo') <small class="error">{{ $message }}</small> @enderror
+            </div>
+
+            <div class="entrada">
+                <label>Video de presentación (link)</label>
+                <input type="url" name="video_url" class="campo" value="{{ old('video_url') }}" placeholder="https://youtu.be/...">
+                <span class="icon"><i class="fa-solid fa-circle-check"></i></span>
+                @error('video_url') <small class="error">{{ $message }}</small> @enderror
+            </div>
+
+            <div class="entrada">
+                <label for="inputVideoFile">O sube un video</label>
+                <input type="file" id="inputVideoFile" name="video_file" accept="video/mp4,video/webm,video/quicktime,video/x-msvideo" class="campo">
+                <span class="icon"><i class="fa-solid fa-circle-check"></i></span>
+                @error('video_file') <small class="error">{{ $message }}</small> @enderror
             </div>
 
             <div class="entrada">
@@ -83,6 +104,25 @@
             </div>
         </form>
     </div>
+
+    <script>
+        document.querySelectorAll('.form-basico .entrada .campo').forEach((field) => {
+            const parent = field.closest('.entrada');
+            if (!parent) return;
+
+            const syncState = () => {
+                const hasValue = field.type === 'file'
+                    ? !!field.files && field.files.length > 0
+                    : field.value.trim() !== '';
+
+                parent.classList.toggle('is-filled', hasValue);
+            };
+
+            field.addEventListener('input', syncState);
+            field.addEventListener('change', syncState);
+            syncState();
+        });
+    </script>
 
     @if(session('success'))
         <script>

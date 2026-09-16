@@ -13,16 +13,16 @@ return new class extends Migration
     {
         // Tabla utilizada por Laravel para almacenar la caché en SQLite.
         Schema::create('cache', function (Blueprint $table) {
-            $table->id('id_cache');
+            $table->string('key')->primary();
             $table->mediumText('value');
-            $table->bigInteger('expiration')->index();
+            $table->integer('expiration');
         });
 
         // Bloqueos temporales utilizados por operaciones concurrentes de caché.
         Schema::create('cache_locks', function (Blueprint $table) {
-            $table->id('id_cache_locks');
+            $table->string('key')->primary();
             $table->string('owner');
-            $table->bigInteger('expiration')->index();
+            $table->integer('expiration');
         });
     }
 

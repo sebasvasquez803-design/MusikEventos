@@ -36,23 +36,46 @@
 
 </header>
 
-<div class="cards_c">
-  <article class="card">
-   
-    <div class="content">
-      <p>
-       
-      </p>
+<main class="info-page">
+    <div class="profile-layout">
+        <article class="profile-card">
+            <div class="profile-image">
+                <img src="{{ asset('storage/img/arca.jpg') }}" alt="Arcángel">
+            </div>
+
+            <div class="profile-content">
+                <span class="badge">Grupo musical</span>
+                <h1>Arcángel</h1>
+                <p class="lead">Artista con una trayectoria sólida en urbano, pop y reggaetón, ideal para eventos con público joven y energía alta.</p>
+
+                <div class="info-list">
+                    <div>
+                        <span>Género</span>
+                        <strong>Urbano / Reggaetón</strong>
+                    </div>
+                    <div>
+                        <span>Precio</span>
+                        <strong>$1.500.000 / hora</strong>
+                    </div>
+                    <div>
+                        <span>Disponibilidad</span>
+                        <strong>Fines de semana</strong>
+                    </div>
+                </div>
+
+                <div class="profile-actions">
+                    <a href="{{ route('reserva') }}" class="primary-btn">Reservar ahora</a>
+                    <a href="{{ route('home') }}" class="secondary-btn">Volver</a>
+                </div>
+            </div>
+        </article>
+
+        <aside class="side-card">
+            <span class="mini-label">Repertorio</span>
+            <h3>Hits principales</h3>
+            <p>La Jumpa, Princesa, Me Prefieres a Mí, entre otros.</p>
+        </aside>
     </div>
-  </article>
-
-
-<div class="cards_p">
-  <article class="card2">
-   
-    
-  </article>
-
-  </div>
+</main>
 </body>
 </html>

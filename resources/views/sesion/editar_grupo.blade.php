@@ -48,9 +48,27 @@
             </div>
 
             <div class="entrada">
-                <label for="inputImagen">Nueva imagen (opcional)</label>
+                <label for="inputImagen">Nueva portada (opcional)</label>
                 <input type="file" id="inputImagen" name="avatar" accept="image/jpeg,image/png,image/jpg,image/webp" class="campo">
                 @error('avatar') <small class="error">{{ $message }}</small> @enderror
+            </div>
+
+            <div class="entrada">
+                <label for="inputLogo">Nuevo logo (opcional)</label>
+                <input type="file" id="inputLogo" name="logo" accept="image/jpeg,image/png,image/jpg,image/webp" class="campo">
+                @error('logo') <small class="error">{{ $message }}</small> @enderror
+            </div>
+
+            <div class="entrada">
+                <label>Video de presentación (link)</label>
+                <input type="url" name="video_url" class="campo" value="{{ old('video_url', $grupoMusical->video_url) }}" placeholder="https://youtu.be/...">
+                @error('video_url') <small class="error">{{ $message }}</small> @enderror
+            </div>
+
+            <div class="entrada">
+                <label for="inputVideoFile">O sube un video</label>
+                <input type="file" id="inputVideoFile" name="video_file" accept="video/mp4,video/webm,video/quicktime,video/x-msvideo" class="campo">
+                @error('video_file') <small class="error">{{ $message }}</small> @enderror
             </div>
 
             <div class="entrada">

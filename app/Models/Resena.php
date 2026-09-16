@@ -18,6 +18,8 @@ class Resena extends Model
         'comentario',
         'fecha',
         'numero_doc',
+        'nit',
+        'nombre_usuario',
     ];
 
     protected $casts = [

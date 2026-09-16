@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\GrupoMusicalController;
+use App\Http\Controllers\ResenaController;
 use App\Http\Middleware\EnsureTeamMembership;
 use Illuminate\Support\Facades\Route;
 
@@ -22,6 +23,8 @@ Route::put('/grupo-musical/{grupoMusical}', [GrupoMusicalController::class, 'upd
 Route::delete('/grupo-musical/{grupoMusical}', [GrupoMusicalController::class, 'destroyFromForm'])
     ->middleware('auth')
     ->name('grupo-musical.destroy');
+Route::post('/resenas', [ResenaController::class, 'storeFromForm'])
+    ->name('resenas.store');
 Route::view('/mas-info', 'formularios.mas_info')->name('mas_info');
 
 

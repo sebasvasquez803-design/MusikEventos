@@ -87,17 +87,57 @@
         <div class="grid-cards">
 
         @forelse ($grupos as $grupo)
-        <div class="contenedor">
+        @php
+            $artistaNombre = $grupo->nombre_grupo ?? 'Grupo musical';
+            $artistaImagen = $grupo->avatar_url ?? asset('storage/img/inside.jpeg');
+            $artistaLogo = $grupo->logo_url ?? $grupo->avatar_url ?? asset('storage/img/logo_arca.jpg');
+            $artistaDescripcion = $grupo->descripcion ?: 'Grupo musical disponible para eventos.';
+            $artistaPrecio = $grupo->precio_hora ? '$' . number_format((float) $grupo->precio_hora, 0, ',', '.') : 'Consultar precio';
+            $artistaVideo = $grupo->video_url
+                ? (str_starts_with($grupo->video_url, 'http') ? preg_replace('/\?.*/', '', $grupo->video_url) : Storage::disk('public')->url($grupo->video_url))
+                : '';
+            $reseñasArtista = $grupo->resenas->map(function ($resena) {
+                return [
+                    'nombre' => $resena->nombre_usuario ?: 'Usuario',
+                    'avatar' => strtoupper(substr(($resena->nombre_usuario ?: 'U'), 0, 1)),
+                    'texto' => $resena->comentario ?: 'Excelente experiencia.',
+                ];
+            })->toArray();
+
+            if (empty($reseñasArtista)) {
+                $reseñasArtista = [[
+                    'nombre' => 'Nuevo usuario',
+                    'avatar' => 'N',
+                    'texto' => 'Aún no hay reseñas para este grupo. ¡Sé el primero en dejar tu opinión!',
+                ]];
+            }
+        @endphp
+        <div class="contenedor" data-artista="{{ $artistaNombre }}">
             <div class="img-contenedor">
-                <img class="img_art" src="{{ $grupo->avatar_url ?? asset('storage/img/inside.jpeg') }}" alt="{{ $grupo->nombre_grupo }}">
+                <img class="img_art" src="{{ $artistaImagen }}" alt="{{ $artistaNombre }}">
                 <div class="img-texto">
-                    <p>{{ $grupo->nombre_grupo }}</p>
+                    <p>{{ $artistaNombre }}</p>
                     <p>Grupo musical</p>
                 </div>
             </div>
-            <p class="descripcion">{{ $grupo->descripcion ?: 'Grupo musical disponible para eventos.' }}</p>
+            <p class="descripcion">{{ $artistaDescripcion }}</p>
             <div class="boton">
-                <input type="button" value="Mas Informacion" onclick=" window.location.href='{{ route('mas_info') }}'">
+                <button
+                    type="button"
+                    class="mas-info-link info-toggle group-info-toggle"
+                    data-target="info-panel"
+                    data-name="{{ $artistaNombre }}"
+                    data-image="{{ $artistaImagen }}"
+                    data-logo="{{ $artistaLogo }}"
+                    data-description="{{ $artistaDescripcion }}"
+                    data-price="{{ $artistaPrecio }}"
+                    data-tag="Grupo musical"
+                    data-video="{{ $artistaVideo }}"
+                    data-nit="{{ $grupo->nit }}"
+                    data-reviews='@json($reseñasArtista)'
+                >
+                    Mas Informacion
+                </button>
             </div>
             @auth
                 @if (auth()->user()->canManageMusicalGroups())
@@ -155,6 +195,105 @@
     </div><!-- fin contenido-principal -->
 
 </div><!-- fin layout -->
+
+<section class="info-panel" id="info-panel" aria-hidden="true">
+    <div class="info-panel__content info-panel__content--arcangel">
+        <button type="button" class="info-panel__close" aria-label="Cerrar">&times;</button>
+
+        <div class="info-panel__hero">
+            <div class="info-panel__portrait">
+                <img id="info-panel-image" src="{{ asset('storage/img/inside.jpeg') }}" alt="Grupo musical">
+            </div>
+
+            <div class="info-panel__identity">
+                <div class="info-panel__logo">
+                    <img id="info-panel-logo" src="{{ asset('storage/img/logo_arca.jpg') }}" alt="Logo grupo musical">
+                </div>
+                <h2 id="info-panel-name">Grupo musical</h2>
+                <div class="info-panel__tags">
+                    <span id="info-panel-tag">Grupo musical</span>
+                    <span id="info-panel-tag-secondary">Disponible</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-panel__details">
+            <article class="info-panel__detail-card info-panel__detail-card--artist">
+                <div class="info-panel__section-head">
+                    <i class="fa-solid fa-user"></i>
+                    <h3>Artista</h3>
+                </div>
+
+                <div class="info-panel__artist-block">
+                    <div class="info-panel__artist-thumb">
+                        <img id="info-panel-thumb" src="{{ asset('storage/img/inside.jpeg') }}" alt="Grupo musical">
+                    </div>
+                    <div class="info-panel__artist-copy">
+                        <h4 id="info-panel-title">Grupo musical</h4>
+                        <p id="info-panel-description">Grupo musical disponible para eventos.</p>
+                    </div>
+                </div>
+            </article>
+
+            <article class="info-panel__detail-card info-panel__detail-card--price">
+                <div class="info-panel__section-head">
+                    <i class="fa-solid fa-dollar-sign"></i>
+                    <h3>Precio</h3>
+                </div>
+
+                <div id="info-panel-price" class="info-panel__price">Consultar precio</div>
+                <p>por hora de presentación</p>
+            </article>
+        </div>
+
+        <div class="info-panel__media-section">
+            <div class="info-panel__media-header">
+                <span class="info-panel__media-icon"><i class="fa-solid fa-video"></i></span>
+                <h3>Video de Presentación</h3>
+            </div>
+
+            <div class="info-panel__video-shell">
+                <iframe
+                    id="info-panel-iframe"
+                    class="info-panel__video is-hidden"
+                    src=""
+                    title="Video de presentación"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen>
+                ></iframe>
+                <video
+                    id="info-panel-video"
+                    class="info-panel__video is-hidden"
+                    controls
+                    playsinline
+                    preload="metadata"
+                ></video>
+            </div>
+        </div>
+
+        <div class="info-panel__reviews" id="info-panel-reviews"></div>
+
+        <div class="info-panel__review-form-wrap">
+            <h3>Deja tu reseña</h3>
+            <form class="info-panel__review-form" method="POST" action="{{ route('resenas.store') }}">
+                @csrf
+                <input type="hidden" name="nit" value="">
+                <input type="text" name="nombre_usuario" placeholder="Tu nombre" required>
+                <textarea name="comentario" placeholder="Cuéntanos tu experiencia..." required></textarea>
+                <select name="numero_estrellas" required>
+                    <option value="5">5 estrellas</option>
+                    <option value="4">4 estrellas</option>
+                    <option value="3">3 estrellas</option>
+                    <option value="2">2 estrellas</option>
+                    <option value="1">1 estrella</option>
+                </select>
+                <button type="submit">Enviar reseña</button>
+            </form>
+        </div>
+    </div>
+</section>
 
     <footer>
          <div class="contenedor-footer">

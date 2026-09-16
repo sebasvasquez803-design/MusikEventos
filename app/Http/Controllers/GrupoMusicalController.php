@@ -36,7 +36,10 @@ class GrupoMusicalController extends Controller
             'nombre_grupo' => ['required', 'string', 'max:50'],
             'telefono' => ['required', 'string', 'digits:10'],
             'email' => ['required', 'email', 'max:50'],
-            'avatar' => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp', 'max:2048'],
+            'avatar' => ['required', 'image', 'mimes:jpeg,png,jpg,webp', 'max:2048'],
+            'logo' => ['required', 'image', 'mimes:jpeg,png,jpg,webp', 'max:2048'],
+            'video_url' => ['nullable', 'url', 'max:500'],
+            'video_file' => ['nullable', 'file', 'mimetypes:video/mp4,video/webm,video/quicktime,video/x-msvideo', 'max:25000'],
             'descripcion' => ['nullable', 'string', 'max:500'],
             'numero_doc' => ['nullable', 'string', ':digits10', 'exists:usuario,numero_doc'],
             'precio_hora' => ['nullable', 'numeric'],
@@ -44,6 +47,18 @@ class GrupoMusicalController extends Controller
 
         if ($request->hasFile('avatar')) {
             $validated['avatar'] = $request->file('avatar')->store('grupos', 'public');
+        }
+
+        if ($request->hasFile('logo')) {
+            $validated['logo'] = $request->file('logo')->store('grupos', 'public');
+        }
+
+        if ($request->hasFile('video_file')) {
+            $validated['video_url'] = $request->file('video_file')->store('videos', 'public');
+        } elseif ($request->filled('video_url')) {
+            $validated['video_url'] = $request->input('video_url');
+        } else {
+            $validated['video_url'] = null;
         }
 
         $grupoMusical = new GrupoMusical();
@@ -74,6 +89,9 @@ class GrupoMusicalController extends Controller
             'telefono' => ['required', 'string', 'digits:10'],
             'email' => ['required', 'email', 'max:50'],
             'avatar' => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp', 'max:2048'],
+            'logo' => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp', 'max:2048'],
+            'video_url' => ['nullable', 'url', 'max:500'],
+            'video_file' => ['nullable', 'file', 'mimetypes:video/mp4,video/webm,video/quicktime,video/x-msvideo', 'max:25000'],
             'descripcion' => ['nullable', 'string', 'max:500'],
             'numero_doc' => ['nullable', 'string', 'digits:10', 'exists:usuario,numero_doc'],
             'precio_hora' => ['nullable', 'numeric'],
@@ -87,6 +105,28 @@ class GrupoMusicalController extends Controller
             $validated['avatar'] = $request->file('avatar')->store('grupos', 'public');
         } else {
             unset($validated['avatar']);
+        }
+
+        if ($request->hasFile('logo')) {
+            if ($grupoMusical->logo) {
+                Storage::disk('public')->delete($grupoMusical->logo);
+            }
+
+            $validated['logo'] = $request->file('logo')->store('grupos', 'public');
+        } else {
+            unset($validated['logo']);
+        }
+
+        if ($request->hasFile('video_file')) {
+            if ($grupoMusical->video_url && !str_starts_with($grupoMusical->video_url, 'http')) {
+                Storage::disk('public')->delete($grupoMusical->video_url);
+            }
+
+            $validated['video_url'] = $request->file('video_file')->store('videos', 'public');
+        } elseif ($request->filled('video_url')) {
+            $validated['video_url'] = $request->input('video_url');
+        } else {
+            unset($validated['video_url']);
         }
 
         $grupoMusical->update($validated);

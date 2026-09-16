@@ -138,14 +138,15 @@ input[type=submit] {
     cursor: pointer;           /* el mouse se convierte en "manito" al pasar por encima */
 }
 
-.campo:valid + .icon {
-    color: #C9A24A;   /* si el input con clase .campo cumple sus reglas de validación, el icono al lado se pinta dorado */
+.entrada.is-filled .icon {
+    color: #C9A24A;
 }
 
-.campo:invalid + .icon {
-    color: rgb(0, 0, 0);   /* si el input NO es válido (o está vacío), el icono se pinta negro */
-}
-
-.icon {
+.entrada .icon {
+    color: rgb(0, 0, 0);
     font-size: 20px;   /* tamaño de los iconos (ej. de Font Awesome) */
+}
+
+.entrada.is-filled .icon i {
+    color: #C9A24A;
 }

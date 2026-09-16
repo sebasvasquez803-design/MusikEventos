@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Resena;
 
 class GrupoMusical extends Model
 {
@@ -20,6 +21,8 @@ class GrupoMusical extends Model
         'telefono',
         'email',
         'avatar',
+        'logo',
+        'video_url',
         'descripcion',
         'numero_doc',
         'precio_hora',
@@ -31,11 +34,17 @@ class GrupoMusical extends Model
 
     protected $appends = [
         'avatar_url',
+        'logo_url',
     ];
 
     public function getAvatarUrlAttribute(): ?string
     {
         return $this->avatar ? Storage::disk('public')->url($this->avatar) : null;
+    }
+
+    public function getLogoUrlAttribute(): ?string
+    {
+        return $this->logo ? Storage::disk('public')->url($this->logo) : null;
     }
 
     public function reservas(): HasMany
@@ -51,5 +60,10 @@ class GrupoMusical extends Model
     public function paquetes(): HasMany
     {
         return $this->hasMany(PaqueteGrupo::class, 'nit', 'nit');
+    }
+
+    public function resenas(): HasMany
+    {
+        return $this->hasMany(Resena::class, 'nit', 'nit');
     }
 }
