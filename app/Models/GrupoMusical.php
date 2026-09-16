@@ -17,6 +17,7 @@ class GrupoMusical extends Model
 
     protected $fillable = [
         'nit',
+        'id_subgenero',
         'nombre_grupo',
         'telefono',
         'email',
@@ -55,6 +56,11 @@ class GrupoMusical extends Model
     public function subgeneros(): HasMany
     {
         return $this->hasMany(Subgenero::class, 'nit', 'nit');
+    }
+
+    public function subgenero()
+    {
+        return $this->belongsTo(Subgenero::class, 'id_subgenero', 'id_subgenero');
     }
 
     public function paquetes(): HasMany

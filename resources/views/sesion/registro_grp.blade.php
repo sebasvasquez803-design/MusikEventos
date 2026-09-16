@@ -93,6 +93,18 @@
             </div>
 
             <div class="entrada">
+                <label>Subgénero</label>
+                <select name="id_subgenero" class="campo" required>
+                    <option value="">Selecciona un subgénero</option>
+                    @foreach(\DB::table('subgenero')->orderBy('nombre_subgenero')->get() as $s)
+                        <option value="{{ $s->id_subgenero }}" {{ old('id_subgenero') == $s->id_subgenero ? 'selected' : '' }}>{{ $s->nombre_subgenero }} @if($s->id_genero) ({{ \DB::table('genero')->where('id_genero', $s->id_genero)->value('nombre_genero') }}) @endif</option>
+                    @endforeach
+                </select>
+                <span class="icon"><i class="fa-solid fa-circle-check"></i></span>
+                @error('id_subgenero') <small class="error">{{ $message }}</small> @enderror
+            </div>
+
+            <div class="entrada">
                 <label>Precio por hora</label>
                 <input type="number" placeholder="Ejemplo: 100.00" name="precio_hora" class="campo" value="{{ old('precio_hora') }}" required>
                 <span class="icon"><i class="fa-solid fa-circle-check"></i></span>

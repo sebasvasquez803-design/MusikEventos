@@ -25,6 +25,12 @@ Route::delete('/grupo-musical/{grupoMusical}', [GrupoMusicalController::class, '
     ->name('grupo-musical.destroy');
 Route::post('/resenas', [ResenaController::class, 'storeFromForm'])
     ->name('resenas.store');
+Route::put('/resenas/{resena}', [ResenaController::class, 'updateFromForm'])
+    ->middleware('auth')
+    ->name('resenas.update');
+Route::delete('/resenas/{resena}', [ResenaController::class, 'destroyFromForm'])
+    ->middleware('auth')
+    ->name('resenas.destroy');
 Route::view('/mas-info', 'formularios.mas_info')->name('mas_info');
 
 

@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @vite('resources/css/style.css')
     <title>MusikEventos</title>
@@ -61,16 +62,16 @@
     <!-- Menu lateral: oculto por defecto, se muestra con la clase "active" -->
     <div class="sub_menu">
         <ul>
-            <li><a href="#"><strong>DESCUBRIR</strong></a></li>
-            <li><a href="#">POP</a></li>
-            <li><a href="#">REGGAETON</a></li>
-            <li><a href="#">ROCK</a></li>
-            <li><a href="#">ELECTRONICA</a></li>
-            <li><a href="#">SALSA</a></li>
-            <li><a href="#">BACHATA</a></li>
-            <li><a href="#">VALLENATO</a></li>
-            <li><a href="#">CUMBIA</a></li>
-            <li><a href="#">RANCHERA</a></li>
+            <li><a href="#" data-genre=""> <strong>DESCUBRIR</strong></a></li>
+            <li><a href="#" data-genre="POP">POP</a></li>
+            <li><a href="#" data-genre="REGGAETON">REGGAETON</a></li>
+            <li><a href="#" data-genre="ROCK">ROCK</a></li>
+            <li><a href="#" data-genre="ELECTRONICA">ELECTRONICA</a></li>
+            <li><a href="#" data-genre="SALSA">SALSA</a></li>
+            <li><a href="#" data-genre="BACHATA">BACHATA</a></li>
+            <li><a href="#" data-genre="VALLENATO">VALLENATO</a></li>
+            <li><a href="#" data-genre="CUMBIA">CUMBIA</a></li>
+            <li><a href="#" data-genre="RANCHERA">RANCHERA</a></li>
         </ul>
     </div>
 
@@ -101,6 +102,8 @@
                     'nombre' => $resena->nombre_usuario ?: 'Usuario',
                     'avatar' => strtoupper(substr(($resena->nombre_usuario ?: 'U'), 0, 1)),
                     'texto' => $resena->comentario ?: 'Excelente experiencia.',
+                    'estrellas' => $resena->numero_estrellas ?? 5,
+                    'id_resena' => $resena->id_resena,
                 ];
             })->toArray();
 
@@ -109,10 +112,38 @@
                     'nombre' => 'Nuevo usuario',
                     'avatar' => 'N',
                     'texto' => 'Aún no hay reseñas para este grupo. ¡Sé el primero en dejar tu opinión!',
+                    'estrellas' => 5,
+                    'id_resena' => null,
                 ]];
             }
         @endphp
-        <div class="contenedor" data-artista="{{ $artistaNombre }}">
+        @php
+            try {
+                $grupoGeneros = \DB::table('subgenero')->where('nit', $grupo->nit)->pluck('nombre_subgenero')->toArray() ?: [];
+            } catch (\Throwable $e) {
+                $grupoGeneros = [];
+            }
+
+            // If grupo has direct id_subgenero, add its name and its parent genero
+            $mainGenero = '';
+            $mainSub = '';
+            try {
+                if (!empty($grupo->id_subgenero)) {
+                    $mainSub = \DB::table('subgenero')->where('id_subgenero', $grupo->id_subgenero)->value('nombre_subgenero');
+                    if ($mainSub) $grupoGeneros[] = $mainSub;
+                    $parentGeneroId = \DB::table('subgenero')->where('id_subgenero', $grupo->id_subgenero)->value('id_genero');
+                    if ($parentGeneroId) {
+                        $mainGenero = \DB::table('genero')->where('id_genero', $parentGeneroId)->value('nombre_genero');
+                        if ($mainGenero) $grupoGeneros[] = $mainGenero;
+                    }
+                }
+            } catch (\Throwable $e) {
+                // ignore
+            }
+
+            $grupoGeneroAttr = $grupoGeneros ? implode(',', $grupoGeneros) : '';
+        @endphp
+        <div class="contenedor" data-artista="{{ $artistaNombre }}" data-genero="{{ $grupoGeneroAttr }}">
             <div class="img-contenedor">
                 <img class="img_art" src="{{ $artistaImagen }}" alt="{{ $artistaNombre }}">
                 <div class="img-texto">
@@ -135,6 +166,7 @@
                     data-video="{{ $artistaVideo }}"
                     data-nit="{{ $grupo->nit }}"
                     data-reviews='@json($reseñasArtista)'
+                    data-can-admin="{{ auth()->user() && auth()->user()->canManageMusicalGroups() ? '1' : '0' }}"
                 >
                     Mas Informacion
                 </button>
@@ -280,19 +312,32 @@
             <form class="info-panel__review-form" method="POST" action="{{ route('resenas.store') }}">
                 @csrf
                 <input type="hidden" name="nit" value="">
+                <input type="hidden" name="editing_id" id="editing_id" value="">
                 <input type="text" name="nombre_usuario" placeholder="Tu nombre" required>
                 <textarea name="comentario" placeholder="Cuéntanos tu experiencia..." required></textarea>
-                <select name="numero_estrellas" required>
-                    <option value="5">5 estrellas</option>
-                    <option value="4">4 estrellas</option>
-                    <option value="3">3 estrellas</option>
-                    <option value="2">2 estrellas</option>
-                    <option value="1">1 estrella</option>
+                <div class="rating-stars" aria-label="Selecciona estrellas">
+                    <button type="button" class="star" data-value="1" aria-label="1 estrella">☆</button>
+                    <button type="button" class="star" data-value="2" aria-label="2 estrellas">☆</button>
+                    <button type="button" class="star" data-value="3" aria-label="3 estrellas">☆</button>
+                    <button type="button" class="star" data-value="4" aria-label="4 estrellas">☆</button>
+                    <button type="button" class="star" data-value="5" aria-label="5 estrellas">☆</button>
+                </div>
+                <div class="selected-stars-label" id="selected-stars-label">5 estrellas</div>
+                <select name="numero_estrellas" required style="display:none;">
+                    <option value="5">5</option>
+                    <option value="4">4</option>
+                    <option value="3">3</option>
+                    <option value="2">2</option>
+                    <option value="1">1</option>
                 </select>
-                <button type="submit">Enviar reseña</button>
+                <div style="display:flex;gap:.5rem;align-items:center;margin-top:.5rem;">
+                    <button type="submit" id="review-submit">Enviar reseña</button>
+                    <button type="button" id="cancel-edit" style="display:none;">Cancelar edición</button>
+                </div>
             </form>
         </div>
-    </div>
+    </div>  
+    
 </section>
 
     <footer>

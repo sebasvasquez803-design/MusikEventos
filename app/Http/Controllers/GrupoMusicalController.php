@@ -33,6 +33,7 @@ class GrupoMusicalController extends Controller
     {
         $validated = $request->validate([
             'nit' => ['required', 'string', 'unique:grupo_musical,nit', 'digits:10'],
+            'id_subgenero' => ['required', 'integer', 'exists:subgenero,id_subgenero'],
             'nombre_grupo' => ['required', 'string', 'max:50'],
             'telefono' => ['required', 'string', 'digits:10'],
             'email' => ['required', 'email', 'max:50'],
@@ -86,6 +87,7 @@ class GrupoMusicalController extends Controller
 
         $validated = $request->validate([
             'nombre_grupo' => ['required', 'string', 'max:50'],
+            'id_subgenero' => ['sometimes','required','integer','exists:subgenero,id_subgenero'],
             'telefono' => ['required', 'string', 'digits:10'],
             'email' => ['required', 'email', 'max:50'],
             'avatar' => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp', 'max:2048'],
@@ -141,6 +143,16 @@ class GrupoMusicalController extends Controller
 
         if ($grupoMusical->avatar) {
             Storage::disk('public')->delete($grupoMusical->avatar);
+        }
+
+        // Remove associated reseñas as a safeguard (DB-level cascade should handle this if configured)
+        try {
+            $grupoNit = $grupoMusical->nit;
+            if ($grupoNit) {
+                \DB::table('resenas')->where('nit', $grupoNit)->delete();
+            }
+        } catch (\Throwable $e) {
+            // ignore DB errors here; deletion will proceed
         }
 
         $grupoMusical->delete();

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Resena;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 
 class ResenaController extends Controller
 {
@@ -49,6 +50,34 @@ class ResenaController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'Tu reseña fue enviada correctamente.');
+    }
+
+    public function updateFromForm(Request $request, Resena $resena): RedirectResponse
+    {
+        abort_unless(auth()->user()?->canManageMusicalGroups(), 403);
+
+        $validated = $request->validate([
+            'nombre_usuario' => ['required', 'string', 'max:80'],
+            'comentario' => ['required', 'string', 'max:300'],
+            'numero_estrellas' => ['required', 'integer', 'min:1', 'max:5'],
+        ]);
+
+        $resena->update([
+            'nombre_usuario' => $validated['nombre_usuario'],
+            'comentario' => $validated['comentario'],
+            'numero_estrellas' => $validated['numero_estrellas'],
+        ]);
+
+        return redirect()->back()->with('success', 'Reseña actualizada correctamente.');
+    }
+
+    public function destroyFromForm(Resena $resena): RedirectResponse
+    {
+        abort_unless(auth()->user()?->canManageMusicalGroups(), 403);
+
+        $resena->delete();
+
+        return redirect()->back()->with('success', 'Reseña eliminada correctamente.');
     }
 
     public function show(Resena $resena): JsonResponse
