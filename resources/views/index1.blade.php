@@ -111,102 +111,47 @@
         <div class="grid-cards">
 
         @forelse ($grupos as $grupo)
-        @php
-            $artistaNombre = $grupo->nombre_grupo ?? 'Grupo musical';
-            $artistaImagen = $grupo->avatar_url ?? asset('storage/img/inside.jpeg');
-            $artistaLogo = $grupo->logo_url ?? $grupo->avatar_url ?? asset('storage/img/logo_arca.jpg');
-            $artistaDescripcion = $grupo->descripcion ?: 'Grupo musical disponible para eventos.';
-            $artistaPrecio = $grupo->precio_hora ? '$' . number_format((float) $grupo->precio_hora, 0, ',', '.') : 'Consultar precio';
-            $artistaVideo = $grupo->video_url
-                ? (str_starts_with($grupo->video_url, 'http') ? preg_replace('/\?.*/', '', $grupo->video_url) : Storage::disk('public')->url($grupo->video_url))
-                : '';
-            $reseñasArtista = $grupo->resenas->map(function ($resena) {
-                return [
-                    'nombre' => $resena->nombre_usuario ?: 'Usuario',
-                    'avatar' => strtoupper(substr(($resena->nombre_usuario ?: 'U'), 0, 1)),
-                    'texto' => $resena->comentario ?: 'Excelente experiencia.',
-                    'estrellas' => $resena->numero_estrellas ?? 5,
-                    'id_resena' => $resena->id_resena,
-                ];
-            })->toArray();
-
-            if (empty($reseñasArtista)) {
-                $reseñasArtista = [[
-                    'nombre' => 'Nuevo usuario',
-                    'avatar' => 'N',
-                    'texto' => 'Aún no hay reseñas para este grupo. ¡Sé el primero en dejar tu opinión!',
-                    'estrellas' => 5,
-                    'id_resena' => null,
-                ]];
-            }
-        @endphp
-        @php
-            try {
-                $grupoGeneros = \DB::table('subgenero')->where('nit', $grupo->nit)->pluck('nombre_subgenero')->toArray() ?: [];
-            } catch (\Throwable $e) {
-                $grupoGeneros = [];
-            }
-
-            // If grupo has direct id_subgenero, add its name and its parent genero
-            $mainGenero = '';
-            $mainSub = '';
-            try {
-                if (!empty($grupo->id_subgenero)) {
-                    $mainSub = \DB::table('subgenero')->where('id_subgenero', $grupo->id_subgenero)->value('nombre_subgenero');
-                    if ($mainSub) $grupoGeneros[] = $mainSub;
-                    $parentGeneroId = \DB::table('subgenero')->where('id_subgenero', $grupo->id_subgenero)->value('id_genero');
-                    if ($parentGeneroId) {
-                        $mainGenero = \DB::table('genero')->where('id_genero', $parentGeneroId)->value('nombre_genero');
-                        if ($mainGenero) $grupoGeneros[] = $mainGenero;
-                    }
-                }
-            } catch (\Throwable $e) {
-                // ignore
-            }
-
-            $grupoGeneroAttr = $grupoGeneros ? implode(',', $grupoGeneros) : '';
-        @endphp
-        <div class="contenedor" data-artista="{{ $artistaNombre }}" data-genero="{{ $grupoGeneroAttr }}">
-            <div class="img-contenedor">
-                <img class="img_art" src="{{ $artistaImagen }}" alt="{{ $artistaNombre }}">
-                <div class="img-texto">
-                    <p>{{ $artistaNombre }}</p>
-                    <p>Grupo musical</p>
-                </div>
-            </div>
-            <p class="descripcion">{{ $artistaDescripcion }}</p>
-            <div class="boton">
-                <button
-                    type="button"
-                    class="mas-info-link info-toggle group-info-toggle"
-                    data-target="info-panel"
-                    data-name="{{ $artistaNombre }}"
-                    data-image="{{ $artistaImagen }}"
-                    data-logo="{{ $artistaLogo }}"
-                    data-description="{{ $artistaDescripcion }}"
-                    data-price="{{ $artistaPrecio }}"
-                    data-tag="Grupo musical"
-                    data-video="{{ $artistaVideo }}"
-                    data-nit="{{ $grupo->nit }}"
-                    data-reviews='@json($reseñasArtista)'
-                    data-can-admin="{{ auth()->user() && auth()->user()->canManageMusicalGroups() ? '1' : '0' }}"
-                >
-                    Mas Informacion
-                </button>
-            </div>
-            @auth
-                @if (auth()->user()->canManageMusicalGroups())
-                    <div class="acciones-grupo">
-                        <a href="{{ route('grupo-musical.edit', $grupo) }}">Actualizar</a>
-                        <form method="POST" action="{{ route('grupo-musical.destroy', $grupo) }}" onsubmit="return confirm('¿Deseas eliminar este grupo musical?');">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit">Eliminar</button>
-                        </form>
+            <div class="contenedor" data-artista="{{ $grupo->artista_nombre }}" data-genero="{{ $grupo->genero_attr }}">
+                <div class="img-contenedor">
+                    <img class="img_art" src="{{ $grupo->artista_imagen }}" alt="{{ $grupo->artista_nombre }}">
+                    <div class="img-texto">
+                        <p>{{ $grupo->artista_nombre }}</p>
+                        <p>Grupo musical</p>
                     </div>
-                @endif
-            @endauth
-        </div>
+                </div>
+                <p class="descripcion">{{ $grupo->artista_descripcion }}</p>
+                <div class="boton">
+                    <button
+                        type="button"
+                        class="mas-info-link info-toggle group-info-toggle"
+                        data-target="info-panel"
+                        data-name="{{ $grupo->artista_nombre }}"
+                        data-image="{{ $grupo->artista_imagen }}"
+                        data-logo="{{ $grupo->artista_logo }}"
+                        data-description="{{ $grupo->artista_descripcion }}"
+                        data-price="{{ $grupo->artista_precio }}"
+                        data-tag="Grupo musical"
+                        data-video="{{ $grupo->artista_video }}"
+                        data-nit="{{ $grupo->nit }}"
+                        data-reviews='@json($grupo->reseñas)'
+                        data-can-admin="{{ $grupo->can_manage }}"
+                    >
+                        Mas Informacion
+                    </button>
+                </div>
+                @auth
+                    @if (auth()->user()->canManageMusicalGroups())
+                        <div class="acciones-grupo">
+                            <a href="{{ route('grupo-musical.edit', $grupo) }}">Actualizar</a>
+                            <form method="POST" action="{{ route('grupo-musical.destroy', $grupo) }}" onsubmit="return confirm('¿Deseas eliminar este grupo musical?');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit">Eliminar</button>
+                            </form>
+                        </div>
+                    @endif
+                @endauth
+            </div>
         @empty
             <p>No hay grupos musicales registrados.</p>
         @endforelse
