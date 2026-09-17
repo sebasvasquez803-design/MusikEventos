@@ -31,6 +31,29 @@
             <div class="carro">
                 <a href="#"><i class="fa-solid fa-cart-shopping"></i></a>
             </div>
+            <!-- From Uiverse.io by reglobby --> 
+<div
+  aria-label="User Login Button"
+  tabindex="0"
+  role="button"
+  class="user-profile"
+>
+  <div class="user-profile-inner">
+    <svg
+      aria-hidden="true"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+    >
+      <g data-name="Layer 2" id="Layer_2">
+        <path
+          d="m15.626 11.769a6 6 0 1 0 -7.252 0 9.008 9.008 0 0 0 -5.374 8.231 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 9.008 9.008 0 0 0 -5.374-8.231zm-7.626-4.769a4 4 0 1 1 4 4 4 4 0 0 1 -4-4zm10 14h-12a1 1 0 0 1 -1-1 7 7 0 0 1 14 0 1 1 0 0 1 -1 1z"
+        ></path>
+      </g>
+    </svg>
+    <p>Log In</p>
+  </div>
+</div>
+
             <div class="usuario">
                 @auth
                     <form method="POST" action="{{ route('logout') }}">
@@ -307,35 +330,6 @@
 
         <div class="info-panel__reviews" id="info-panel-reviews"></div>
 
-        <div class="info-panel__review-form-wrap">
-            <h3>Deja tu reseña</h3>
-            <form class="info-panel__review-form" method="POST" action="{{ route('resenas.store') }}">
-                @csrf
-                <input type="hidden" name="nit" value="">
-                <input type="hidden" name="editing_id" id="editing_id" value="">
-                <input type="text" name="nombre_usuario" placeholder="Tu nombre" required>
-                <textarea name="comentario" placeholder="Cuéntanos tu experiencia..." required></textarea>
-                <div class="rating-stars" aria-label="Selecciona estrellas">
-                    <button type="button" class="star" data-value="1" aria-label="1 estrella">☆</button>
-                    <button type="button" class="star" data-value="2" aria-label="2 estrellas">☆</button>
-                    <button type="button" class="star" data-value="3" aria-label="3 estrellas">☆</button>
-                    <button type="button" class="star" data-value="4" aria-label="4 estrellas">☆</button>
-                    <button type="button" class="star" data-value="5" aria-label="5 estrellas">☆</button>
-                </div>
-                <div class="selected-stars-label" id="selected-stars-label">5 estrellas</div>
-                <select name="numero_estrellas" required style="display:none;">
-                    <option value="5">5</option>
-                    <option value="4">4</option>
-                    <option value="3">3</option>
-                    <option value="2">2</option>
-                    <option value="1">1</option>
-                </select>
-                <div style="display:flex;gap:.5rem;align-items:center;margin-top:.5rem;">
-                    <button type="submit" id="review-submit">Enviar reseña</button>
-                    <button type="button" id="cancel-edit" style="display:none;">Cancelar edición</button>
-                </div>
-            </form>
-        </div>
     </div>  
     
 </section>
