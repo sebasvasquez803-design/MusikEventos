@@ -22,7 +22,7 @@ if (hambu && sidebar) {
         }
     });
 
-    // Genre filtering: listen for clicks on links with data-genre
+        // Genre filtering: listen for clicks on links with data-genre
     sidebar.addEventListener('click', (evt) => {
         const link = evt.target.closest('a[data-genre]');
         if (!link) return;

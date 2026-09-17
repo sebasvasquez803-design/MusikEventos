@@ -12,6 +12,8 @@ Route::view('/welcome', 'welcome')->name('welcome');
 Route::view('/grupo-musical', 'sesion.registro_grp')->name('grupo.musical');
 Route::view('/reserva', 'formularios.reserva')->name('reserva');
 Route::view('/registro-clientes', 'formularios.registro_clientes')->name('registro.clientes');
+Route::view('/sesion_rep_leg', 'formularios.sesion_rep_leg')->name('sesion.rep.leg');
+Route::view('/dash_rep', 'dash_rep')->name('dash.rep');
 // Rutas web para crear, editar y eliminar grupos musicales.
 Route::post('/grupo-musical', [GrupoMusicalController::class, 'storeFromForm'])->name('grupo-musical.store');
 Route::get('/grupo-musical/{grupoMusical}/editar', [GrupoMusicalController::class, 'edit'])
