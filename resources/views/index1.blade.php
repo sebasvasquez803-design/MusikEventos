@@ -17,6 +17,8 @@
 <!-- ENCABEZADO -->
 <header>
 
+
+
     <!-- Boton hamburguesa: el JS le agrega/quita la clase "active" al sub_menu -->
     <div class="hambu">
         <a href="#"><i class="fa-solid fa-bars"></i></a>
@@ -31,50 +33,65 @@
             <div class="carro">
                 <a href="#"><i class="fa-solid fa-cart-shopping"></i></a>
             </div>
+
+
             <!-- From Uiverse.io by reglobby -->
-<div
-  aria-label="User Login Button"
-  tabindex="0"
-  role="button"
-  class="user-profile"
->
-  <div class="user-profile-inner">
-    <svg
-      aria-hidden="true"
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-    >
-      <g data-name="Layer 2" id="Layer_2">
-        <path
-          d="m15.626 11.769a6 6 0 1 0 -7.252 0 9.008 9.008 0 0 0 -5.374 8.231 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 9.008 9.008 0 0 0 -5.374-8.231zm-7.626-4.769a4 4 0 1 1 4 4 4 4 0 0 1 -4-4zm10 14h-12a1 1 0 0 1 -1-1 7 7 0 0 1 14 0 1 1 0 0 1 -1 1z"
-        ></path>
-      </g>
-    </svg>
-    <p>Log In</p>
-  </div>
-</div>
+<div class="usuario">
+    @auth
+        <!-- BOTÓN CUANDO EL USUARIO ESTÁ AUTENTICADO (LOG OUT) -->
+        <form method="POST" action="{{ route('logout') }}" id="logout-form" style="display: inline;">
+            @csrf
+            <div
+                aria-label="Cerrar sesión"
 
-            <div class="usuario">
-                @auth
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        <button type="submit" aria-label="Cerrar sesión" title="Cerrar sesión">
-                            <i class="fa-solid fa-right-from-bracket"></i>
-                        </button>
-                    </form>
-                @else
-                    <a href="{{ route('login') }}" aria-label="Iniciar sesión" title="Iniciar sesión">
-                        <i class="fa-solid fa-circle-user"></i>
-                    </a>
-                @endauth
+                tabindex="0"
+                role="button"
+                class="user-profile"
+                onclick="document.getElementById('logout-form').submit();"
+                onkeydown="if(event.key === 'Enter' || event.key === ' ') { event.preventDefault(); document.getElementById('logout-form').submit(); }"
+            >
+                <div class="user-profile-inner">
+                    <!-- Icono SVG de cerrar sesión (puerta/salida) -->
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+                        <path d="M5 22a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h7a1 1 0 0 1 0 2H6v16h6a1 1 0 0 1 0 2H5zm10.707-11H9a1 1 0 0 0 0 2h6.707l-2.354 2.354a1 1 0 1 0 1.414 1.414l4-4a1 1 0 0 0 0-1.414l-4-4a1 1 0 1 0-1.414 1.414L15.707 11z"/>
+                    </svg>
+                    <p>Log Out</p>
+                </div>
             </div>
-        </ul>
-    </div>
+        </form>
 
-    <!-- Logo -->
+    @else
+        <!-- BOTÓN CUANDO EL USUARIO ES UN INVITADO (LOG IN) -->
+        <a href="{{ route('login') }}" style="text-decoration: none; color: inherit;">
+            <div
+                aria-label="User Login Button"
+
+                tabindex="0"
+                role="button"
+                class="user-profile"
+            >
+                <div class="user-profile-inner">
+                    <!-- Icono SVG original de usuario -->
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <g data-name="Layer 2" id="Layer_2">
+                            <path d="m15.626 11.769a6 6 0 1 0 -7.252 0 9.008 9.008 0 0 0 -5.374 8.231 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 9.008 9.008 0 0 0 -5.374-8.231zm-7.626-4.769a4 4 0 1 1 4 4 4 4 0 0 1 -4-4zm10 14h-12a1 1 0 0 1 -1-1 7 7 0 0 1 14 0 1 1 0 0 1 -1 1z"></path>
+                        </g>
+                    </svg>
+
+                    <p>Log In</p>
+                </div>
+            </div>
+        </a>
+    @endauth
+
+</div>
+  <!-- Logo -->
+    <div class="logo">
     <a href="{{ route('home') }}">
         <img class="logo" src="{{ asset('storage/img/grupos/logoMusikEventos.png') }}" alt="logo">
     </a>
+        </div>
+
 
 </header>
 
