@@ -32,7 +32,7 @@ Route::delete('/resenas/{resena}', [ResenaController::class, 'destroyFromForm'])
     ->middleware('auth')
     ->name('resenas.destroy');
 Route::view('/mas-info', 'formularios.mas_info')->name('mas_info');
-
+Route::view('/regGrupMusc','sesion.regGrupSig')->name('siguiente');
 
 
 Route::middleware('auth')->group(function () {

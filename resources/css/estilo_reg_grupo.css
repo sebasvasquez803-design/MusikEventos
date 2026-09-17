@@ -29,6 +29,15 @@ h1 {
     font-family: "Roboto", sans-serif;
 }
 
+h2 {
+    color: #bab19d;            /* color dorado del texto */
+    font-size: 38px;           /* tamaño grande de letra */
+    text-align: center;        /* centra el texto dentro de su propia caja */
+    font-family: "Roboto", sans-serif;
+    border-bottom:2px solid #C9A24A;
+    padding-bottom: 15px;
+}
+
 .logo {
     display: flex;    /* activa flexbox para organizar lo que haya adentro (ej. imagen del logo) */
     width: 100px;      /* ancho fijo de la caja del logo */
@@ -150,3 +159,4 @@ input[type=submit] {
 .entrada.is-filled .icon i {
     color: #C9A24A;
 }
+

@@ -57,33 +57,6 @@
                 @error('email') <small class="error">{{ $message }}</small> @enderror
             </div>
 
-            <div class="entrada">
-                <label for="inputImagen">Portada del grupo</label>
-                <input type="file" id="inputImagen" name="avatar" accept="image/jpeg,image/png,image/jpg,image/webp" class="campo" required>
-                <span class="icon"><i class="fa-solid fa-circle-check"></i></span>
-                @error('avatar') <small class="error">{{ $message }}</small> @enderror
-            </div>
-
-            <div class="entrada">
-                <label for="inputLogo">Logo del grupo</label>
-                <input type="file" id="inputLogo" name="logo" accept="image/jpeg,image/png,image/jpg,image/webp" class="campo" required>
-                <span class="icon"><i class="fa-solid fa-circle-check"></i></span>
-                @error('logo') <small class="error">{{ $message }}</small> @enderror
-            </div>
-
-            <div class="entrada">
-                <label>Video de presentación (link)</label>
-                <input type="url" name="video_url" class="campo" value="{{ old('video_url') }}" placeholder="https://youtu.be/...">
-                <span class="icon"><i class="fa-solid fa-circle-check"></i></span>
-                @error('video_url') <small class="error">{{ $message }}</small> @enderror
-            </div>
-
-            <div class="entrada">
-                <label for="inputVideoFile">O sube un video</label>
-                <input type="file" id="inputVideoFile" name="video_file" accept="video/mp4,video/webm,video/quicktime,video/x-msvideo" class="campo">
-                <span class="icon"><i class="fa-solid fa-circle-check"></i></span>
-                @error('video_file') <small class="error">{{ $message }}</small> @enderror
-            </div>
 
             <div class="entrada">
                 <label>Descripcion</label>
@@ -92,6 +65,17 @@
                 @error('descripcion') <small class="error">{{ $message }}</small> @enderror
             </div>
 
+         <div class="entrada">
+                <label>Subgénero</label>
+                <select name="id_subgenero" class="campo" required>
+                    <option value="">Selecciona un subgénero</option>
+                    @foreach(\DB::table('subgenero')->orderBy('nombre_subgenero')->get() as $s)
+                        <option value="{{ $s->id_subgenero }}" {{ old('id_subgenero') == $s->id_subgenero ? 'selected' : '' }}>{{ $s->nombre_subgenero }} @if($s->id_genero) ({{ \DB::table('genero')->where('id_genero', $s->id_genero)->value('nombre_genero') }}) @endif</option>
+                    @endforeach
+                </select>
+                <span class="icon"><i class="fa-solid fa-circle-check"></i></span>
+                @error('id_subgenero') <small class="error">{{ $message }}</small> @enderror
+            </div>
             <div class="entrada">
                 <label>Subgénero</label>
                 <select name="id_subgenero" class="campo" required>
@@ -112,7 +96,8 @@
             </div>
 
             <div class="boton">
-                <input type="submit" value="Registrar" name="botingresar">
+                <a href="{{ route('siguiente') }}"
+                <button type="button">Siguiente</button>
             </div>
         </form>
     </div>
