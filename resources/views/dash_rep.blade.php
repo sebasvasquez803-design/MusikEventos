@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   
     @vite('resources/css/dashboard.css')
     <title>Dashboard Usuarios</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -19,21 +18,33 @@
         Bienvenido al sistema de registro de grupos de MusikEventos.
     </p>
     <div class="dashboard-cards">
-        <a href="../MusikEventos-main/formularios/reg_rep_leg.php" class="dashboard-card">
+        <a href="{{ route('sesion.rep.leg') }}" class="dashboard-card">
             <i class="fa-solid fa-user-tie"></i>
             <h3>Registrar Representante</h3>
             <p>Registrar representantes en la plataforma.</p>
         </a>
-        <a href="../MusikEventos-main/formularios/sesion_rep_leg.php" class="dashboard-card">
+
+        <a href="{{ route('grupo.musical') }}" class="dashboard-card">
             <i class="fa-solid fa-users"></i>
             <h3>Registrar Grupo Musical</h3>
             <p>Registrar grupos musicales con representante legal.</p>
         </a>
-       
-    </div>
+
+        <a href="{{ route('sesion.rep.leg') }}" class="dashboard-card">
+            <i class="fa-solid fa-user-tie"></i>
+            <h3>Registrar Artista</h3>
+            <p>Registrar artistas en la plataforma.</p>
+        </a>
+
+        <a href="{{ route('grupo.musical') }}" class="dashboard-card">
+            <i class="fa-solid fa-users"></i>
+            <h3>Unirse a un Grupo</h3>
+            <p>Unirse a un grupo musical existente.</p>
+        </a>
+    </div> 
+
+    
 </div>
 </div>
-
-
 </body>
 </html>

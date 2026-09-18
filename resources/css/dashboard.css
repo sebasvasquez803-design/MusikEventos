@@ -17,6 +17,7 @@ body{
 
 .dashboard{
     width: 95%;    /* ocupa el 95% del ancho de su contenedor (.contenido) */
+    margin-top: 150px;
 }
 
 .dashboard h2{

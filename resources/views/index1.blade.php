@@ -28,10 +28,10 @@
     <!-- Menu de navegacion principal -->
     <div class="menu">
         <ul>
-            <li><a href="{{ route('grupo.musical') }}">UNETE COMO GRUPO MUSICAL</a></li>
+            <li><a href="{{ route('dash.rep') }}"> UNETE O REGÍSTRA TU GRUPO </a></li>
             <li><a href="#">CALENDARIO</a></li>
             <li><a href="{{ route('reserva') }}">RESERVA AQUI</a></li>
-           <button class="wooden-cart-button" type="button" aria-label="Carrito">
+            <button class="wooden-cart-button" type="button" aria-label="Carrito">
   <div class="wooden-cart-button-inner">
     <svg viewBox="0 0 24 24">
       <path
@@ -319,7 +319,7 @@
                <a href="https://www.facebook.com/login/?next=https%3A%2F%2Fwww.facebook.com%2F%3Flocale%3Des_LA"><i class="fa-brands fa-facebook"></i></a>
                 <a href="https://www.instagram.com/accounts/login/"><i class="fa-brands fa-instagram"></i></a>
                 <a href="https://web.whatsapp.com/"><i class="fa-brands fa-whatsapp"></i></a>
-                <a href="form/contactenos.html"><i class="fa-solid fa-file-lines"></i></a>
+                
             </div>
         </div>
     </div>

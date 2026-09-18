@@ -80,13 +80,14 @@ header {
     padding: 0;
     display: flex;
     align-items: center;
+    gap: 10px;
 }
 
 .usuario {
     display: flex;
     align-items: center;
-    margin-left: 0;
-    margin-right: 16px;
+    margin-left: 8px;
+    margin-right: 24px;
 }
 
 .menu li {
@@ -101,6 +102,7 @@ header {
     font-size: 15px;
     align-items: center;
     justify-content: center;
+    white-space: nowrap;
 }
 
 .menu a:hover {
@@ -132,7 +134,7 @@ header {
 ================================ */
 .logito {
     width: 180px;
-    height: 80px;
+    height: 100px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -799,6 +801,200 @@ header > .logito {
     box-shadow: 0 0 0 3px rgba(201, 162, 74, 0.12);
 }
 
+/* ================================
+   PARA MOVIL
+================================ */
+
+@media (max-width: 768px) {
+    header {
+        padding: 12px 12px;
+        gap: 8px;
+        align-items: center;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+
+    header::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Mostrar el menú principal en móvil (compacto) y permitir desplazamiento horizontal */
+    .menu ul {
+        display: flex;
+        flex-direction: row;
+        gap: 8px;
+        align-items: center;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        white-space: nowrap;
+        min-width: max-content;
+    }
+
+    /* Asegurar que el contenedor .menu muestre los botones restantes y permita scroll */
+    .menu {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 8px;
+        flex: 1 1 auto;
+        min-width: 0;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        scroll-snap-type: x proximity;
+    }
+
+    .menu::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Ajustar logo */
+    .logito {
+        width: 120px;
+        height: 56px;
+        margin-left: 0;
+    }
+
+    /* Reordenar para que la hamburguesa esté al inicio y el logo al final */
+    .hambu { order: 1; }
+    .menu { order: 2; }
+    header > .logito { order: 3; margin-left: 0; }
+
+    .contenido-principal {
+        padding: 16px;
+    }
+
+    .barra-busqueda {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+        margin-bottom: 20px;
+    }
+
+    .barra-busqueda input[type=text],
+    .barra-busqueda input[type=search] {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .barra-busqueda button {
+        width: 100%;
+    }
+
+    .grid-cards {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        padding: 0;
+    }
+
+    .contenedor {
+        max-width: 100%;
+        min-height: auto;
+    }
+
+    /* Reducir anchos de botones en móviles y hacerlos visibles */
+    .user-profile,
+    .wooden-cart-button {
+        width: auto;
+        min-width: 44px;
+        height: 44px;
+        border-radius: 12px;
+    }
+
+    .user-profile-inner,
+    .wooden-cart-button-inner {
+        width: auto;
+        height: 40px;
+        padding: 6px 10px;
+        border-radius: 10px;
+    }
+
+    .button-text { display: inline-block; }
+
+    .img-contenedor {
+        height: 180px;
+    }
+
+    .descripcion {
+        -webkit-line-clamp: 3;
+        min-height: 60px;
+    }
+
+    .sub_menu.active {
+        position: fixed;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 80%;
+        z-index: 998;
+        padding: 20px;
+    }
+
+    .sub_menu {
+        width: 0;
+    }
+
+    .info-panel__content {
+        width: 96%;
+        max-height: 95vh;
+    }
+
+    .info-panel__hero {
+        grid-template-columns: 1fr;
+        min-height: auto;
+    }
+
+    .info-panel__video {
+        height: 220px;
+    }
+
+    .info-panel__reviews {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    header {
+        padding: 10px 10px;
+    }
+
+    .logito {
+        width: 96px;
+        height: 48px;
+    }
+
+    .hambu a {
+        font-size: 20px;
+    }
+
+    .img-contenedor {
+        height: 160px;
+    }
+
+    .info-panel__video {
+        height: 180px;
+    }
+
+    .info-panel__identity h2 {
+        font-size: 1.6rem;
+    }
+
+    .info-panel__media-header h3 {
+        font-size: 1.1rem;
+    }
+
+    .menu a,
+    .usuario button,
+    .usuario a {
+        padding: 8px 10px;
+        font-size: 13px;
+    }
+    
+}
 .info-panel__review-form textarea {
     min-height: 120px;
     resize: vertical;
