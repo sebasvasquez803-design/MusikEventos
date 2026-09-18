@@ -805,6 +805,42 @@ header > .logito {
    PARA MOVIL
 ================================ */
 
+@media (max-width: 1024px) {
+    .layout {
+        flex-direction: column;
+    }
+
+    .sub_menu {
+        width: 100%;
+        max-height: 0;
+        overflow: hidden;
+    }
+
+    .sub_menu.active {
+        width: 100%;
+        max-height: 420px;
+        overflow-y: auto;
+    }
+
+    .grid-cards {
+        grid-template-columns: repeat(2, minmax(220px, 1fr));
+    }
+
+    .contenido-principal {
+        padding: 22px 18px;
+    }
+
+    .logito {
+        width: 150px;
+        height: 78px;
+    }
+
+    .menu a {
+        padding: 10px 12px;
+        font-size: 14px;
+    }
+}
+
 @media (max-width: 768px) {
     header {
         padding: 12px 12px;

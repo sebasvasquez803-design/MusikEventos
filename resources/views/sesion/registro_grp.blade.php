@@ -15,7 +15,7 @@
 <body>
     <!-- Formulario para registrar grupos musicales en la base de datos. -->
     <header>
-    <a href="{{ route('home') }}" class="button" aria-label="Volver al inicio">
+    <a href="{{ route('dash.rep') }}" class="button" aria-label="Volver al inicio">
       <div class="button-box">
         <span class="button-elem">
           <svg viewBox="0 0 46 40" xmlns="http://www.w3.org/2000/svg">
@@ -104,6 +104,7 @@
             </div>
 
             <div class="boton">
+                
                 <a href="{{ route('siguiente') }}"
                 <button type="button">Siguiente</button>
             </div>
@@ -111,6 +112,9 @@
     </div>
 
     <script>
+        
+
+    
         document.querySelectorAll('.form-basico .entrada .campo').forEach((field) => {
             const parent = field.closest('.entrada');
             if (!parent) return;

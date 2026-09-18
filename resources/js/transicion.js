@@ -1,7 +1,7 @@
 const hambu = document.querySelector('.hambu');
 const sidebar = document.querySelector('.sub_menu');
 
-// Make hamburger toggle the sidebar and prevent anchor default behavior
+// Hace que el botón hamburguesa active el menú lateral y evita el comportamiento predeterminado del enlace
 if (hambu && sidebar) {
     const anchor = hambu.querySelector('a');
     const toggle = (evt) => {
@@ -15,14 +15,14 @@ if (hambu && sidebar) {
         hambu.addEventListener('click', toggle);
     }
 
-    // Close sidebar when clicking outside (mobile)
+    // Cierra el menú lateral al hacer clic fuera en móvil
     document.addEventListener('click', (e) => {
         if (!sidebar.contains(e.target) && !hambu.contains(e.target) && sidebar.classList.contains('active')) {
             sidebar.classList.remove('active');
         }
     });
 
-        // Genre filtering: listen for clicks on links with data-genre
+    // Filtrado por género: escucha clics en enlaces con data-genre
     sidebar.addEventListener('click', (evt) => {
         const link = evt.target.closest('a[data-genre]');
         if (!link) return;
@@ -37,7 +37,7 @@ if (hambu && sidebar) {
     });
 }
 
-// Client-side filter function for group cards by data-genero
+// Función de filtrado del lado del cliente para las tarjetas por data-genero
 function filterByGenre(genre) {
     const cards = document.querySelectorAll('.contenedor');
     const normalized = (s) => (s || '').toString().toLowerCase();
