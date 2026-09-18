@@ -15,10 +15,28 @@
 <body>
     <!-- Formulario para registrar grupos musicales en la base de datos. -->
     <header>
-        <a href="{{ route('home') }}">
+    <a href="{{ route('home') }}" class="button" aria-label="Volver al inicio">
+      <div class="button-box">
+        <span class="button-elem">
+          <svg viewBox="0 0 46 40" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M46 20.038c0-.7-.3-1.5-.8-2.1l-16-17c-1.1-1-3.2-1.4-4.4-.3-1.2 1.1-1.2 3.3 0 4.4l11.3 11.9H3c-1.7 0-3 1.3-3 3s1.3 3 3 3h33.1l-11.3 11.9c-1 1-1.2 3.3 0 4.4 1.2 1.1 3.3.8 4.4-.3l16-17c.5-.5.8-1.1.8-1.9z"
+            ></path>
+          </svg>
+        </span>
+        <span class="button-elem">
+          <svg viewBox="0 0 46 40">
+            <path
+              d="M46 20.038c0-.7-.3-1.5-.8-2.1l-16-17c-1.1-1-3.2-1.4-4.4-.3-1.2 1.1-1.2 3.3 0 4.4l11.3 11.9H3c-1.7 0-3 1.3-3 3s1.3 3 3 3h33.1l-11.3 11.9c-1 1-1.2 3.3 0 4.4 1.2 1.1 3.3.8 4.4-.3l16-17c.5-.5.8-1.1.8-1.9z"
+            ></path>
+          </svg>
+        </span>
+      </div>
+    </a>
+        
+        <h1>REGISTRO DE GRUPOS MUSICALES</h1>
             <img class="logo" src="{{ asset('storage/img/grupos/logoMusikEventos.png') }}" alt="logo">
         </a>
-        <h1>REGISTRO DE GRUPOS MUSICALES</h1>
     </header>
 
     <div class="conte">
@@ -76,17 +94,7 @@
                 <span class="icon"><i class="fa-solid fa-circle-check"></i></span>
                 @error('id_subgenero') <small class="error">{{ $message }}</small> @enderror
             </div>
-            <div class="entrada">
-                <label>Subgénero</label>
-                <select name="id_subgenero" class="campo" required>
-                    <option value="">Selecciona un subgénero</option>
-                    @foreach(\DB::table('subgenero')->orderBy('nombre_subgenero')->get() as $s)
-                        <option value="{{ $s->id_subgenero }}" {{ old('id_subgenero') == $s->id_subgenero ? 'selected' : '' }}>{{ $s->nombre_subgenero }} @if($s->id_genero) ({{ \DB::table('genero')->where('id_genero', $s->id_genero)->value('nombre_genero') }}) @endif</option>
-                    @endforeach
-                </select>
-                <span class="icon"><i class="fa-solid fa-circle-check"></i></span>
-                @error('id_subgenero') <small class="error">{{ $message }}</small> @enderror
-            </div>
+            
 
             <div class="entrada">
                 <label>Precio por hora</label>

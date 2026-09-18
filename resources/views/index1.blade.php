@@ -30,78 +30,82 @@
         <ul>
             <li><a href="{{ route('dash.rep') }}"> UNETE O REGÍSTRA TU GRUPO </a></li>
             <li><a href="#">CALENDARIO</a></li>
-            <li><a href="{{ route('reserva') }}">RESERVA AQUI</a></li>
             <button class="wooden-cart-button" type="button" aria-label="Carrito">
-  <div class="wooden-cart-button-inner">
-    <svg viewBox="0 0 24 24">
-      <path
-        d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A.996.996 0 0 0 21.42 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"
-      ></path>
-    </svg>
-    <span class="button-text">Carrito</span>
-  </div>
-</button>
-
+                <div class="wooden-cart-button-inner">
+                    <svg viewBox="0 0 24 24">
+                    <path
+                        d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A.996.996 0 0 0 21.42 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"
+                    ></path>
+                    </svg>
+                    <span class="button-text">Carrito</span>
+                </div>
+            </button>
+        </ul>
 
 
             <!-- From Uiverse.io by reglobby -->
-<div class="usuario">
-    @auth
-        <!-- BOTÓN CUANDO EL USUARIO ESTÁ AUTENTICADO (LOG OUT) -->
-        <form method="POST" action="{{ route('logout') }}" id="logout-form" style="display: inline;">
-            @csrf
-            <div
-                aria-label="Cerrar sesión"
+        <div class="usuario">
+            @auth
+                <!-- BOTÓN CUANDO EL USUARIO ESTÁ AUTENTICADO (LOG OUT) -->
+                <form method="POST" action="{{ route('logout') }}" id="logout-form" style="display: inline;">
+                    @csrf
+                    <div
+                        aria-label="Cerrar sesión"
 
-                tabindex="0"
-                role="button"
-                class="user-profile"
-                onclick="document.getElementById('logout-form').submit();"
-                onkeydown="if(event.key === 'Enter' || event.key === ' ') { event.preventDefault(); document.getElementById('logout-form').submit(); }"
-            >
-                <div class="user-profile-inner">
-                    <!-- Icono SVG de cerrar sesión (puerta/salida) -->
-                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
-                        <path d="M5 22a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h7a1 1 0 0 1 0 2H6v16h6a1 1 0 0 1 0 2H5zm10.707-11H9a1 1 0 0 0 0 2h6.707l-2.354 2.354a1 1 0 1 0 1.414 1.414l4-4a1 1 0 0 0 0-1.414l-4-4a1 1 0 1 0-1.414 1.414L15.707 11z"/>
-                    </svg>
-                    <p>Cerrar Sesión</p>
-                </div>
-            </div>
-        </form>
+                        tabindex="0"
+                        role="button"
+                        class="user-profile"
+                        onclick="document.getElementById('logout-form').submit();"
+                        onkeydown="if(event.key === 'Enter' || event.key === ' ') { event.preventDefault(); document.getElementById('logout-form').submit(); }"
+                    >
+                        <div class="user-profile-inner">
+                            <!-- Icono SVG de cerrar sesión (puerta/salida) -->
+                            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+                                <path d="M5 22a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h7a1 1 0 0 1 0 2H6v16h6a1 1 0 0 1 0 2H5zm10.707-11H9a1 1 0 0 0 0 2h6.707l-2.354 2.354a1 1 0 1 0 1.414 1.414l4-4a1 1 0 0 0 0-1.414l-4-4a1 1 0 1 0-1.414 1.414L15.707 11z"/>
+                            </svg>
+                            <p>Cerrar Sesión</p>
+                        </div>
+                    </div>
+                </form>
 
-    @else
-        <!-- BOTÓN CUANDO EL USUARIO ES UN INVITADO (LOG IN) -->
-        <a href="{{ route('login') }}" style="text-decoration: none; color: inherit;">
-            <div
-                aria-label="User Login Button"
+            @else
+                <!-- BOTÓN CUANDO EL USUARIO ES UN INVITADO (LOG IN) -->
+                <a href="{{ route('login') }}" style="text-decoration: none; color: inherit;">
+                    <div
+                        aria-label="User Login Button"
 
-                tabindex="0"
-                role="button"
-                class="user-profile"
-            >
-                <div class="user-profile-inner">
-                    <!-- Icono SVG original de usuario -->
-                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <g data-name="Layer 2" id="Layer_2">
-                            <path d="m15.626 11.769a6 6 0 1 0 -7.252 0 9.008 9.008 0 0 0 -5.374 8.231 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 9.008 9.008 0 0 0 -5.374-8.231zm-7.626-4.769a4 4 0 1 1 4 4 4 4 0 0 1 -4-4zm10 14h-12a1 1 0 0 1 -1-1 7 7 0 0 1 14 0 1 1 0 0 1 -1 1z"></path>
-                        </g>
-                    </svg>
+                        tabindex="0"
+                        role="button"
+                        class="user-profile"
+                    >
+                        <div class="user-profile-inner">
+                            <!-- Icono SVG original de usuario -->
+                            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <g data-name="Layer 2" id="Layer_2">
+                                    <path d="m15.626 11.769a6 6 0 1 0 -7.252 0 9.008 9.008 0 0 0 -5.374 8.231 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 9.008 9.008 0 0 0 -5.374-8.231zm-7.626-4.769a4 4 0 1 1 4 4 4 4 0 0 1 -4-4zm10 14h-12a1 1 0 0 1 -1-1 7 7 0 0 1 14 0 1 1 0 0 1 -1 1z"></path>
+                                </g>
+                            </svg>
 
-                    <p>Iniciar Sesión</p>
-                </div>
-            </div>
-        </a>
-    @endauth
+                            <p>Iniciar Sesión</p>
+                        </div>
+                    </div>
+                </a>
+            @endauth
+    </div>
+    </div>
 
-</div>
-  <!-- Logo -->
-    <div class="logito">
-    <a href="{{ route('home') }}">
-        <img class="logito" src="{{ asset('storage/img/grupos/logoMusikEventos.png') }}" alt="logo">
-    </a>
+    <div>
+        <div class="logo">
+            <a href="{{ route('home') }}">
+                <img class="logito" src="{{ asset('storage/img/grupos/logoMusikEventos.png') }}" alt="logo">
+            </a>
         </div>
+        <!-- Logo -->
 
+    </div>
 
+  
+  
 </header>
 
 
