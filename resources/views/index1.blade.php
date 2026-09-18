@@ -28,7 +28,9 @@
     <!-- Menu de navegacion principal -->
     <div class="menu">
         <ul>
-            <li><a href="{{ route('dash.rep') }}"> UNETE O REGÍSTRA TU GRUPO </a></li>
+            @auth
+                <li><a href="{{ route('dash.rep') }}"> UNETE O REGÍSTRA TU GRUPO </a></li>
+            @endauth
             <li><a href="#">CALENDARIO</a></li>
             <button class="wooden-cart-button" type="button" aria-label="Carrito">
                 <div class="wooden-cart-button-inner">
