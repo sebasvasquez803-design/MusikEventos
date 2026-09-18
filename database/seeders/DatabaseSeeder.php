@@ -32,21 +32,23 @@ class DatabaseSeeder extends Seeder
     }
     public function run2(): void
     {
-        $administrador = users::create([
-            'email' => 'mican@gmail.com',
-            'password' => Hash::make('mican'),
-        ]);
-        $administrador = users::create([
-            'email' => 'jh@gmail.com',
-            'password' => Hash::make('jh'),
-        ]);
-        $administrador = users::create([
-            'email' => 'william@gmail.com',
-            'password' => Hash::make('william'),
-        ]);
-        $administrador = users::create([
-            'email' => 'sebastian@gmail.com',
-            'password' => Hash::make('voceragey'),
-        ]);
+        // Credenciales iniciales de las cuentas autorizadas para administrar grupos.
+        $administradores = [
+            ['name' => 'Mican', 'email' => 'mican@gmail.com', 'password' => 'mican'],
+            ['name' => 'JH', 'email' => 'jh@gmail.com', 'password' => 'jh'],
+            ['name' => 'William', 'email' => 'william@gmail.com', 'password' => 'william'],
+            ['name' => 'Sebastian', 'email' => 'sebastian@gmail.com', 'password' => 'elmejor'],
+        ];
+
+        // updateOrCreate permite ejecutar el seeder varias veces sin duplicar usuarios.
+        foreach ($administradores as $administrador) {
+            User::updateOrCreate(
+                ['email' => $administrador['email']],
+                [
+                    'name' => $administrador['name'],
+                    'password' => Hash::make($administrador['password']),
+                ],
+            );
+        }
     }
 }

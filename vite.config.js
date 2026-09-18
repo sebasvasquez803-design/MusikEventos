@@ -1,9 +1,8 @@
-import {
-    defineConfig
-} from 'vite';
+import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 import { bunny } from 'laravel-vite-plugin/fonts';
 import tailwindcss from "@tailwindcss/vite";
+
 
 export default defineConfig({
     plugins: [
@@ -12,6 +11,13 @@ export default defineConfig({
                 'resources/css/app.css',
                 'resources/js/app.js',
                 'resources/js/passkeys.js',
+                'resources/css/reserva.css',
+                'resources/css/registroClientes.css',
+                'resources/js/transicion.js',
+                'resources/css/mas_info.css',
+                'resources/css/calendario.css',
+                'resources/js/calendario.js',
+
             ],
             refresh: true,
             fonts: [

@@ -1,0 +1,392 @@
+/* ================================================
+   FullCalendar — Estilos completos sin Bootstrap
+   ================================================ */
+
+/* ── Variables ────────────────────────────────── */
+:root {
+  --fc-border-color: #d9d4c8;
+  --fc-page-bg-color: #ffffff;
+  --fc-neutral-bg-color: #f4f1ea;
+  --fc-neutral-text-color: #625d53;
+  --fc-today-bg-color: rgba(201, 162, 74, 0.18);
+  --fc-event-bg-color: #111111;
+  --fc-event-border-color: #111111;
+  --fc-event-text-color: #ffffff;
+  --fc-button-text-color: #ffffff;
+  --fc-button-bg-color: #111111;
+  --fc-button-border-color: #111111;
+  --fc-button-hover-bg-color: #c9a24a;
+  --fc-button-hover-border-color: #c9a24a;
+  --fc-button-active-bg-color: #9f7d32;
+  --fc-button-active-border-color: #9f7d32;
+  --fc-highlight-color: rgba(201, 162, 74, 0.22);
+  --fc-non-business-color: rgba(17, 17, 17, 0.04);
+}
+
+/* ── Contenedor raíz ──────────────────────────── */
+#calendar-app {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 0.5rem;
+  border: 1px solid #c9a24a;
+  color: #111111;
+  box-shadow: 0 3px 8px rgba(17, 17, 17, 0.14);
+  overflow: hidden;
+}
+
+.calendar-heading {
+  margin: 0 0 0.35rem;
+  color: #c9a24a;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.calendar-view {
+  width: 100%;
+}
+
+.calendar-selected-date {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  margin: 0.7rem 0.15rem 0.15rem;
+  padding: 0.55rem 0.65rem;
+  border: 1px solid #d9d4c8;
+  border-radius: 8px;
+  background: #f4f1ea;
+}
+
+.calendar-selected-date span {
+  color: #c9a24a;
+  font-size: 0.58rem;
+  font-weight: 700;
+}
+
+.calendar-selected-date strong {
+  color: #111111;
+  font-size: 0.72rem;
+  text-transform: capitalize;
+}
+
+/* ── Toolbar ──────────────────────────────────── */
+.fc .fc-toolbar.fc-header-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.fc .fc-toolbar-title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #111111;
+}
+
+/* ── Botones ──────────────────────────────────── */
+.fc .fc-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.68rem;
+  font-weight: 500;
+  padding: 0.28rem 0.55rem;
+  border-radius: 6px;
+  border: 1px solid var(--fc-button-border-color);
+  background-color: var(--fc-button-bg-color);
+  color: var(--fc-button-text-color);
+  cursor: pointer;
+  transition: background-color 0.18s, border-color 0.18s;
+  box-shadow: none !important;
+  outline: none;
+  opacity: 1 !important; /* FullCalendar pone opacity en algunos estados */
+}
+
+.fc .fc-button:hover {
+  background-color: var(--fc-button-hover-bg-color);
+  border-color: var(--fc-button-hover-border-color);
+  color: #111111;
+}
+
+.fc .fc-button:active,
+.fc .fc-button.fc-button-active {
+  background-color: var(--fc-button-active-bg-color);
+  border-color: var(--fc-button-active-border-color);
+  color: #fff;
+}
+
+.fc .fc-button:focus {
+  box-shadow: 0 0 0 2px rgba(201, 162, 74, 0.45) !important;
+}
+
+.fc .fc-button:disabled {
+  opacity: 0.4 !important;
+  cursor: not-allowed;
+}
+
+/* Grupo de botones (prev/next) */
+.fc .fc-button-group {
+  display: inline-flex;
+  gap: 2px;
+}
+
+.fc .fc-button-group .fc-button {
+  border-radius: 0;
+}
+
+.fc .fc-button-group .fc-button:first-child { border-radius: 6px 0 0 6px; }
+.fc .fc-button-group .fc-button:last-child  { border-radius: 0 6px 6px 0; }
+
+/* ── Cabecera de días ─────────────────────────── */
+.fc .fc-col-header {
+  background-color: #f4f1ea;
+}
+
+.fc .fc-col-header-cell {
+  border-color: #d9d4c8;
+  padding: 0.3rem 0;
+}
+
+.fc .fc-col-header-cell-cushion {
+  font-size: 0.58rem;
+  font-weight: 600;
+  color: #625d53;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+}
+
+/* ── Grid / celdas ────────────────────────────── */
+.fc-theme-standard td,
+.fc-theme-standard th {
+  border-color: #d9d4c8;
+}
+
+.fc .fc-daygrid-day {
+  background-color: #ffffff;
+  border-radius: 8px;
+  transition: background-color 0.15s;
+}
+
+.fc .fc-daygrid-day-frame {
+  min-height: 38px;
+  border-radius: 8px;
+}
+
+.fc .fc-daygrid-day:hover {
+  background-color: rgba(201, 162, 74, 0.12);
+}
+
+/* ── Número de día ────────────────────────────── */
+.fc .fc-daygrid-day-number {
+  font-size: 0.68rem;
+  color: #332f29;
+  text-decoration: none;
+  padding: 0.3rem 0.35rem;
+  transition: color 0.15s;
+}
+
+.fc .fc-daygrid-day:hover .fc-daygrid-day-number {
+  color: #9f7d32;
+}
+
+/* ── Día actual ───────────────────────────────── */
+.fc .fc-day-today {
+  background-color: var(--fc-today-bg-color) !important;
+}
+
+.fc .fc-day-today .fc-daygrid-day-number {
+  background-color: #c9a24a;
+  color: #fff;
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 4px;
+  padding: 0;
+  font-size: 0.68rem;
+}
+
+.fc .fc-daygrid-day.calendar-day-selected {
+  background: #c9a24a !important;
+}
+
+.fc .fc-daygrid-day.calendar-day-selected .fc-daygrid-day-number {
+  color: #111111;
+  font-weight: 700;
+}
+
+/* ── Días fuera del mes ───────────────────────── */
+.fc .fc-day-other .fc-daygrid-day-number {
+  color: #b8b1a4;
+}
+
+/* ── Eventos ──────────────────────────────────── */
+.fc .fc-event {
+  border-radius: 5px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 1px 5px;
+  border: none;
+  cursor: pointer;
+  transition: filter 0.15s, transform 0.1s;
+}
+
+.fc .fc-event:hover {
+  filter: brightness(1.15);
+  transform: translateY(-1px);
+}
+
+.fc .fc-event-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #fff;
+}
+
+/* ── Scrollbar ────────────────────────────────── */
+.fc .fc-scroller::-webkit-scrollbar { width: 5px; height: 5px; }
+.fc .fc-scroller::-webkit-scrollbar-track { background: transparent; }
+.fc .fc-scroller::-webkit-scrollbar-thumb { background-color: #d9d4c8; border-radius: 4px; }
+
+/* ── Forzar bordes visibles ───────────────────── */
+.fc-theme-standard td,
+.fc-theme-standard th {
+  border: 1px solid #d9d4c8 !important;
+}
+
+.fc table {
+  border-collapse: collapse !important;
+}
+
+.fc .fc-scrollgrid {
+  border: 1px solid #d9d4c8 !important;
+}
+
+.fc .fc-scrollgrid-section > td {
+  border: none !important; /* evita doble borde en las secciones internas */
+}
+
+/* ── Tamaño del calendario ────────────────────── */
+#calendar-app {
+  width: min(100%, 390px);
+  min-width: 320px; /* para que no colapse en móvil */
+}
+
+#calendar-app .fc {
+  width: 100%;
+  font-size: 0.75rem;
+}
+
+#calendar-app .fc-daygrid-body,
+#calendar-app .fc-scrollgrid-sync-table {
+  width: 100% !important;
+}
+
+#calendar-app .fc-daygrid-event {
+  max-width: calc(100% - 0.35rem);
+  margin: 1px 0.15rem;
+  overflow: hidden;
+}
+
+#calendar-app .fc-daygrid-event .fc-event-title {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.62rem;
+}
+
+@media (max-width: 480px) {
+  #calendar-app {
+    min-width: 0;
+  }
+}
+
+/* FullCalendar 7 uses generated class names; roles are its stable markup. */
+#calendar-app [role="grid"] {
+  width: 100%;
+  color: #332f29;
+  font-size: 0.72rem;
+}
+
+#calendar-app .calendar-view > div {
+  aspect-ratio: auto !important;
+  height: 320px !important;
+}
+
+#calendar-app .calendar-view > div > [role="grid"] {
+  height: 100%;
+}
+
+#calendar-app [role="columnheader"] {
+  min-height: 24px;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid #d9d4c8;
+  background: #f4f1ea;
+  color: #625d53;
+  font-size: 0.62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+#calendar-app [role="gridcell"] {
+  min-height: 42px;
+  margin: 3px;
+  width: calc(14.2857% - 6px) !important;
+  flex: 0 0 calc(14.2857% - 6px) !important;
+  box-sizing: border-box;
+  align-items: flex-start;
+  justify-content: flex-end;
+  border: 1px solid #d9d4c8;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #332f29;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+#calendar-app [role="gridcell"]:hover {
+  background: rgba(201, 162, 74, 0.14);
+}
+
+#calendar-app [role="gridcell"] > div:first-child {
+  padding: 0.3rem 0.4rem;
+  font-size: 0.72rem;
+}
+
+#calendar-app [role="gridcell"].calendar-day-selected {
+  background: #c9a24a !important;
+  color: #111111;
+}
+
+#calendar-app [role="gridcell"].calendar-day-selected > div:first-child {
+  color: #111111;
+  font-weight: 700;
+}
+
+#calendar-app [role="gridcell"] button {
+  display: none;
+}
+
+#calendar-app [role="gridcell"] button * {
+  display: none;
+}
+
+/* ── Hover dorado + cursor en celdas ─────────── */
+.fc .fc-daygrid-day {
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.fc .fc-daygrid-day:hover {
+  background-color: rgba(201, 162, 74, 0.16) !important;
+}
+
+.fc .fc-daygrid-day:hover .fc-daygrid-day-number {
+  color: #9f7d32;
+}
