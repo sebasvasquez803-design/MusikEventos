@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @vite('resources/css/style.css')
     <title>MusikEventos</title>
-    <link rel="shortcut icon" href="{{ asset('storage/img/imagen20.png') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('storage/img/grupos/logoMusikEventos.png') }}" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 </head>
@@ -20,6 +20,7 @@
 
 
     <!-- Boton hamburguesa: el JS le agrega/quita la clase "active" al sub_menu -->
+
     <div class="hambu">
         <a href="#"><i class="fa-solid fa-bars"></i></a>
     </div>
@@ -30,9 +31,17 @@
             <li><a href="{{ route('grupo.musical') }}">UNETE COMO GRUPO MUSICAL</a></li>
             <li><a href="#">CALENDARIO</a></li>
             <li><a href="{{ route('reserva') }}">RESERVA AQUI</a></li>
-            <div class="carro">
-                <a href="#"><i class="fa-solid fa-cart-shopping"></i></a>
-            </div>
+           <button class="wooden-cart-button" type="button" aria-label="Carrito">
+  <div class="wooden-cart-button-inner">
+    <svg viewBox="0 0 24 24">
+      <path
+        d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A.996.996 0 0 0 21.42 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"
+      ></path>
+    </svg>
+    <span class="button-text">Carrito</span>
+  </div>
+</button>
+
 
 
             <!-- From Uiverse.io by reglobby -->
@@ -55,7 +64,7 @@
                     <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
                         <path d="M5 22a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h7a1 1 0 0 1 0 2H6v16h6a1 1 0 0 1 0 2H5zm10.707-11H9a1 1 0 0 0 0 2h6.707l-2.354 2.354a1 1 0 1 0 1.414 1.414l4-4a1 1 0 0 0 0-1.414l-4-4a1 1 0 1 0-1.414 1.414L15.707 11z"/>
                     </svg>
-                    <p>Log Out</p>
+                    <p>Cerrar Sesión</p>
                 </div>
             </div>
         </form>
@@ -78,7 +87,7 @@
                         </g>
                     </svg>
 
-                    <p>Log In</p>
+                    <p>Iniciar Sesión</p>
                 </div>
             </div>
         </a>
@@ -86,9 +95,9 @@
 
 </div>
   <!-- Logo -->
-    <div class="logo">
+    <div class="logito">
     <a href="{{ route('home') }}">
-        <img class="logo" src="{{ asset('storage/img/grupos/logoMusikEventos.png') }}" alt="logo">
+        <img class="logito" src="{{ asset('storage/img/grupos/logoMusikEventos.png') }}" alt="logo">
     </a>
         </div>
 

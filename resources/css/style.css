@@ -19,7 +19,14 @@ html, body {
 body {
     background: rgb(241, 237, 237);
     font-family: "Roboto", sans-serif;
+    
 }
+
+body::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge moderno */
+}   
+
+
 
 
 /* ================================
@@ -29,12 +36,12 @@ body {
 ================================ */
 header {
     width: 100%;
-
-    background: #000000;
-    padding: 20px;
+    background: #1a1a1a;
+    padding: 20px 0 20px 20px;
     height: auto;
     display: flex;
     align-items: center;
+    gap: 12px;
     position: relative;
 }
 
@@ -64,7 +71,7 @@ header {
 .menu {
     display: flex;
     flex: 1;
-    background: #000000;
+    background: #1a1a1a;
 }
 
 .menu ul {
@@ -73,6 +80,13 @@ header {
     padding: 0;
     display: flex;
     align-items: center;
+}
+
+.usuario {
+    display: flex;
+    align-items: center;
+    margin-left: 0;
+    margin-right: 16px;
 }
 
 .menu li {
@@ -116,10 +130,35 @@ header {
 /* ================================
    LOGO
 ================================ */
-.logo {
-    width: 100px;
+.logito {
+    width: 180px;
     height: 80px;
     display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 8px;
+    margin-right: 0;
+    flex-shrink: 0;
+}
+
+.logito a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.logito img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+header > .logito {
+    margin-left: auto;
+    margin-right: 0;
+    padding-right: 12px;
 }
 
 
@@ -170,12 +209,12 @@ header {
 
 .sub_menu a:hover {
     background: #C9A24A;
-    color: #000;
+    color: #1a1a1a;
 }
 
 .sub_menu a.selected-genre {
     background: #C9A24A;
-    color: #000;
+    color: #1a1a1a;
     box-shadow: 0 6px 14px rgba(201,162,74,0.14);
 }
 
@@ -333,7 +372,7 @@ header {
 }
 
 .boton input[type=button] {
-    background: #000000;
+    background: #1a1a1a;
     border-radius: 25px;
     color: #C9A24A;
     padding: 10px 20px;
@@ -346,7 +385,7 @@ header {
 
 .boton input[type=button]:hover {
     background: #C9A24A;
-    color: #000;
+    color: #1a1a1a;
 }
 
 .mas-info-link {
@@ -356,7 +395,7 @@ header {
     width: 100%;
     padding: 10px 20px;
     border-radius: 25px;
-    background: #000000;
+    background: #1a1a1a;
     border: 2px solid #C9A24A;
     color: #C9A24A;
     font-size: 14px;
@@ -368,7 +407,7 @@ header {
 
 .mas-info-link:hover {
     background: #C9A24A;
-    color: #000;
+    color: #1a1a1a;
     transform: translateY(-1px);
 }
 
@@ -379,7 +418,9 @@ header {
 .info-panel {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.45);
+     background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px); /* para Safari */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -421,7 +462,7 @@ header {
     height: 36px;
     border: none;
     border-radius: 50%;
-    background: rgba(0, 0, 0, 0.7);
+    background: #C9A24A;
     color: #fff;
     font-size: 24px;
     cursor: pointer;
@@ -909,7 +950,7 @@ header {
     border: 1px solid #C9A24A;
     border-radius: 5px;
     background: transparent;
-    color: #000;
+    color: #1a1a1a;
     font-size: 12px;
     text-decoration: none;
     cursor: pointer;
@@ -943,14 +984,18 @@ header {
     font-size: 14px;
 }
 
+.paginacion a[href*="page="] {
+    color: #C9A24A;
+}
+
 .paginacion a:hover {
     background: #C9A24A;
-    color: #000;
+    color: #1a1a1a;
 }
 
 .paginacion a.activo {
     background: #C9A24A;
-    color: #000;
+    color: #1a1a1a;
     font-weight: bold;
 }
 
@@ -960,7 +1005,7 @@ header {
     ===========================*/
 
     footer{
-        background: black;
+        background: #1a1a1a;
         color: white;
         margin-top: 40px;
         padding: 20px;
@@ -1071,27 +1116,32 @@ max-height: 300px;
   grid-template-rows: max-content 300px 1fr;
 }
 
-/* From Uiverse.io by reglobby */
-.user-profile {
+.user-profile,
+.wooden-cart-button {
+
   width: 131px;
   height: 51px;
   border-radius: 15px;
   cursor: pointer;
   transition: 0.3s ease;
-  background: linear-gradient( #C9A24A ) ;
+  background: linear-gradient(135deg, #C9A24A 0%, #d6b25d 100%);
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 0;
+  border: 0;
 }
 
 .user-profile:hover,
-.user-profile:focus {
-
+.user-profile:focus,
+.wooden-cart-button:hover,
+.wooden-cart-button:focus {
   box-shadow: 0 0 10px rgb(201, 162, 74);
   outline: none;
 }
 
-.user-profile-inner {
+.user-profile-inner,
+.wooden-cart-button-inner {
   width: 127px;
   height: 47px;
   border-radius: 13px;
@@ -1099,13 +1149,28 @@ max-height: 300px;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 15px;
   color: #fff;
   font-weight: 600;
 }
 
-.user-profile-inner svg {
+.user-profile-inner svg,
+.wooden-cart-button-inner svg {
   width: 27px;
   height: 27px;
   fill: #fff;
 }
+
+.button-text {
+  position: relative;
+  z-index: 1;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+
+
+
+
+
