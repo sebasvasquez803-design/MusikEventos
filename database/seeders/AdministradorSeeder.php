@@ -17,7 +17,7 @@ class AdministradorSeeder extends Seeder
             ['name' => 'Mican', 'email' => 'mican@gmail.com', 'password' => 'mican'],
             ['name' => 'JH', 'email' => 'jh@gmail.com', 'password' => 'jh'],
             ['name' => 'William', 'email' => 'william@gmail.com', 'password' => 'william'],
-            ['name' => 'Sebastian', 'email' => 'sebastian@gmail.com', 'password' => 'sebastia'],
+            ['name' => 'Sebastian', 'email' => 'sebastian@gmail.com', 'password' => 'sebastian'],
         ];
 
         foreach ($administradores as $administrador) {

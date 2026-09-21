@@ -163,7 +163,7 @@ input[type=submit] {
     color: #C9A24A;
 }
 
-/* Botón de regreso estilo Uiverse.io */ 
+/* Botón de regreso estilo Uiverse.io */
 .button {
   display: block;
   position: relative;
@@ -320,3 +320,34 @@ input[type=submit] {
 }
 
 
+.button1 {
+  background-color: #ffffff00;
+  color: #000000;
+  width: 8.5em;
+  height: 2.9em;
+  border: #CAA24A 0.2em solid;
+  border-radius: 11px;
+  text-align: right;
+  transition: all 0.6s ease;
+}
+
+.button1:hover {
+  background-color: #CAA24A;
+  cursor: pointer;
+}
+
+.button1 svg {
+  width: 1.6em;
+  margin: -0.2em 0.8em 1em;
+  position: absolute;
+  display: flex;
+  transition: all 0.6s ease;
+}
+
+.button1:hover svg {
+  transform: translateX(5px);
+}
+
+.text {
+  margin: 0 1.5em
+}

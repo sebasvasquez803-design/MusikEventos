@@ -14,11 +14,29 @@
 </head>
 <body>
     <!-- Formulario para registrar grupos musicales en la base de datos. -->
-    <header>
-        <a href="{{ route('home') }}">
+        <header>
+    <a href="{{ route('dash.rep') }}" class="button" aria-label="Volver al inicio">
+      <div class="button-box">
+        <span class="button-elem">
+          <svg viewBox="0 0 46 40" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M46 20.038c0-.7-.3-1.5-.8-2.1l-16-17c-1.1-1-3.2-1.4-4.4-.3-1.2 1.1-1.2 3.3 0 4.4l11.3 11.9H3c-1.7 0-3 1.3-3 3s1.3 3 3 3h33.1l-11.3 11.9c-1 1-1.2 3.3 0 4.4 1.2 1.1 3.3.8 4.4-.3l16-17c.5-.5.8-1.1.8-1.9z"
+            ></path>
+          </svg>
+        </span>
+        <span class="button-elem">
+          <svg viewBox="0 0 46 40">
+            <path
+              d="M46 20.038c0-.7-.3-1.5-.8-2.1l-16-17c-1.1-1-3.2-1.4-4.4-.3-1.2 1.1-1.2 3.3 0 4.4l11.3 11.9H3c-1.7 0-3 1.3-3 3s1.3 3 3 3h33.1l-11.3 11.9c-1 1-1.2 3.3 0 4.4 1.2 1.1 3.3.8 4.4-.3l16-17c.5-.5.8-1.1.8-1.9z"
+            ></path>
+          </svg>
+        </span>
+      </div>
+    </a>
+
+        <h1>REGISTRO DE GRUPOS MUSICALES</h1>
             <img class="logo" src="{{ asset('storage/img/grupos/logoMusikEventos.png') }}" alt="logo">
         </a>
-        <h1>REGISTRO DE GRUPOS MUSICALES</h1>
     </header>
 
     <div class="conte">
@@ -28,7 +46,7 @@
 
         <form class="form-basico" name="formulario" action="{{ route('grupo-musical.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
-            <h2> Información y Archivos Multimedia </h1>
+            <h2> Información y Archivos Multimedia </h2>
         <div class="entrada">
                 <label for="inputImagen">Portada del grupo</label>
                 <input type="file" id="inputImagen" name="avatar" accept="image/jpeg,image/png,image/jpg,image/webp" class="campo" required>
@@ -51,12 +69,6 @@
                 @error('video_url') <small class="error">{{ $message }}</small> @enderror
         </div>
 
-        <div class="entrada">
-                <label for="inputVideoFile">O sube un video</label>
-                <input type="file" id="inputVideoFile" name="video_file" accept="video/mp4,video/webm,video/quicktime,video/x-msvideo" class="campo">
-                <span class="icon"><i class="fa-solid fa-circle-check"></i></span>
-                @error('video_file') <small class="error">{{ $message }}</small> @enderror
-        </div>
           <div class="boton">
                 <input type="submit" value="Registrar" name="botingresar">
             </div>

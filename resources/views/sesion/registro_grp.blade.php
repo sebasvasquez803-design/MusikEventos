@@ -33,7 +33,7 @@
         </span>
       </div>
     </a>
-        
+
         <h1>REGISTRO DE GRUPOS MUSICALES</h1>
             <img class="logo" src="{{ asset('storage/img/grupos/logoMusikEventos.png') }}" alt="logo">
         </a>
@@ -83,18 +83,8 @@
                 @error('descripcion') <small class="error">{{ $message }}</small> @enderror
             </div>
 
-         <div class="entrada">
-                <label>Subgénero</label>
-                <select name="id_subgenero" class="campo" required>
-                    <option value="">Selecciona un subgénero</option>
-                    @foreach(\DB::table('subgenero')->orderBy('nombre_subgenero')->get() as $s)
-                        <option value="{{ $s->id_subgenero }}" {{ old('id_subgenero') == $s->id_subgenero ? 'selected' : '' }}>{{ $s->nombre_subgenero }} @if($s->id_genero) ({{ \DB::table('genero')->where('id_genero', $s->id_genero)->value('nombre_genero') }}) @endif</option>
-                    @endforeach
-                </select>
-                <span class="icon"><i class="fa-solid fa-circle-check"></i></span>
-                @error('id_subgenero') <small class="error">{{ $message }}</small> @enderror
-            </div>
-            
+
+
 
             <div class="entrada">
                 <label>Precio por hora</label>
@@ -103,19 +93,50 @@
                 @error('precio_hora') <small class="error">{{ $message }}</small> @enderror
             </div>
 
-            <div class="boton">
-                
-                <a href="{{ route('siguiente') }}"
-                <button type="button">Siguiente</button>
+        <div class="boton">
+        <!-- From Uiverse.io by reshades -->
+            <button type="button" class="button1" id="siguiente" data-url="{{ route('siguiente') }}">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"></path>
+            </svg>
+            <div class="text">
+                Siguiente
             </div>
+            </button>
+</div>
         </form>
     </div>
 
     <script>
-        
+        const form = document.querySelector('.form-basico');
+        const nextButton = document.querySelector('#siguiente');
+        const storageKey = @json('grupo-musical-step-1-' . (auth()->id() ?? 'guest'));
 
-    
-        document.querySelectorAll('.form-basico .entrada .campo').forEach((field) => {
+        const getSavedData = () => {
+            try {
+                return JSON.parse(localStorage.getItem(storageKey)) || {};
+            } catch (error) {
+                return {};
+            }
+        };
+
+        const saveFormData = () => {
+            const data = {};
+
+            form.querySelectorAll('.campo:not([type="file"])').forEach((field) => {
+                data[field.name] = field.value;
+            });
+
+            localStorage.setItem(storageKey, JSON.stringify(data));
+        };
+
+        const savedData = getSavedData();
+
+        form.querySelectorAll('.campo:not([type="file"])').forEach((field) => {
+            if (Object.prototype.hasOwnProperty.call(savedData, field.name)) {
+                field.value = savedData[field.name];
+            }
+
             const parent = field.closest('.entrada');
             if (!parent) return;
 
@@ -129,7 +150,19 @@
 
             field.addEventListener('input', syncState);
             field.addEventListener('change', syncState);
+            field.addEventListener('input', saveFormData);
+            field.addEventListener('change', saveFormData);
             syncState();
+        });
+
+        nextButton.addEventListener('click', () => {
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
+            saveFormData();
+            window.location.href = nextButton.dataset.url;
         });
     </script>
 
