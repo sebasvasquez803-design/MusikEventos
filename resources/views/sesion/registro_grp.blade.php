@@ -33,7 +33,7 @@
         </span>
       </div>
     </a>
-        
+
         <h1>REGISTRO DE GRUPOS MUSICALES</h1>
             <img class="logo" src="{{ asset('storage/img/grupos/logoMusikEventos.png') }}" alt="logo">
         </a>
@@ -83,18 +83,17 @@
                 @error('descripcion') <small class="error">{{ $message }}</small> @enderror
             </div>
 
-         <div class="entrada">
+            <div class="entrada">
                 <label>Subgénero</label>
                 <select name="id_subgenero" class="campo" required>
                     <option value="">Selecciona un subgénero</option>
                     @foreach(\DB::table('subgenero')->orderBy('nombre_subgenero')->get() as $s)
-                        <option value="{{ $s->id_subgenero }}" {{ old('id_subgenero') == $s->id_subgenero ? 'selected' : '' }}>{{ $s->nombre_subgenero }} @if($s->id_genero) ({{ \DB::table('genero')->where('id_genero', $s->id_genero)->value('nombre_genero') }}) @endif</option>
+                        <option value="{{ $s->id_subgenero }}" {{ old('id_subgenero') == $s->id_subgenero ? 'selected' : '' }}>{{ $s->nombre_subgenero }}</option>
                     @endforeach
                 </select>
                 <span class="icon"><i class="fa-solid fa-circle-check"></i></span>
                 @error('id_subgenero') <small class="error">{{ $message }}</small> @enderror
             </div>
-            
 
             <div class="entrada">
                 <label>Precio por hora</label>
@@ -104,7 +103,7 @@
             </div>
 
             <div class="boton">
-                
+
                 <a href="{{ route('siguiente') }}"
                 <button type="button">Siguiente</button>
             </div>
@@ -112,9 +111,9 @@
     </div>
 
     <script>
-        
 
-    
+
+
         document.querySelectorAll('.form-basico .entrada .campo').forEach((field) => {
             const parent = field.closest('.entrada');
             if (!parent) return;
