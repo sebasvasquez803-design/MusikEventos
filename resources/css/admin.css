@@ -1,0 +1,77 @@
+/* Fuentes utilizadas por la interfaz principal. */
+@import url('https://fonts.googleapis.com/css2?family=Aguafina+Script&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap');
+
+
+/* ================================
+   RESET GENERAL
+================================ */
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    overflow-x: hidden;
+}
+
+body {
+    background: rgb(241, 237, 237);
+    font-family: "Roboto", sans-serif;
+    
+}
+
+body::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge moderno */
+}   
+
+/* ================================
+   ENCABEZADO
+   display flex pone la hamburguesa,
+   el menu y el logo en una sola fila
+================================ */
+header {
+    width: 100%;
+    background: #1a1a1a;
+    padding: 20px 0 20px 20px;
+    height: auto;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: relative;
+     border-bottom:4px solid #C9A24A;
+}
+
+
+.button1 {
+  background-color: #ffffff00;
+  color: #000000;
+  width: 8.5em;
+  height: 2.9em;
+  border: #CAA24A 0.2em solid;
+  border-radius: 11px;
+  text-align: right;
+  transition: all 0.6s ease;
+}
+
+.button1:hover {
+  background-color: #CAA24A;
+  cursor: pointer;
+}
+
+.button1 svg {
+  width: 1.6em;
+  margin: -0.2em 0.8em 1em;
+  position: absolute;
+  display: flex;
+  transition: all 0.6s ease;
+}
+
+.button1:hover svg {
+  transform: translateX(5px);
+}
+
+.text {
+  margin: 0 1.5em
+}

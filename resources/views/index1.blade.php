@@ -96,11 +96,11 @@
     </div>
     </div>
 
-    <button class="setting-btn">
-  <span class="bar bar1"></span>
-  <span class="bar bar2"></span>
-  <span class="bar bar1"></span>
-</button>
+    <a href="{{ route('panel.admin') }}" class="setting-btn" role="button">
+        <span class="bar bar1"></span>
+        <span class="bar bar2"></span>
+        <span class="bar bar1"></span>
+    </a>
 
 
     <div>
