@@ -36,7 +36,6 @@
 
         <h1>REGISTRO DE GRUPOS MUSICALES</h1>
             <img class="logo" src="{{ asset('storage/img/grupos/logoMusikEventos.png') }}" alt="logo">
-        </a>
     </header>
 
     <div class="conte">
@@ -85,14 +84,22 @@
 
             <div class="entrada">
                 <label>Subgénero</label>
-                <select name="id_subgenero" class="campo" required>
+                <select name="id_subgenero" class="campo" id="select-subgenero" required>
                     <option value="">Selecciona un subgénero</option>
                     @foreach(\DB::table('subgenero')->orderBy('nombre_subgenero')->get() as $s)
-                        <option value="{{ $s->id_subgenero }}" {{ old('id_subgenero') == $s->id_subgenero ? 'selected' : '' }}>{{ $s->nombre_subgenero }}</option>
+                        @php
+                            $genero = \DB::table('genero')->where('id_genero', $s->id_genero)->value('nombre_genero');
+                        @endphp
+                        <option value="{{ $s->id_subgenero }}" data-genero="{{ $genero ?? '' }}" {{ old('id_subgenero') == $s->id_subgenero ? 'selected' : '' }}>{{ $s->nombre_subgenero }}</option>
                     @endforeach
                 </select>
                 <span class="icon"><i class="fa-solid fa-circle-check"></i></span>
                 @error('id_subgenero') <small class="error">{{ $message }}</small> @enderror
+            </div>
+
+            <div class="entrada genero-box">
+                <label>Género</label>
+                <div id="genero-actual" class="campo genero-seleccionado">Selecciona un subgénero</div>
             </div>
 
             <div class="entrada">
@@ -117,8 +124,57 @@
     </div>
 
     <script>
+        const form = document.forms.formulario;
+        const nextButton = document.getElementById('siguiente');
+        const storageKey = 'registro_grupo_data';
+        const subgeneroSelect = document.getElementById('select-subgenero');
+        const generoActual = document.getElementById('genero-actual');
 
+        function actualizarGeneroSeleccionado() {
+            if (!subgeneroSelect || !generoActual) return;
 
+            const selectedOption = subgeneroSelect.options[subgeneroSelect.selectedIndex];
+            const genero = selectedOption && selectedOption.dataset.genero ? selectedOption.dataset.genero : 'Selecciona un subgénero';
+
+            generoActual.textContent = genero;
+        }
+
+        if (subgeneroSelect) {
+            subgeneroSelect.addEventListener('change', actualizarGeneroSeleccionado);
+            actualizarGeneroSeleccionado();
+        }
+
+        function saveFormData() {
+            const formData = new FormData(form);
+            const data = {};
+
+            for (const [key, value] of formData.entries()) {
+                if (key === '_token') continue;
+                data[key] = value;
+            }
+
+            sessionStorage.setItem(storageKey, JSON.stringify(data));
+        }
+
+        function restoreFormData() {
+            const stored = sessionStorage.getItem(storageKey);
+            if (!stored) return;
+
+            try {
+                const data = JSON.parse(stored);
+
+                Object.entries(data).forEach(([key, value]) => {
+                    const field = form.elements.namedItem(key);
+                    if (!field || field.type === 'file') return;
+
+                    if (field instanceof HTMLSelectElement || field instanceof HTMLInputElement || field instanceof HTMLTextAreaElement) {
+                        field.value = value;
+                    }
+                });
+            } catch (error) {
+                console.warn('No se pudieron restaurar los datos del formulario:', error);
+            }
+        }
 
         document.querySelectorAll('.form-basico .entrada .campo').forEach((field) => {
             const parent = field.closest('.entrada');
@@ -139,15 +195,30 @@
             syncState();
         });
 
-        nextButton.addEventListener('click', () => {
-            if (!form.checkValidity()) {
-                form.reportValidity();
-                return;
-            }
-
-            saveFormData();
-            window.location.href = nextButton.dataset.url;
+        restoreFormData();
+        document.querySelectorAll('.form-basico .entrada .campo').forEach((field) => {
+            const parent = field.closest('.entrada');
+            if (!parent) return;
+            const syncState = () => {
+                const hasValue = field.type === 'file'
+                    ? !!field.files && field.files.length > 0
+                    : field.value.trim() !== '';
+                parent.classList.toggle('is-filled', hasValue);
+            };
+            syncState();
         });
+
+        if (nextButton && form) {
+            nextButton.addEventListener('click', () => {
+                if (!form.checkValidity()) {
+                    form.reportValidity();
+                    return;
+                }
+
+                saveFormData();
+                window.location.href = nextButton.dataset.url;
+            });
+        }
     </script>
 
     @if(session('success'))

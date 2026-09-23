@@ -168,6 +168,7 @@
                         data-description="{{ $grupo->artista_descripcion }}"
                         data-price="{{ $grupo->artista_precio }}"
                         data-tag="Grupo musical"
+                        data-genre="{{ $grupo->genero_attr }}"
                         data-video="{{ $grupo->artista_video }}"
                         data-nit="{{ $grupo->nit }}"
                         data-reviews='@json($grupo->reseñas)'

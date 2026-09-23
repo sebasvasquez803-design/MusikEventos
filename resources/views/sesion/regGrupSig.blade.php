@@ -36,7 +36,6 @@
 
         <h1>REGISTRO DE GRUPOS MUSICALES</h1>
             <img class="logo" src="{{ asset('storage/img/grupos/logoMusikEventos.png') }}" alt="logo">
-        </a>
     </header>
 
     <div class="conte">
@@ -46,6 +45,13 @@
 
         <form class="form-basico" name="formulario" action="{{ route('grupo-musical.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
+            <input type="hidden" name="nit" value="">
+            <input type="hidden" name="nombre_grupo" value="">
+            <input type="hidden" name="telefono" value="">
+            <input type="hidden" name="email" value="">
+            <input type="hidden" name="descripcion" value="">
+            <input type="hidden" name="id_subgenero" value="">
+            <input type="hidden" name="precio_hora" value="">
             <h2> Información y Archivos Multimedia </h2>
         <div class="entrada">
                 <label for="inputImagen">Portada del grupo</label>
@@ -76,6 +82,45 @@
     </div>
 
     <script>
+        const form = document.forms.formulario;
+        const storageKey = 'registro_grupo_data';
+        const previousStepFields = ['nit', 'nombre_grupo', 'telefono', 'email', 'descripcion', 'id_subgenero', 'precio_hora'];
+
+        function restoreHiddenFields() {
+            const stored = sessionStorage.getItem(storageKey);
+            if (!stored) return;
+
+            try {
+                const data = JSON.parse(stored);
+
+                previousStepFields.forEach((key) => {
+                    const field = form.elements.namedItem(key);
+                    if (!field) return;
+                    field.value = data[key] ?? '';
+                });
+            } catch (error) {
+                console.warn('No se pudieron restaurar los datos del formulario:', error);
+            }
+        }
+
+        function restoreFormData() {
+            const stored = sessionStorage.getItem(storageKey);
+            if (!stored) return;
+
+            try {
+                const data = JSON.parse(stored);
+                Object.entries(data).forEach(([key, value]) => {
+                    const field = form.elements.namedItem(key);
+                    if (!field || field.type === 'file') return;
+                    if (field instanceof HTMLInputElement || field instanceof HTMLTextAreaElement || field instanceof HTMLSelectElement) {
+                        field.value = value;
+                    }
+                });
+            } catch (error) {
+                console.warn('No se pudieron restaurar los datos del formulario:', error);
+            }
+        }
+
         document.querySelectorAll('.form-basico .entrada .campo').forEach((field) => {
             const parent = field.closest('.entrada');
             if (!parent) return;
@@ -92,6 +137,9 @@
             field.addEventListener('change', syncState);
             syncState();
         });
+
+        restoreHiddenFields();
+        restoreFormData();
     </script>
 
     @if(session('success'))
