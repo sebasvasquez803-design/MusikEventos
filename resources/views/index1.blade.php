@@ -96,11 +96,16 @@
     </div>
     </div>
 
+    <button class="setting-btn">
+  <span class="bar bar1"></span>
+  <span class="bar bar2"></span>
+  <span class="bar bar1"></span>
+</button>
+
+
     <div>
         <div class="logo">
-            <a href="{{ route('home') }}">
                 <img class="logito" src="{{ asset('storage/img/grupos/logoMusikEventos.png') }}" alt="logo">
-            </a>
         </div>
         <!-- Logo -->
 
