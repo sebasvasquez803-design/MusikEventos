@@ -85,6 +85,7 @@ if (infoPanel) {
             const description = button.dataset.description || 'Grupo musical disponible para eventos.';
             const price = button.dataset.price || 'Consultar precio';
             const tag = button.dataset.tag || 'Grupo musical';
+            const genre = button.dataset.genre || '';
             const videoUrl = button.dataset.video || '';
             const reviews = button.dataset.reviews ? JSON.parse(button.dataset.reviews) : [];
             const canAdmin = button.dataset.canAdmin === '1';
@@ -98,7 +99,7 @@ if (infoPanel) {
 
             if (nameEl) nameEl.textContent = name;
             if (tagEl) tagEl.textContent = tag;
-            if (tagSecondaryEl) tagSecondaryEl.textContent = 'Disponible';
+            if (tagSecondaryEl) tagSecondaryEl.textContent = genre || 'Disponible';
             if (imageEl) {
                 imageEl.src = image;
                 imageEl.alt = name;
