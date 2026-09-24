@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @vite('resources/css/dashboard.css')
-    
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
@@ -13,8 +13,8 @@
 
 
  <div class="contenido">
-    
-    <div class="dashboard">      
+
+    <div class="dashboard">
         <a href="{{ route('home') }}" class="button" aria-label="Volver al inicio">
       <div class="button-box">
         <span class="button-elem">
@@ -34,12 +34,12 @@
       </div>
     </a>
     <h2>Registro De Grupos</h2>
-    
+
     <p class="subtitulo-dashboard">
         Bienvenido al sistema de registro de grupos de MusikEventos.
     </p>
     <div class="dashboard-cards">
-        <a href="{{ route('sesion.rep.leg') }}" class="dashboard-card">
+        <a href="{{ route('iniciar.repleg') }}" class="dashboard-card">
             <i class="fa-solid fa-user-tie"></i>
             <h3>Registrar Representante</h3>
             <p>Registrar representantes en la plataforma.</p>
@@ -62,9 +62,9 @@
             <h3>Unirse a un Grupo</h3>
             <p>Unirse a un grupo musical existente.</p>
         </a>
-    </div> 
+    </div>
 
-    
+
 </div>
 </div>
 </body>

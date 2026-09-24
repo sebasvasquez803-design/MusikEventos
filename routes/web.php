@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GeneroController;
 use App\Http\Controllers\SubgeneroController;
 use App\Http\Controllers\UsuarioController;
+use Illuminate\Http\Request;
 
 // Página principal del sitio. Aquí se muestra el home con la lista de grupos musicales.
 Route::get('/', [GrupoMusicalController::class, 'home'])->name('home');
@@ -16,7 +17,19 @@ Route::view('/welcome', 'welcome')->name('welcome');
 Route::view('/grupo-musical', 'sesion.registro_grp')->name('grupo.musical');
 Route::view('/reserva', 'formularios.reserva')->name('reserva');
 Route::view('/registro-clientes', 'formularios.registro_clientes')->name('registro.clientes');
+Route::get('/iniciar-rep_leg', function (Request $request) {
+    if ($request->user()) {
+        return redirect()->route('curriculum.rep');
+    }
+
+    $request->session()->put('url.intended', route('curriculum.rep'));
+
+    return view('iniciar_repleg');
+})->name('iniciar.rep.leg');
 Route::view('/sesion-rep_leg', 'formularios.sesion_rep_leg')->name('sesion.rep.leg');
+Route::view('/curriculum-representante', 'formularios.curriculum_rep')
+    ->middleware('auth')
+    ->name('curriculum.rep');
 Route::view('/dash-rep', 'dash_rep')
     ->middleware('auth')
     ->name('dash.rep');
@@ -44,6 +57,7 @@ Route::delete('/resenas/{resena}', [ResenaController::class, 'destroyFromForm'])
 Route::view('/mas-info', 'formularios.mas_info')->name('mas_info');
 Route::view('/regGrupMusc','sesion.regGrupSig')->name('siguiente');
 Route::view('/panel-admin','panel_admin')->name('panel.admin');
+Route::view('/iniciar-repleg','iniciar_repleg')->name('iniciar.repleg');
 
 // CRUD web estándar del panel administrativo:
 // - generos: administración de géneros

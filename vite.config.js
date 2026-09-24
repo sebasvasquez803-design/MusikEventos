@@ -18,6 +18,8 @@ export default defineConfig({
                 'resources/js/transicion.js',
                 'resources/css/mas_info.css',
                 'resources/css/admin.css',
+                'resources/css/login.css',
+                'resources/css/sesion_rep.css',
 
             ],
             refresh: true,

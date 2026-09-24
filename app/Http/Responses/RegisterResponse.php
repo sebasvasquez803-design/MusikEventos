@@ -13,6 +13,6 @@ class RegisterResponse implements RegisterResponseContract
     {
         return $request->wantsJson()
             ? new JsonResponse(['two_factor' => false], 201)
-            : redirect()->route('home');
+            : redirect()->intended(route('home'));
     }
 }

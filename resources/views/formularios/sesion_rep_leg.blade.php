@@ -1,136 +1,71 @@
 <!DOCTYPE html>
 <html lang="es">
- @vite('resources/css/sesion_rep.css')
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Representante Legal</title>
+    <title>Registro | Representante legal</title>
 
-    <link rel="stylesheet" href="../css/sesion_rep.css">
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    @vite('resources/css/login.css')
 </head>
 
-<body>
-    <!-- ENCABEZADO -->
-    <header>
-        <div class="logo">
-        <img class="logo" src="../img/logoMusikEventos.png" alt="logo">
-        </div>
-        <div class="texto_logo">
-            <h2>REPRESENTANTE LEGAL</h2>
-        </div>
+
+<body class="auth-page">
+
+<header class="auth-header">
+  <a href="{{ route('iniciar.rep.leg') }}" class="button" aria-label="Volver al inicio de sesión">
+      <div class="button-box">
+        <span class="button-elem">
+          <svg viewBox="0 0 46 40" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M46 20.038c0-.7-.3-1.5-.8-2.1l-16-17c-1.1-1-3.2-1.4-4.4-.3-1.2 1.1-1.2 3.3 0 4.4l11.3 11.9H3c-1.7 0-3 1.3-3 3s1.3 3 3 3h33.1l-11.3 11.9c-1 1-1.2 3.3 0 4.4 1.2 1.1 3.3.8 4.4-.3l16-17c.5-.5.8-1.1.8-1.9z"
+            ></path>
+          </svg>
+        </span>
+        <span class="button-elem">
+          <svg viewBox="0 0 46 40">
+            <path
+              d="M46 20.038c0-.7-.3-1.5-.8-2.1l-16-17c-1.1-1-3.2-1.4-4.4-.3-1.2 1.1-1.2 3.3 0 4.4l11.3 11.9H3c-1.7 0-3 1.3-3 3s1.3 3 3 3h33.1l-11.3 11.9c-1 1-1.2 3.3 0 4.4 1.2 1.1 3.3.8 4.4-.3l16-17c.5-.5.8-1.1.8-1.9z"
+            ></path>
+          </svg>
+        </span>
+      </div>
+    </a>
+
+        <h1>REGISTRO</h1>
+        <img class="auth-brand" src="{{ asset('storage/img/grupos/logoMusikEventos.png') }}" alt="MusikEventos">
     </header>
 
-    <!-- CONTENIDO -->
-    <div class="contenido">
+    <div class="auth-layout">
+        <aside class="auth-image">
+            <img src="{{ asset('storage/img/inside.jpeg') }}" alt="Instrumentos musicales">
+        </aside>
 
-        <!-- PANEL IZQUIERDO -->
-        <div class="panel_izquierdo">
-            <div class="foto_perfil">
-                <i class="fa-solid fa-camera"></i>
-                <p>Foto de perfil / Logo</p>
-            </div>
+        <main class="auth-content">
+            <section class="auth-panel">
+                <h2 class="auth-title">Registrar representante legal</h2>
+             
 
-            <div class="mensaje">
-                <h2>¡Bienvenido!</h2>
+                <form method="POST" action="{{ route('register.store') }}">
+                    @csrf
 
-                <p>Responde todos los campos solicitados para iniciar sesión como representante legal y administrar la información detu grupo musical.
-                </p>
-            </div>
-        </div>
-
-        <!-- LOGIN -->
-        <div class="login">
-            <form action="#">
-                <h2>INICIAR SESIÓN</h2>
-                <div class="entrada">
-                    <label>Usuario (Correo Electrónico)</label>
-                    <div class="campo">
-                        <i class="fa-solid fa-user"></i>
-                        <input
-                            type="email"
-                            placeholder="Ej. representante@gmail.com"
-                            required>
+                    <div class="auth-field">
+                    <label for="email">Correo electrónico</label>
+                    <input id="email" name="email" type="email" value="{{ old('email') }}" placeholder="correo@ejemplo.com" required autocomplete="email">
+                    @error('email') <span class="auth-error">{{ $message }}</span> @enderror
                     </div>
-                </div>
+                  <div class="auth-field">
+                    <label for="password">Contraseña</label>
+                    <input id="password" name="password" type="password" placeholder="Tu contraseña" required autocomplete="new-password">
+                    @error('password') <span class="auth-error">{{ $message }}</span> @enderror
+                  </div>
 
-                <div class="entrada">
-                    <label>Contraseña</label>
-                    <div class="campo">
-                        <i class="fa-solid fa-lock"></i>
+                  <button class="auth-submit" type="submit">Iniciar sesión</button>
+                </form>
 
-                        <input
-                            type="password"
-                            placeholder="Ingrese su contraseña"
-                            required>
-                    </div>
-                </div>
-
-                <div class="recordar">
-                    <input
-                        type="checkbox"
-                        id="recordar">
-                    <label for="recordar">
-                        Recordar sesión
-                    </label>
-                </div>
-
-                <div class="olvido">
-                    <a href="#">
-                        ¿Olvidó su contraseña?
-                    </a>
-                </div>
-
-                <div class="boton">
-                    <input
-                        type="button"
-                        value="INICIAR SESIÓN"
-                        onclick="validar()">
-                </div>
-            </form>
-        </div>
+                <p class="auth-register">¿No tienes una cuenta? <a href="{{ route('iniciar.rep.leg') }}">Crear </a></p>
+            </section>
+        </main>
     </div>
 
-    <!-- FOOTER -->
-    <footer>
-        <div class="contenedor-footer">
-            <div class="info">
-                <h2>Acerca De Nosotros</h2>
-                <p>
-                    Somos una empresa dedicada a la organización de eventos
-                    musicales con más de 10 años de experiencia en el sector.
-                    Vive la música, vive tus eventos.
-                </p>
-            </div>
-            <div class="info1">
-                <h2>Contáctenos</h2>
-                <div class="redes_sociales">
-                    <a href="https://www.facebook.com/login/?next=https%3A%2F%2Fwww.facebook.com%2F%3Flocale%3Des_LA">
-                        <i class="fa-brands fa-facebook"></i>
-                    </a>
-                    <a href="https://www.instagram.com/accounts/login/">
-                        <i class="fa-brands fa-instagram"></i>
-                    </a>
-                    <a href="https://web.whatsapp.com/">
-                        <i class="fa-brands fa-whatsapp"></i>
-                    </a>
-                    <a href="#">
-                        <i class="fa-solid fa-envelope"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="direccion">
-            <p>
-                <strong>Dirección</strong> Calle 50 #2-90 Soacha
-                <br>
-                <i class="fa-regular fa-copyright"></i>
-                Copyright 2026
-            </p>
-        </div>
-    </footer>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
-    <script src="../js/sesion_rep.js"></script>
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crear cuenta | MusikEventos</title>
+    <title>{{ request('tipo') === 'representante' ? 'Registro de representante legal' : 'Crear cuenta' }}</title>
     @vite('resources/css/style.css')
     <style>
         .auth-page { min-height: 100vh; background: #f1eded; color: #000; font-family: "Roboto", sans-serif; }
@@ -37,13 +37,111 @@
             .auth-field { grid-template-columns: 1fr; gap: 8px; padding: 13px 4px; }
             .auth-error { grid-column: 1; }
         }
+
+                /* Botón de regreso estilo Uiverse.io */
+.button {
+  display: block;
+  position: relative;
+  width: 56px;
+  height: 56px;
+  margin: 0;
+  overflow: hidden;
+  outline: none;
+  background-color: transparent;
+  cursor: pointer;
+  border: 0;
+
+}
+
+.button:before,
+.button:after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  inset: 7px;
+}
+
+.button:before {
+  border: 4px solid #C9A24A;
+  transition: opacity 0.4s cubic-bezier(0.77, 0, 0.175, 1) 80ms,
+    transform 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955) 80ms;
+}
+
+.button:after {
+  border: 4px solid #C9A24A;
+  transform: scale(1.3);
+  transition: opacity 0.4s cubic-bezier(0.165, 0.84, 0.44, 1),
+    transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  opacity: 0;
+}
+
+.button:hover:before,
+.button:focus:before {
+  opacity: 0;
+  transform: scale(0.7);
+  transition: opacity 0.4s cubic-bezier(0.165, 0.84, 0.44, 1),
+    transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.button:hover:after,
+.button:focus:after {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 0.4s cubic-bezier(0.77, 0, 0.175, 1) 80ms,
+    transform 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955) 80ms;
+}
+
+.button-box {
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.button-elem {
+  display: block;
+  width: 20px;
+  height: 20px;
+  margin: 17px 18px 0 18px;
+  transform: rotate(180deg);
+  fill: #f0eeef;
+}
+
+.button:hover .button-box,
+.button:focus .button-box {
+  transition: 0.4s;
+  transform: translateX(-56px);
+}
+
     </style>
 </head>
 <body class="auth-page">
-    <!-- Encabezado compartido con la pantalla de inicio de sesión. -->
+    <!-- Encabezado de autenticación con la identidad de MusikEventos. -->
     <header class="auth-header">
-        <a href="{{ route('home') }}"><img class="auth-brand" src="{{ asset('storage/img/grupos/logoMusikEventos.png') }}" alt="MusikEventos"></a>
-        <h1>REGISTRO DE USUARIO</h1>
+        <a href="{{ route('login') }}" class="button" aria-label="Volver al inicio">
+      <div class="button-box">
+        <span class="button-elem">
+          <svg viewBox="0 0 46 40" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M46 20.038c0-.7-.3-1.5-.8-2.1l-16-17c-1.1-1-3.2-1.4-4.4-.3-1.2 1.1-1.2 3.3 0 4.4l11.3 11.9H3c-1.7 0-3 1.3-3 3s1.3 3 3 3h33.1l-11.3 11.9c-1 1-1.2 3.3 0 4.4 1.2 1.1 3.3.8 4.4-.3l16-17c.5-.5.8-1.1.8-1.9z"
+            ></path>
+          </svg>
+        </span>
+        <span class="button-elem">
+          <svg viewBox="0 0 46 40">
+            <path
+              d="M46 20.038c0-.7-.3-1.5-.8-2.1l-16-17c-1.1-1-3.2-1.4-4.4-.3-1.2 1.1-1.2 3.3 0 4.4l11.3 11.9H3c-1.7 0-3 1.3-3 3s1.3 3 3 3h33.1l-11.3 11.9c-1 1-1.2 3.3 0 4.4 1.2 1.1 3.3.8 4.4-.3l16-17c.5-.5.8-1.1.8-1.9z"
+            ></path>
+          </svg>
+        </span>
+      </div>
+    </a>
+
+        <h1>{{ request('tipo') === 'representante' ? 'REPRESENTANTE LEGAL' : 'REGISTRO' }}
+        </h1>
+     <img class="auth-brand" src="{{ asset('storage/img/grupos/logoMusikEventos.png') }}" alt="MusikEventos"></a>
+    </header>
+
     </header>
 
     <div class="auth-layout">
@@ -53,8 +151,8 @@
         <!-- Imagen lateral y formulario de creación de cuenta. -->
         <main class="auth-content">
             <section class="auth-panel">
-                <h2 class="auth-title">Crear una cuenta</h2>
-                <p class="auth-subtitle">Regístrate para reservar tus grupos musicales favoritos.</p>
+                <h2 class="auth-title">{{ request('tipo') === 'representante' ? 'Registrar representante legal' : 'Crear una cuenta' }}</h2>
+                <p class="auth-subtitle">{{ request('tipo') === 'representante' ? 'Crea tu cuenta para acceder al formulario de currículo.' : 'Regístrate para reservar tus grupos musicales favoritos.' }}</p>
 
         <form method="POST" action="{{ route('register.store') }}">
             @csrf
@@ -80,7 +178,7 @@
             <button class="auth-submit" type="submit" data-test="register-user-button">Crear cuenta</button>
         </form>
 
-                <p class="auth-register">¿Ya tienes una cuenta? <a href="{{ route('login') }}">Inicia sesión</a></p>
+                <p class="auth-register">¿Ya tienes una cuenta? <a href="{{ request('tipo') === 'representante' ? route('sesion.rep.leg') : route('login') }}">Inicia sesión</a></p>
             </section>
         </main>
     </div>

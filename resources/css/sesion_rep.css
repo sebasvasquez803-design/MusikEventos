@@ -8,199 +8,346 @@
 }
 
 body{
+    min-height: 100vh;
     background:#f5f5f5;
+    color: #171717;
 }
 
-/* ENCABEZADO*/
-
-header{
-    width:100%;
-    height:120px;
-    background:black;
+/* ================================
+   ENCABEZADO
+   display flex pone la hamburguesa,
+   el menu y el logo en una sola fila
+================================ */
+header {
+    width: 100%;
+    background: #1a1a1a;
+    min-height: 92px;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: relative;
     border-bottom:4px solid #C9A24A;
-    display:flex;
-    align-items:center;
-    padding:20px 40px;
+    justify-content: center;
 }
 
-.logo_encabezado{
-    display:flex;
-    align-items:center;
+
+h1 {
+    color: #C9A24A;            /* color dorado del texto */
+    font-size: clamp(1.3rem, 3vw, 2.35rem);
+    line-height: 1.15;
+    text-align: center;        /* centra el texto dentro de su propia caja */
+    font-family: "Roboto", sans-serif;
 }
 
-.logo{
-
-    width:120px;
-    height:100px;
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-    font-size:13px;
-    margin-right:20px;
+.logo {
+    display: block;
+    width: clamp(64px, 8vw, 100px);
+    height: auto;
 }
 
-.texto_logo h2{
-    color:white;
-    font-size:40px;
+.conte {
+    display: flex;
+    align-items: center;
+    min-height: calc(100vh - 92px);
+    gap: 32px;
 }
 
-/*CONTENIDO*/
-
-.contenido{
-    display:flex;
-    width:100%;
-    height:calc(100vh - 120px);
+.contenedor {
+    width: 20%;                        /* ocupa el 20% del ancho de .conte */
+    background: rgb(221, 221, 221);   /* mismo color de fondo que el body */
+    align-self: stretch;               /* se estira para igualar la altura del elemento más alto a su lado (el form) */
 }
 
-/*PANEL IZQUIERDO*/
-
-.panel_izquierdo{
-    width:35%;
-    background:black;
-    color:white;
-    border-right:4px solid #C9A24A;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    padding-top:60px;
+.img-contenedor {
+    width: 100%;          /* la imagen ocupa todo el ancho de su contenedor */
+    height: 100%;          /* la imagen ocupa todo el alto de su contenedor */
+    object-fit: cover;    /* la imagen se recorta para llenar el espacio SIN deformarse */
 }
 
-.foto_perfil{
-    width:180px;
-    height:180px;
-    border:2px dashed #C9A24A;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    color:#C9A24A;
-    margin-bottom:40px;
-}
-
-.foto_perfil i{
-    font-size:60px;
-    margin-bottom:15px;
+/* Botón de regreso estilo Uiverse.io */
+.button {
+  display: block;
+  position: relative;
+  width: 56px;
+  height: 56px;
+  margin: 0;
+  overflow: hidden;
+  outline: none;
+  background-color: transparent;
+  cursor: pointer;
+  border: 0;
 
 }
 
-.foto_perfil p{
-    color:white;
+.button:before,
+.button:after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  inset: 7px;
 }
 
-.mensaje{
-  width:80%;
+.button:before {
+  border: 4px solid #C9A24A;
+  transition: opacity 0.4s cubic-bezier(0.77, 0, 0.175, 1) 80ms,
+    transform 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955) 80ms;
 }
 
-.mensaje h2{
-    color:#C9A24A;
-    text-align:center;
-    margin-bottom:20px;
-    font-size:35px;
-
+.button:after {
+  border: 4px solid #C9A24A;
+  transform: scale(1.3);
+  transition: opacity 0.4s cubic-bezier(0.165, 0.84, 0.44, 1),
+    transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  opacity: 0;
 }
 
-.mensaje p{
-    text-align:center;
-    line-height:30px;
-    font-size:20px;
+.button:hover:before,
+.button:focus:before {
+  opacity: 0;
+  transform: scale(0.7);
+  transition: opacity 0.4s cubic-bezier(0.165, 0.84, 0.44, 1),
+    transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-/*LOGIN*/
-
-.login{
-
-    width:60%;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    padding:80px;
-    background:white;
+.button:hover:after,
+.button:focus:after {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 0.4s cubic-bezier(0.77, 0, 0.175, 1) 80ms,
+    transform 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955) 80ms;
 }
 
-.login h2{
-    text-align:center;
-    margin-bottom:35px;
+.button-box {
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
-.entrada{
-    width:450px;
-    margin:20px auto;
+.button-elem {
+  display: block;
+  width: 20px;
+  height: 20px;
+  margin: 17px 18px 0 18px;
+  transform: rotate(180deg);
+  fill: #f0eeef;
 }
 
-.entrada label{
-    display:block;
-    margin-bottom:8px;
-    font-weight:bold;
-
+.button:hover .button-box,
+.button:focus .button-box {
+  transition: 0.4s;
+  transform: translateX(-56px);
 }
 
-.entrada input{
-    width:100%;
-    height:40px;
-    border:2px solid #C9A24A;
-    border-radius:8px;
-    padding-left:40px;
-    outline:none;
+.contenedor {
+    width: 20%;                        /* ocupa el 20% del ancho de .conte */
+    background: rgb(221, 221, 221);   /* mismo color de fondo que el body */
+    align-self: stretch;               /* se estira para igualar la altura del elemento más alto a su lado (el form) */
 }
 
-/*BOTON*/
-
-.boton{
-    text-align:center;
-    margin-top:35px;
+.img-contenedor {
+    width: 100%;          /* la imagen ocupa todo el ancho de su contenedor */
+    height: 100%;          /* la imagen ocupa todo el alto de su contenedor */
+    object-fit: cover;    /* la imagen se recorta para llenar el espacio SIN deformarse */
 }
 
-.boton input{
-    background:black;
-    color:#C9A24A;
-    border:2px solid #C9A24A;
-    padding:12px 40px;
-    border-radius:30px;
-    cursor:pointer;
-    font-size:16px;
-    font-weight:bold;
+
+
+/* ======================================================
+   FORMULARIO
+====================================================== */
+.form-basico {
+    background-color: #ffffff;
+    flex: 1 1 680px;
+    width: min(100%, 720px);
+    max-width: 720px;
+    margin: 0 auto;
+    border: 2px solid #d4af37;
+    border-radius: 12px;
+    padding: 26px 34px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, .08);
 }
 
-.boton input:hover{
-    background:#C9A24A;
-    color:black;
+@media (min-width: 761px) {
+    .form-basico {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        column-gap: 24px;
+    }
+
+    .form-basico .titulo,
+    .form-basico .boton {
+        grid-column: 1 / -1;
+    }
 }
 
-/*FOOTER*/
-
-footer{
-    background:black;
-    color:white;
-    border-top:4px solid #C9A24A;
+.titulo h2 {
+    text-align: center;
+    margin-bottom: 18px;
+    font-size: 22px;
+    color: #111;
 }
 
-.contenedor-footer{
-    display:flex;
-    justify-content:space-around;
-    padding:30px;
+/* --- Cada bloque de campo (label + input + icono) --- */
+.entrada {
+    position: relative; /* necesario para ubicar el icono encima del input */
+    margin-bottom: 13px;
 }
 
-footer h2{
-    color:#C9A24A;
-    margin-bottom:10px;
+.entrada label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 6px;
+    font-size: 14px;
+    color: #222;
 }
 
-.redes_sociales a{
-    color:white;
-    text-decoration:none;
-    font-size:28px;
-    margin-right:15px;
+/* --- Inputs, select y textarea comparten el mismo estilo de "campo" --- */
+.campo,
+.entrada input,
+.entrada select,
+.entrada textarea {
+    width: 100%;
+    padding: 10px 35px 10px 12px; /* espacio a la derecha para el icono */
+    border: 1px solid #d4af37;
+    border-radius: 6px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s ease;
 }
 
-.redes_sociales a:hover{
-    color:#C9A24A;
+.entrada textarea {
+    resize: vertical;
+    min-height: 60px;
 }
 
-.direccion{
-    text-align:center;
-    padding:15px;
-    border-top:1px solid #C9A24A;
+/* --- Efecto al hacer click / seleccionar un campo --- */
+.campo:focus,
+.entrada input:focus,
+.entrada select:focus,
+.entrada textarea:focus {
+    border-color: #000000;
+    box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.3);
+}
 
+/* --- Icono de "check" dentro del input --- */
+.icon {
+    position: absolute;
+    right: 12px;
+    top: 38px; /* alineado con la altura del input, debajo del label */
+    color: #d4af37;
+    font-size: 14px;
+    pointer-events: none; /* para que el icono no bloquee el click en el input */
+}
+
+/* --- input tipo file (carta de nombramiento) --- */
+.entrada input[type="file"] {
+    padding: 8px;
+    background-color: #fafafa;
+}
+
+/* --- checkbox de condiciones --- */
+.entrada input[type="checkbox"] {
+    width: auto;
+    margin: 0;
+    accent-color: #d4af37; /* pinta el check de dorado en navegadores modernos */
+}
+
+.entrada a {
+    color: #b8860b;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.condiciones {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+}
+
+.condiciones label {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.4;
+    cursor: pointer;
+}
+
+.entrada a:hover {
+    text-decoration: underline;
+}
+
+/* ======================================================
+   BOTON DE ENVIAR
+====================================================== */
+.boton {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.boton input[type="submit"] {
+    background-color: #000000;
+    color: #C9A24A;
+    border: none;
+    padding: 12px 40px;
+    border-radius: 25px; /* boton bien redondeado, como en la imagen */
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.boton input[type="submit"]:hover {
+    background-color: #C9A24A;
+    color: #000000;
+}
+
+.boton input[type="button"]:active {
+    transform: scale(0.97); /* se "hunde" un poquito al hacer click */
+}
+
+@media (max-width: 760px) {
+    header {
+        min-height: 72px;
+        padding: 12px 14px;
+        gap: 8px;
+    }
+
+    .button {
+        flex: 0 0 48px;
+        transform: scale(.85);
+    }
+
+    .conte {
+        width: min(100% - 28px, 560px);
+        min-height: calc(100vh - 72px);
+        flex-direction: column;
+        gap: 22px;
+        padding: 24px 0 32px;
+    }
+
+    .contenedor {
+        flex-basis: auto;
+        width: 100%;
+        min-height: 150px;
+        max-height: 190px;
+    }
+
+    .form-basico {
+        flex: 0 1 auto;
+        width: 100%;
+        max-width: 560px;
+        padding: 26px 20px;
+    }
+}
+
+@media (min-width: 761px) {
+    body {
+        overflow: hidden;
+    }
+
+    .form-basico {
+        transform: translateY(-18px);
+    }
 }
