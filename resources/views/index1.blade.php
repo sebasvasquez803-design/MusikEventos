@@ -5,6 +5,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @vite('resources/css/style.css')
+    @vite(['resources/js/calendario-modal.js'])
     <title>MusikEventos</title>
     <link rel="shortcut icon" href="{{ asset('storage/img/grupos/logoMusikEventos.png') }}" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -31,17 +32,17 @@
             @auth
                 <li><a href="{{ route('dash.rep') }}"> UNETE O REGÍSTRA TU GRUPO </a></li>
             @endauth
-            <li><a href="#">CALENDARIO</a></li>
+            <li><a href="{{ route('calendario') }}">CALENDARIO</a></li>
             <button class="wooden-cart-button" type="button" aria-label="Carrito">
-                <div class="wooden-cart-button-inner">
-                    <svg viewBox="0 0 24 24">   
+                <a href="{{ route('carrito') }}"><div class="wooden-cart-button-inner">
+                    <svg viewBox="0 0 24 24">
                     <path
                         d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A.996.996 0 0 0 21.42 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"
                     ></path>
                     </svg>
                     <span class="button-text">Carrito</span>
                 </div>
-            </button>
+            </button></a>
         </ul>
 
 
@@ -96,11 +97,13 @@
     </div>
     </div>
 
-    <a href="{{ route('panel.admin') }}" class="setting-btn" role="button">
-        <span class="bar bar1"></span>
-        <span class="bar bar2"></span>
-        <span class="bar bar1"></span>
-    </a>
+    @auth
+        <a href="{{ route('panel.admin') }}" class="setting-btn" role="button">
+            <span class="bar bar1"></span>
+            <span class="bar bar2"></span>
+            <span class="bar bar1"></span>
+        </a>
+    @endauth
 
 
     <div>
@@ -111,8 +114,8 @@
 
     </div>
 
-  
-  
+
+
 </header>
 
 
@@ -234,7 +237,7 @@
 
 </div><!-- fin layout -->
 
-<section class="info-panel" id="info-panel" aria-hidden="true">
+<section class="info-panel" id="info-panel" aria-hidden="true"> <!-- Modal -->
     <div class="info-panel__content info-panel__content--arcangel">
         <button type="button" class="info-panel__close" aria-label="Cerrar">&times;</button>
 
@@ -311,11 +314,41 @@
             </div>
         </div>
 
+        {{-- ✅ CALENDARIO: dentro del content, antes de las reseñas --}}
+        <div class="modal-calendario-section">
+            <div class="modal-calendario-section__header">
+                <i class="fa-solid fa-calendar-days"></i>
+                <h3>Reservar fecha</h3>
+            </div>
+
+            <div id="calendar-modal"></div>
+
+            <div id="form-reserva" style="display:none; margin-top: 1rem;">
+                <p id="reserva-resumen"></p>
+
+                <input type="hidden" id="reserva-fecha">
+                <input type="hidden" id="reserva-hora">
+                <input type="hidden" id="reserva-nit">
+
+                <div class="form-group">
+                    <label for="reserva-direccion">Dirección del evento</label>
+                    <input type="text" id="reserva-direccion" class="form-control"
+                           placeholder="Ej: Calle 45 #23-10, Bogotá" maxlength="60">
+                </div>
+
+                <button id="btn-confirmar-reserva" class="btn-reserva">
+                    Confirmar reserva
+                </button>
+
+                <p id="reserva-mensaje"></p>
+            </div>
+        </div>
+
+        {{-- Reseñas --}}
         <div class="info-panel__reviews" id="info-panel-reviews"></div>
 
     </div>
-
-</section>
+</section> <!-- Modal -->
 
     <footer>
          <div class="contenedor-footer">
@@ -331,7 +364,7 @@
                <a href="https://www.facebook.com/login/?next=https%3A%2F%2Fwww.facebook.com%2F%3Flocale%3Des_LA"><i class="fa-brands fa-facebook"></i></a>
                 <a href="https://www.instagram.com/accounts/login/"><i class="fa-brands fa-instagram"></i></a>
                 <a href="https://web.whatsapp.com/"><i class="fa-brands fa-whatsapp"></i></a>
-                
+
             </div>
         </div>
     </div>

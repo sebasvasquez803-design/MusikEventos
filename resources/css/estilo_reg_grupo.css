@@ -163,6 +163,12 @@ input[type=submit] {
     color: #C9A24A;
 }
 
+.entrada input:valid ~ .icon i,
+.entrada select:valid ~ .icon i,
+.entrada textarea:valid ~ .icon i {
+    color: #C9A24A;
+}
+
 /* Botón de regreso estilo Uiverse.io */
 .button {
   display: block;

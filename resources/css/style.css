@@ -19,12 +19,12 @@ html, body {
 body {
     background: rgb(241, 237, 237);
     font-family: "Roboto", sans-serif;
-    
+
 }
 
 body::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Edge moderno */
-}   
+}
 
 
 
@@ -187,7 +187,7 @@ header > .logito {
     overflow: hidden;
     transition: width 0.3s ease;
     background: #1a1a1a;
-     
+
     align-self: stretch;
 }
 
@@ -1404,7 +1404,7 @@ max-height: 300px;
 }
 
 
-/* From Uiverse.io by vinodjangid07 */ 
+/* From Uiverse.io by vinodjangid07 */
 .setting-btn {
   width: 45px;
   height: 45px;
@@ -1417,7 +1417,7 @@ max-height: 300px;
   border-radius: 10px ;
   cursor: pointer;
   border: #C9A24A 2px solid;
- 
+
 }
 .bar {
   width: 50%;
@@ -1433,7 +1433,7 @@ max-height: 300px;
   content: "";
   width: 2px;
   height: 2px;
-  
+
   position: absolute;
   border-radius: 50%;
   border: 2px solid white;
@@ -1451,4 +1451,60 @@ max-height: 300px;
 }
 .setting-btn:hover .bar2::before {
   transform: translateX(-4px);
+}
+
+
+/* -- CALENDARIO --*/
+
+/* Calendario modal */
+.modal-calendario-section {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid #2a2a2a;
+    margin-bottom: 1rem;
+}
+
+.modal-calendario-section h3 {
+    color: #f39c12;
+    margin-bottom: 0.75rem;
+    font-size: 1rem;
+}
+
+#calendar-modal {
+    height: 450px;
+    background: #1a1a1a;
+    border-radius: 8px;
+    padding: 0.5rem;
+}
+
+.btn-reserva {
+    background: #f39c12;
+    color: #000;
+    border: none;
+    padding: 0.6rem 1.5rem;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 0.5rem;
+}
+
+.btn-reserva:hover {
+    background: #d68910;
+}
+
+/* Calendario completo */
+.calendario-page {
+    padding: 2rem;
+}
+
+.calendario-page h2 {
+    color: #f39c12;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+#calendar-completo {
+    background: #fff;
+    border-radius: 10px;
+    padding: 1rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
 }

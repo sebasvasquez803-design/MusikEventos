@@ -43,12 +43,12 @@
             <img class="img-contenedor" src="{{ asset('storage/img/inside.jpeg') }}" alt="barra lateral">
         </aside>
 
-        <form class="form-basico" name="formulario" action="{{ route('grupo-musical.store') }}" method="POST" enctype="multipart/form-data">
+        <form class="form-basico" name="formulario" action="{{ route('grupo-musical.store') }}" method="POST" enctype="multipart/form-data" onsubmit="return prepararSiguiente(event)">
             @csrf
 
             <div class="entrada">
                 <label>NIT</label>
-                <input type="text" placeholder="Ejemplo: 123456789" name="nit" class="campo" value="{{ old('nit') }}" required>
+                <input type="text" inputmode="numeric" pattern="[0-9]{10}" minlength="10" maxlength="10" title="El NIT debe tener exactamente 10 dígitos." placeholder="Ejemplo: 1234567890" name="nit" class="campo" value="{{ old('nit') }}" oninput="this.value = this.value.replace(/\D/g, '').slice(0, 10)" required>
                 <span class="icon"><i class="fa-solid fa-circle-check"></i></span>
                 @error('nit') <small class="error">{{ $message }}</small> @enderror
             </div>
@@ -62,7 +62,7 @@
 
             <div class="entrada">
                 <label>Telefono</label>
-                <input type="text" placeholder="Número de teléfono" name="telefono" class="campo" value="{{ old('telefono') }}" required>
+                <input type="text" inputmode="numeric" pattern="[0-9]{10}" minlength="10" maxlength="10" title="El teléfono debe tener exactamente 10 dígitos." placeholder="Número de teléfono" name="telefono" class="campo" value="{{ old('telefono') }}" oninput="this.value = this.value.replace(/\D/g, '').slice(0, 10)" required>
                 <span class="icon"><i class="fa-solid fa-circle-check"></i></span>
                 @error('telefono') <small class="error">{{ $message }}</small> @enderror
             </div>
@@ -104,23 +104,24 @@
 
             <div class="entrada">
                 <label>Precio por hora</label>
-                <input type="number" placeholder="Ejemplo: 100.00" name="precio_hora" class="campo" value="{{ old('precio_hora') }}" required>
+                <input type="number" id="precio-hora" placeholder="Ejemplo: 100.00" name="precio_hora" class="campo" value="{{ old('precio_hora') }}" min="0.01" step="0.01" required>
                 <span class="icon"><i class="fa-solid fa-circle-check"></i></span>
                 @error('precio_hora') <small class="error">{{ $message }}</small> @enderror
             </div>
 
         <div class="boton">
         <!-- From Uiverse.io by reshades -->
-            <button type="button" class="button1" id="siguiente" data-url="{{ route('siguiente') }}" cdsx> 
+            <button type="submit" class="button1" id="siguiente" data-url="{{ route('siguiente') }}">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"></path>
             </svg>
             <div class="text">
-                            Siguiente
+                Siguiente
             </div>
             </button>
 </div>
         </form>
+</div>
     </div>
 
     <script>
@@ -153,11 +154,11 @@
                 data[key] = value;
             }
 
-            sessionStorage.setItem(storageKey, JSON.stringify(data));
+            localStorage.setItem(storageKey, JSON.stringify(data));
         }
 
         function restoreFormData() {
-            const stored = sessionStorage.getItem(storageKey);
+            const stored = localStorage.getItem(storageKey);
             if (!stored) return;
 
             try {
@@ -196,6 +197,18 @@
         });
 
         restoreFormData();
+        window.addEventListener('beforeunload', saveFormData);
+        window.addEventListener('pagehide', saveFormData);
+        window.addEventListener('pageshow', restoreFormData);
+        window.addEventListener('load', restoreFormData);
+        window.addEventListener('load', () => {
+            setTimeout(restoreFormData, 100);
+        });
+        document.addEventListener('visibilitychange', () => {
+            if (document.visibilityState === 'hidden') {
+                saveFormData();
+            }
+        });
         document.querySelectorAll('.form-basico .entrada .campo').forEach((field) => {
             const parent = field.closest('.entrada');
             if (!parent) return;
@@ -208,16 +221,27 @@
             syncState();
         });
 
-        if (nextButton && form) {
-            nextButton.addEventListener('click', () => {
-                if (!form.checkValidity()) {
-                    form.reportValidity();
-                    return;
-                }
+        function prepararSiguiente(event) {
+            event.preventDefault();
 
-                saveFormData();
-                window.location.href = nextButton.dataset.url;
-            });
+            const precioHora = document.getElementById('precio-hora');
+
+            // Se guardan todos los campos antes de mostrar cualquier error.
+            saveFormData();
+
+            if (!precioHora.value || Number(precioHora.value) <= 0) {
+                precioHora.setCustomValidity('Ingresa un precio por hora mayor que 0.');
+            } else {
+                precioHora.setCustomValidity('');
+            }
+
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return false;
+            }
+
+            window.location.href = nextButton.dataset.url;
+            return false;
         }
     </script>
 

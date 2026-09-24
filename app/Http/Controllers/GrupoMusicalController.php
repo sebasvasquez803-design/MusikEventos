@@ -124,7 +124,7 @@ class GrupoMusicalController extends Controller
             'video_file' => ['nullable', 'file', 'mimetypes:video/mp4,video/webm,video/quicktime,video/x-msvideo', 'max:25000'],
             'descripcion' => ['nullable', 'string', 'max:500'],
             'numero_doc' => ['nullable', 'string', 'digits:10', 'exists:usuario,numero_doc'],
-            'precio_hora' => ['nullable', 'numeric'],
+            'precio_hora' => ['required', 'numeric', 'min:0.01'],
         ]);
 
         if ($request->hasFile('avatar')) {

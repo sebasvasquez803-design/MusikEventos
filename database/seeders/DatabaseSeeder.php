@@ -17,6 +17,9 @@ class DatabaseSeeder extends Seeder
             TipoPersonaSeeder::class,
             GeneroSubgeneroSeeder::class,
             GrupoMusicalSeeder::class,
+            ClienteSeeder::class,
+            RepresentanteLegalSeeder::class,
+            ArtistaSolistaSeeder::class,
             AdministradorSeeder::class,
         ]);
     }

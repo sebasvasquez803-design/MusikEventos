@@ -5,11 +5,11 @@ use App\Http\Controllers\GrupoMusicalController;
 use App\Http\Controllers\ResenaController;
 use App\Http\Middleware\EnsureTeamMembership;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\ReservaController;
 use App\Http\Controllers\GeneroController;
 use App\Http\Controllers\SubgeneroController;
 use App\Http\Controllers\UsuarioController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\PanelAdminController;
 
 // Página principal del sitio. Aquí se muestra el home con la lista de grupos musicales.
 Route::get('/', [GrupoMusicalController::class, 'home'])->name('home');
@@ -56,8 +56,9 @@ Route::delete('/resenas/{resena}', [ResenaController::class, 'destroyFromForm'])
     ->name('resenas.destroy');
 Route::view('/mas-info', 'formularios.mas_info')->name('mas_info');
 Route::view('/regGrupMusc','sesion.regGrupSig')->name('siguiente');
-Route::view('/panel-admin','panel_admin')->name('panel.admin');
-Route::view('/iniciar-repleg','iniciar_repleg')->name('iniciar.repleg');
+Route::get('/panel-admin', [PanelAdminController::class, 'index'])
+    ->middleware('auth')
+    ->name('panel.admin');
 
 // CRUD web estándar del panel administrativo:
 // - generos: administración de géneros
@@ -68,6 +69,18 @@ Route::resource('generos', GeneroController::class);
 Route::resource('grupos', GrupoMusicalController::class);
 Route::resource('sub-generos', SubgeneroController::class);
 Route::resource('usuarios', UsuarioController::class);
+
+// API interna (AJAX)
+Route::get('/api/eventos-bloqueados/{nit}', [ReservaController::class, 'eventosBloqueados']);
+Route::post('/reservas', [ReservaController::class, 'store'])->middleware('auth');
+
+// Vista calendario completo y API de eventos
+Route::get('/calendario', [ReservaController::class, 'calendarioCompleto'])
+    ->middleware('auth')
+    ->name('calendario');
+Route::get('/api/eventos-calendario', [ReservaController::class, 'eventosCalendario'])
+    ->middleware('auth')
+    ->name('calendario.eventos');
 
 
 Route::middleware('auth')->group(function () {
@@ -86,3 +99,4 @@ Route::prefix('{current_team}')
 
 require __DIR__.'/settings.php';
 
+Route::view('/carrito',('carrito'))-> name ('carrito');

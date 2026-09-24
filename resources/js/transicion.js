@@ -1,7 +1,6 @@
 const hambu = document.querySelector('.hambu');
 const sidebar = document.querySelector('.sub_menu');
 
-// Hace que el botón hamburguesa active el menú lateral y evita el comportamiento predeterminado del enlace
 if (hambu && sidebar) {
     const anchor = hambu.querySelector('a');
     const toggle = (evt) => {
@@ -15,29 +14,24 @@ if (hambu && sidebar) {
         hambu.addEventListener('click', toggle);
     }
 
-    // Cierra el menú lateral al hacer clic fuera en móvil
     document.addEventListener('click', (e) => {
         if (!sidebar.contains(e.target) && !hambu.contains(e.target) && sidebar.classList.contains('active')) {
             sidebar.classList.remove('active');
         }
     });
 
-    // Filtrado por género: escucha clics en enlaces con data-genre
     sidebar.addEventListener('click', (evt) => {
         const link = evt.target.closest('a[data-genre]');
         if (!link) return;
         evt.preventDefault();
         const genre = link.dataset.genre || '';
         filterByGenre(genre);
-        // mark active link
         Array.from(sidebar.querySelectorAll('a[data-genre]')).forEach(a => a.classList.remove('selected-genre'));
         link.classList.add('selected-genre');
-        // close sidebar on selection for mobile
         sidebar.classList.remove('active');
     });
 }
 
-// Función de filtrado del lado del cliente para las tarjetas por data-genero
 function filterByGenre(genre) {
     const cards = document.querySelectorAll('.contenedor');
     const normalized = (s) => (s || '').toString().toLowerCase();
@@ -53,6 +47,9 @@ function filterByGenre(genre) {
         }
     });
 }
+
+// ✅ Import del calendario modal
+import { iniciarCalendarioModal } from './calendario-modal.js';
 
 const infoToggleButtons = document.querySelectorAll('.info-toggle');
 const infoPanel = document.getElementById('info-panel');
@@ -97,6 +94,12 @@ if (infoPanel) {
                 nitInput.value = groupNit;
             }
 
+            // ✅ Asignar NIT al campo hidden del formulario de reserva
+            const reservaNitInput = document.getElementById('reserva-nit');
+            if (reservaNitInput) {
+                reservaNitInput.value = groupNit;
+            }
+
             if (nameEl) nameEl.textContent = name;
             if (tagEl) tagEl.textContent = tag;
             if (tagSecondaryEl) tagSecondaryEl.textContent = genre || 'Disponible';
@@ -138,7 +141,6 @@ if (infoPanel) {
                 `).join('');
             }
 
-            // Attach delegated handlers for edit/delete actions (only if admin)
             if (canAdmin && reviewsContainer) {
                 reviewsContainer.addEventListener('click', (evt) => {
                     const editBtn = evt.target.closest('.review-edit');
@@ -153,7 +155,6 @@ if (infoPanel) {
                         if (select) select.value = String(found.estrellas || 5);
                         const editingInput = reviewForm.querySelector('#editing_id');
                         if (editingInput) editingInput.value = id;
-                        // Update visible stars UI
                         const ratingStars = infoPanel.querySelector('.rating-stars');
                         const selectedLabel = infoPanel.querySelector('#selected-stars-label');
                         if (ratingStars) {
@@ -186,6 +187,7 @@ if (infoPanel) {
                     }
                 });
             }
+
             if (videoFrame || videoElement) {
                 if (!videoUrl || !videoUrl.trim()) {
                     if (videoFrame) {
@@ -203,19 +205,13 @@ if (infoPanel) {
 
                     if (isYoutubeUrl) {
                         let embedUrl = videoUrl;
-
                         if (embedUrl.includes('youtube.com/watch?v=')) {
                             const match = embedUrl.match(/[?&]v=([^&]+)/i);
-                            if (match && match[1]) {
-                                embedUrl = `https://www.youtube.com/embed/${match[1]}`;
-                            }
+                            if (match && match[1]) embedUrl = `https://www.youtube.com/embed/${match[1]}`;
                         } else if (embedUrl.includes('youtu.be/')) {
                             const match = embedUrl.match(/youtu\.be\/([^?]+)/i);
-                            if (match && match[1]) {
-                                embedUrl = `https://www.youtube.com/embed/${match[1]}`;
-                            }
+                            if (match && match[1]) embedUrl = `https://www.youtube.com/embed/${match[1]}`;
                         }
-
                         const refreshedUrl = `${embedUrl}${embedUrl.includes('?') ? '&' : '?'}refresh=${Date.now()}`;
                         if (videoFrame) {
                             videoFrame.src = refreshedUrl;
@@ -243,7 +239,6 @@ if (infoPanel) {
                 }
             }
 
-            // Initialize rating UI for the review form inside the panel
             (function initRatingInPanel() {
                 const reviewForm = document.querySelector('.info-panel__review-form');
                 const select = reviewForm ? reviewForm.querySelector('select[name="numero_estrellas"]') : null;
@@ -264,6 +259,11 @@ if (infoPanel) {
             infoPanel.classList.add('active');
             infoPanel.setAttribute('aria-hidden', 'false');
             document.body.style.overflow = 'hidden';
+
+            // ✅ Iniciar calendario DESPUÉS de que el modal es visible
+            setTimeout(() => {
+                iniciarCalendarioModal(groupNit);
+            }, 150);
         });
     });
 
@@ -284,7 +284,6 @@ if (infoPanel) {
         }
     });
 
-    // Interactive rating stars inside the info panel (one-time setup)
     (function setupRatingInteraction() {
         const ratingContainer = infoPanel.querySelector('.rating-stars');
         if (!ratingContainer) return;
@@ -308,7 +307,6 @@ if (infoPanel) {
         });
     })();
 
-    // Handle form submit (create or admin edit) and cancel edit
     (function setupFormHandlers() {
         const reviewForm = document.querySelector('.info-panel__review-form');
         if (!reviewForm) return;
@@ -323,10 +321,7 @@ if (infoPanel) {
             if (editingId) {
                 fetch(`/resenas/${editingId}`, {
                     method: 'PUT',
-                    headers: {
-                        'X-CSRF-TOKEN': csrf,
-                        'Accept': 'application/json',
-                    },
+                    headers: { 'X-CSRF-TOKEN': csrf, 'Accept': 'application/json' },
                     body: formData,
                 }).then((res) => {
                     if (res.ok) location.reload(); else res.json().then(j => alert(j.message || 'Error al actualizar'));
@@ -334,13 +329,9 @@ if (infoPanel) {
             } else {
                 fetch(formAction, {
                     method: 'POST',
-                    headers: {
-                        'X-CSRF-TOKEN': csrf,
-                        'Accept': 'application/json',
-                    },
+                    headers: { 'X-CSRF-TOKEN': csrf, 'Accept': 'application/json' },
                     body: formData,
                 }).then((res) => {
-                    // storeFromForm redirects on success; API may return JSON. Reload to reflect new review.
                     if (res.ok) location.reload(); else res.json().then(j => alert(j.message || 'Error al crear'));
                 }).catch(() => alert('Error al crear'));
             }
@@ -351,7 +342,6 @@ if (infoPanel) {
             cancelBtn.addEventListener('click', () => {
                 reviewForm.querySelector('#editing_id').value = '';
                 reviewForm.reset();
-                // Reset stars UI
                 const ratingStars = document.querySelector('.rating-stars');
                 if (ratingStars) {
                     Array.from(ratingStars.querySelectorAll('.star')).forEach((btn) => {

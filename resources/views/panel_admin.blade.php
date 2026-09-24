@@ -30,25 +30,15 @@
             <img class="logo" src="{{ asset('storage/img/grupos/logoMusikEventos.png') }}" alt="logo">
     </header>
 <body>
-    @php
-        // Estas consultas traen solo los últimos 5 registros de cada entidad para
-        // mostrarlos como una vista rápida dentro del panel administrativo.
-        // La idea es no saturar la pantalla y, al mismo tiempo, dejar visible el estado actual.
-        $generos = \App\Models\Genero::latest('id_genero')->take(5)->get();
-        $subgeneros = \App\Models\Subgenero::latest('id_subgenero')->take(5)->get();
-        $clientes = \App\Models\Usuario::where('id_tipo_persona', 3)->latest('id_usuario')->take(5)->get();
-        $grupos = \App\Models\GrupoMusical::latest('nit')->take(5)->get();
-        $representantes = \App\Models\Usuario::where('id_tipo_persona', 1)->latest('id_usuario')->take(5)->get();
-        $artistas = \App\Models\Usuario::where('id_tipo_persona', 2)->latest('id_usuario')->take(5)->get();
-    @endphp
     <main class="admin-panel">
       <section class="admin-grid">
           {{-- Tarjeta de géneros. --}}
           <article class="admin-card">
               <h2>Género</h2>
 
-              <form method="GET" action="{{ route('generos.index') }}">
-                  <input type="number" name="id" placeholder="Buscar por ID">
+              <form method="GET" action="{{ route('panel.admin') }}">
+                  <input type="hidden" name="entidad" value="genero">
+                  <input type="search" name="nombre" value="{{ $entidad === 'genero' ? $nombre : '' }}" placeholder="Buscar por iniciales">
                   <button type="submit">Buscar</button>
               </form>
 
@@ -72,14 +62,16 @@
 
               <div class="admin-actions">
                   <a href="{{ route('generos.create') }}">Nuevo</a>
+                  <a href="{{ route('panel.admin', ['entidad' => 'genero', 'nombre' => $entidad === 'genero' ? $nombre : null, 'mostrar' => $mostrar === 'genero' ? null : 'genero']) }}">{{ $mostrar === 'genero' ? 'Mostrar menos' : 'Mostrar más' }}</a>
               </div>
           </article>
 
           <article class="admin-card">
               <h2>Sub Género</h2>
 
-              <form method="GET" action="{{ route('sub-generos.index') }}">
-                  <input type="number" name="id" placeholder="Buscar por ID">
+              <form method="GET" action="{{ route('panel.admin') }}">
+                  <input type="hidden" name="entidad" value="subgenero">
+                  <input type="search" name="nombre" value="{{ $entidad === 'subgenero' ? $nombre : '' }}" placeholder="Buscar por iniciales">
                   <button type="submit">Buscar</button>
               </form>
 
@@ -103,6 +95,7 @@
 
               <div class="admin-actions">
                   <a href="{{ route('sub-generos.create') }}">Nuevo</a>
+                  <a href="{{ route('panel.admin', ['entidad' => 'subgenero', 'nombre' => $entidad === 'subgenero' ? $nombre : null, 'mostrar' => $mostrar === 'subgenero' ? null : 'subgenero']) }}">{{ $mostrar === 'subgenero' ? 'Mostrar menos' : 'Mostrar más' }}</a>
               </div>
           </article>
 
@@ -111,9 +104,9 @@
           <article class="admin-card">
               <h2>Cliente</h2>
 
-              <form method="GET" action="{{ route('usuarios.index') }}">
-                  <input type="hidden" name="tipo_persona" value="3">
-                  <input type="number" name="id" placeholder="Buscar por ID">
+              <form method="GET" action="{{ route('panel.admin') }}">
+                  <input type="hidden" name="entidad" value="cliente">
+                  <input type="search" name="nombre" value="{{ $entidad === 'cliente' ? $nombre : '' }}" placeholder="Buscar por iniciales">
                   <button type="submit">Buscar</button>
               </form>
 
@@ -137,14 +130,16 @@
 
               <div class="admin-actions">
                   <a href="{{ route('usuarios.create') }}?tipo_persona=3">Nuevo</a>
+                  <a href="{{ route('panel.admin', ['entidad' => 'cliente', 'nombre' => $entidad === 'cliente' ? $nombre : null, 'mostrar' => $mostrar === 'cliente' ? null : 'cliente']) }}">{{ $mostrar === 'cliente' ? 'Mostrar menos' : 'Mostrar más' }}</a>
               </div>
           </article>
 
           <article class="admin-card">
               <h2>Grupo Musical</h2>
 
-              <form method="GET" action="{{ route('grupos.index') }}">
-                  <input type="number" name="id" placeholder="Buscar por ID">
+              <form method="GET" action="{{ route('panel.admin') }}">
+                  <input type="hidden" name="entidad" value="grupo">
+                  <input type="search" name="nombre" value="{{ $entidad === 'grupo' ? $nombre : '' }}" placeholder="Buscar por iniciales">
                   <button type="submit">Buscar</button>
               </form>
 
@@ -168,6 +163,7 @@
 
               <div class="admin-actions">
                   <a href="{{ route('grupos.create') }}">Nuevo</a>
+                  <a href="{{ route('panel.admin', ['entidad' => 'grupo', 'nombre' => $entidad === 'grupo' ? $nombre : null, 'mostrar' => $mostrar === 'grupo' ? null : 'grupo']) }}">{{ $mostrar === 'grupo' ? 'Mostrar menos' : 'Mostrar más' }}</a>
               </div>
           </article>
 
@@ -175,9 +171,9 @@
           <article class="admin-card">
               <h2>Representante Legal</h2>
 
-              <form method="GET" action="{{ route('usuarios.index') }}">
-                  <input type="hidden" name="tipo_persona" value="1">
-                  <input type="number" name="id" placeholder="Buscar por ID">
+              <form method="GET" action="{{ route('panel.admin') }}">
+                  <input type="hidden" name="entidad" value="representante">
+                  <input type="search" name="nombre" value="{{ $entidad === 'representante' ? $nombre : '' }}" placeholder="Buscar por iniciales">
                   <button type="submit">Buscar</button>
               </form>
 
@@ -201,6 +197,7 @@
 
               <div class="admin-actions">
                   <a href="{{ route('usuarios.create') }}?tipo_persona=1">Nuevo</a>
+                  <a href="{{ route('panel.admin', ['entidad' => 'representante', 'nombre' => $entidad === 'representante' ? $nombre : null, 'mostrar' => $mostrar === 'representante' ? null : 'representante']) }}">{{ $mostrar === 'representante' ? 'Mostrar menos' : 'Mostrar más' }}</a>
               </div>
           </article>
 
@@ -208,9 +205,9 @@
           <article class="admin-card">
               <h2>Artista Solista</h2>
 
-              <form method="GET" action="{{ route('usuarios.index') }}">
-                  <input type="hidden" name="tipo_persona" value="2">
-                  <input type="number" name="id" placeholder="Buscar por ID">
+              <form method="GET" action="{{ route('panel.admin') }}">
+                  <input type="hidden" name="entidad" value="artista">
+                  <input type="search" name="nombre" value="{{ $entidad === 'artista' ? $nombre : '' }}" placeholder="Buscar por iniciales">
                   <button type="submit">Buscar</button>
               </form>
 
@@ -234,6 +231,7 @@
 
               <div class="admin-actions">
                   <a href="{{ route('usuarios.create') }}?tipo_persona=2">Nuevo</a>
+                  <a href="{{ route('panel.admin', ['entidad' => 'artista', 'nombre' => $entidad === 'artista' ? $nombre : null, 'mostrar' => $mostrar === 'artista' ? null : 'artista']) }}">{{ $mostrar === 'artista' ? 'Mostrar menos' : 'Mostrar más' }}</a>
               </div>
           </article>
     </main>
