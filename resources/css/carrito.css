@@ -1,0 +1,1095 @@
+/* =========================================================
+   CONFIGURACIÓN GENERAL
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #efebed;
+    color: #222;
+}
+
+
+/* =========================================================
+   HEADER MUSIKEVENTOS
+========================================================= */
+
+header {
+    width: 100%;                /* ocupa todo el ancho de la pantalla */
+    background: #000000;       /* fondo negro */
+    padding: 20px;              /* espacio interno alrededor del contenido */
+    height: auto;                /* la altura se ajusta sola según el contenido */
+    display: flex;             /* organiza sus hijos automáticamente en fila */
+    align-items: center;       /* centra los hijos verticalmente */
+    justify-content: center;   /* centra los hijos horizontalmente */
+    gap: 16px;
+    flex-wrap: wrap;
+}
+h1 {
+    color: #C9A24A;            /* color dorado del texto */
+    font-size: 46px;           /* tamaño grande de letra */
+    text-align: center;        /* centra el texto dentro de su propia caja */
+    font-family: "Roboto", sans-serif;
+}
+
+.logo {
+    display: flex;    /* activa flexbox para organizar lo que haya adentro (ej. imagen del logo) */
+          /* espacio de 10px entre los elementos hijos (ej. imagen y texto) */
+    width: 100px;     /* ancho fijo de la caja del logo */
+}
+
+
+.wooden-cart-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-left: 5px;
+
+    padding: 0;
+
+    border: 1px solid #C9A24A;
+
+    border-radius: 12px;
+
+    background-color: transparent;
+
+    color: #ffffff;
+
+    text-decoration: none;
+
+    cursor: pointer;
+
+    flex-shrink: 0;
+
+    transition:
+        background-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.wooden-cart-button:hover {
+    background-color: #C9A24A;
+
+    color: #1a1a1a;
+
+    box-shadow: 0 0 8px rgba(201, 162, 74, 0.25);
+}
+
+
+/* CONTENEDOR INTERNO DEL CARRITO */
+
+.wooden-cart-button-inner {
+    height: 42px;
+
+    padding: 0 17px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    border-radius: 11px;
+}
+
+
+/* SVG DEL CARRITO */
+
+.wooden-cart-button svg {
+    width: 20px;
+    height: 20px;
+
+    fill: currentColor;
+
+    display: block;
+}
+
+
+/* TEXTO */
+
+.button-text {
+    font-size: 14px;
+
+    font-weight: 600;
+
+    white-space: nowrap;
+}
+
+
+
+/* =========================================================
+   CONTENIDO PRINCIPAL
+========================================================= */
+
+.main-container {
+    width: 100%;
+
+    max-width: 1250px;
+
+    margin: 0 auto;
+
+    padding: 42px 30px 60px;
+}
+
+
+/* =========================================================
+   TÍTULO
+========================================================= */
+
+.page-title {
+    text-align: center;
+
+    font-size: 28px;
+
+    color: #222;
+
+    margin-bottom: 35px;
+
+    font-weight: bold;
+}
+
+.page-title::after {
+    content: "";
+
+    display: block;
+
+    width: 70px;
+
+    height: 3px;
+
+    background-color: #C9A24A;
+
+    margin: 12px auto 0;
+}
+
+
+/* =========================================================
+   DISTRIBUCIÓN PRINCIPAL
+========================================================= */
+
+.content-wrapper {
+    display: grid;
+
+    grid-template-columns: 370px 1fr;
+
+    gap: 30px;
+
+    align-items: start;
+}
+
+
+/* =========================================================
+   TARJETA DEL GRUPO
+========================================================= */
+
+.group-card {
+    width: 100%;
+
+    background-color: #ffffff;
+
+    border: 2px solid #C9A24A;
+
+    border-radius: 10px;
+
+    padding: 10px;
+
+    overflow: hidden;
+
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+
+/* =========================================================
+   IMAGEN DEL GRUPO
+========================================================= */
+
+.group-image {
+    width: 100%;
+
+    height: 230px;
+
+    overflow: hidden;
+
+    border-radius: 9px;
+
+    position: relative;
+}
+
+.group-image img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    display: block;
+}
+
+
+/* =========================================================
+   INFORMACIÓN DEL GRUPO
+========================================================= */
+
+.group-info {
+    padding: 15px 3px 8px;
+}
+
+.group-info h2 {
+    font-size: 21px;
+
+    margin-bottom: 5px;
+
+    color: #222;
+}
+
+.group-category {
+    display: inline-block;
+
+    font-size: 12px;
+
+    font-weight: bold;
+
+    color: #777;
+
+    margin-bottom: 12px;
+}
+
+.group-info p {
+    font-size: 13px;
+
+    line-height: 1.5;
+
+    color: #555;
+
+    text-align: justify;
+
+    margin-bottom: 20px;
+}
+
+
+/* =========================================================
+   PRECIO POR HORA
+========================================================= */
+
+.price-info {
+    border-top: 1px solid #ddd;
+
+    padding-top: 15px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+}
+
+.price-info span {
+    font-size: 13px;
+
+    color: #555;
+}
+
+.price-info strong {
+    color: #BB902C;
+
+    font-size: 18px;
+}
+
+
+/* =========================================================
+   TARJETA DE RESERVA
+========================================================= */
+
+.reservation-card {
+    width: 100%;
+
+    background-color: #ffffff;
+
+    border: 2px solid #C9A24A;
+
+    border-radius: 10px;
+
+    padding: 25px 30px;
+
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+
+/* =========================================================
+   CABECERA DE LA TARJETA
+========================================================= */
+
+.card-header {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    border-bottom: 1px solid #ddd;
+
+    padding-bottom: 15px;
+
+    margin-bottom: 25px;
+}
+
+.card-header h2 {
+    font-size: 22px;
+
+    color: #222;
+}
+
+.cart-icon {
+    font-size: 24px;
+
+    color: #C9A24A;
+}
+
+
+/* =========================================================
+   FORMULARIO
+========================================================= */
+
+.reservation-form {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 22px 20px;
+}
+
+
+/* GRUPO DE FORMULARIO */
+
+.form-group {
+    display: flex;
+
+    flex-direction: column;
+}
+
+.form-group.full {
+    grid-column: 1 / 3;
+}
+
+
+/* =========================================================
+   LABELS
+========================================================= */
+
+.form-group label {
+    font-size: 13px;
+
+    font-weight: bold;
+
+    margin-bottom: 8px;
+
+    color: #333;
+}
+
+
+/* =========================================================
+   INPUTS
+========================================================= */
+
+.form-group input {
+    width: 100%;
+
+    height: 44px;
+
+    border: 1px solid #cfcfcf;
+
+    border-radius: 7px;
+
+    padding: 0 13px;
+
+    background-color: #fafafa;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    font-size: 14px;
+
+    color: #222;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background-color 0.2s ease;
+}
+
+.form-group input::placeholder {
+    color: #999;
+}
+
+.form-group input:focus {
+    border-color: #C9A24A;
+
+    box-shadow: 0 0 0 2px rgba(201, 162, 74, 0.12);
+
+    background-color: #ffffff;
+}
+
+
+/* =========================================================
+   CAMPOS READONLY
+========================================================= */
+
+.form-group input[readonly] {
+    background-color: #eeeeee;
+
+    color: #555;
+
+    cursor: not-allowed;
+}
+
+
+/* =========================================================
+   TOTAL DE LA RESERVA
+========================================================= */
+
+.total-container {
+    grid-column: 1 / 3;
+
+    background-color: #191919;
+
+    border-radius: 8px;
+
+    border: 1px solid #C9A24A;
+
+    padding: 18px 20px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-top: 5px;
+}
+
+
+/* TEXTO */
+
+.total-label {
+    color: #ffffff;
+
+    font-size: 15px;
+
+    font-weight: bold;
+}
+
+
+/* VALOR */
+
+.total-price {
+    width: 190px;
+
+    height: 45px;
+
+    border: none;
+
+    outline: none;
+
+    border-radius: 6px;
+
+    background-color: #ffffff;
+
+    color: #BD902B;
+
+    text-align: right;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    font-size: 21px;
+
+    font-weight: bold;
+
+    padding: 0 12px;
+}
+
+
+/* =========================================================
+   BOTONES DEL FORMULARIO
+========================================================= */
+
+.form-buttons {
+    grid-column: 1 / 3;
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 12px;
+
+    margin-top: 5px;
+}
+
+
+/* =========================================================
+   BOTÓN CANCELAR
+========================================================= */
+
+.btn-cancel {
+    text-decoration: none;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-width: 110px;
+
+    height: 43px;
+
+    padding: 0 20px;
+
+    border: 1px solid #C9A24A;
+
+    border-radius: 8px;
+
+    color: #333;
+
+    background-color: #ffffff;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease;
+}
+
+.btn-cancel:hover {
+    background-color: #f4f4f4;
+
+    color: #222;
+}
+
+
+/* =========================================================
+   BOTÓN CONFIRMAR
+========================================================= */
+
+.btn-reserve {
+    min-width: 190px;
+
+    height: 43px;
+
+    border: 1px solid #C9A24A;
+
+    border-radius: 8px;
+
+    background-color: #191919;
+
+    color: #D4AA43;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease;
+}
+
+.btn-reserve:hover {
+    background-color: #C9A24A;
+
+    color: #191919;
+}
+
+
+/* =========================================================
+   RESPONSIVE - TABLET
+========================================================= */
+
+@media (max-width: 1000px) {
+
+    header {
+        height: 105px;
+
+        padding: 0 15px;
+
+        gap: 10px;
+    }
+
+    .hambu {
+        width: 35px;
+    }
+
+    .hambu a {
+        font-size: 20px;
+    }
+
+    .menu ul {
+        gap: 3px;
+    }
+
+    .menu li a {
+        font-size: 12px;
+
+        padding: 10px 9px;
+    }
+
+    .wooden-cart-button-inner {
+        height: 38px;
+
+        padding: 0 11px;
+    }
+
+    .wooden-cart-button svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    .button-text {
+        font-size: 12px;
+    }
+
+    .logito {
+        width: 135px;
+        height: 80px;
+    }
+
+
+    /* CONTENIDO */
+
+    .content-wrapper {
+        grid-template-columns: 320px 1fr;
+
+        gap: 20px;
+    }
+
+    .main-container {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE - TABLET PEQUEÑA
+========================================================= */
+
+@media (max-width: 800px) {
+
+    header {
+        height: auto;
+
+        min-height: 90px;
+
+        padding: 12px 15px;
+
+        flex-wrap: wrap;
+    }
+
+    .menu {
+        order: 2;
+
+        width: auto;
+
+        flex: 1;
+    }
+
+    .menu ul {
+        flex-wrap: wrap;
+    }
+
+    .logito {
+        order: 3;
+
+        width: 100px;
+        height: 65px;
+
+        margin-left: auto;
+    }
+
+    .content-wrapper {
+        grid-template-columns: 1fr;
+    }
+
+    .group-card {
+        max-width: 600px;
+
+        margin: 0 auto;
+    }
+
+    .reservation-card {
+        width: 100%;
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE - MÓVIL
+========================================================= */
+
+@media (max-width: 650px) {
+
+    header {
+        min-height: 80px;
+
+        padding: 10px 12px;
+
+        gap: 8px;
+    }
+
+    .hambu {
+        width: 30px;
+    }
+
+    .hambu a {
+        font-size: 19px;
+    }
+
+    .menu {
+        flex: 1;
+    }
+
+    .menu ul {
+        width: 100%;
+
+        gap: 2px;
+
+        flex-wrap: nowrap;
+    }
+
+    .menu li a {
+        font-size: 9px;
+
+        padding: 7px 4px;
+    }
+
+    .wooden-cart-button {
+        margin-left: 2px;
+    }
+
+    .wooden-cart-button-inner {
+        height: 34px;
+
+        padding: 0 8px;
+
+        gap: 5px;
+    }
+
+    .wooden-cart-button svg {
+        width: 16px;
+        height: 16px;
+    }
+
+    .button-text {
+        font-size: 9px;
+    }
+
+    .logito {
+        width: 80px;
+        height: 55px;
+    }
+
+
+    /* CONTENIDO */
+
+    .main-container {
+        padding: 30px 15px 50px;
+    }
+
+    .page-title {
+        font-size: 23px;
+
+        margin-bottom: 25px;
+    }
+
+
+    /* RESERVA */
+
+    .reservation-card {
+        padding: 20px 18px;
+    }
+
+    .card-header h2 {
+        font-size: 19px;
+    }
+
+    .reservation-form {
+        grid-template-columns: 1fr;
+
+        gap: 18px;
+    }
+
+    .form-group.full {
+        grid-column: auto;
+    }
+
+
+    /* TOTAL */
+
+    .total-container {
+        grid-column: auto;
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+        gap: 12px;
+    }
+
+    .total-price {
+        width: 100%;
+
+        text-align: left;
+    }
+
+
+    /* BOTONES */
+
+    .form-buttons {
+        grid-column: auto;
+
+        flex-direction: column;
+
+        width: 100%;
+    }
+
+    .btn-cancel,
+    .btn-reserve {
+        width: 100%;
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE - MÓVIL MUY PEQUEÑO
+========================================================= */
+
+@media (max-width: 480px) {
+
+    header {
+        padding: 9px;
+    }
+
+    .hambu {
+        width: 27px;
+    }
+
+    .hambu a {
+        font-size: 17px;
+    }
+
+    .menu li a {
+        font-size: 8px;
+
+        padding: 6px 3px;
+    }
+
+    .wooden-cart-button-inner {
+        padding: 0 6px;
+    }
+
+    .button-text {
+        display: none;
+    }
+
+    .wooden-cart-button svg {
+        width: 17px;
+        height: 17px;
+    }
+
+    .logito {
+        width: 68px;
+        height: 48px;
+    }
+
+
+    /* CONTENIDO */
+
+    .main-container {
+        padding: 25px 10px 40px;
+    }
+
+    .page-title {
+        font-size: 21px;
+    }
+
+    .group-card {
+        padding: 8px;
+    }
+
+    .group-image {
+        height: 210px;
+    }
+
+    .reservation-card {
+        padding: 18px 14px;
+    }
+
+    .card-header {
+        margin-bottom: 20px;
+    }
+}
+/* Botón de regreso estilo Uiverse.io */
+.button {
+  display: block;
+  position: relative;
+  width: 56px;
+  height: 56px;
+  margin: 0;
+  overflow: hidden;
+  outline: none;
+  background-color: transparent;
+  cursor: pointer;
+  border: 0;
+
+}
+
+.button:before,
+.button:after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  inset: 7px;
+}
+
+.button:before {
+  border: 4px solid #C9A24A;
+  transition: opacity 0.4s cubic-bezier(0.77, 0, 0.175, 1) 80ms,
+    transform 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955) 80ms;
+}
+
+.button:after {
+  border: 4px solid #C9A24A;
+  transform: scale(1.3);
+  transition: opacity 0.4s cubic-bezier(0.165, 0.84, 0.44, 1),
+    transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  opacity: 0;
+}
+
+.button:hover:before,
+.button:focus:before {
+  opacity: 0;
+  transform: scale(0.7);
+  transition: opacity 0.4s cubic-bezier(0.165, 0.84, 0.44, 1),
+    transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.button:hover:after,
+.button:focus:after {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 0.4s cubic-bezier(0.77, 0, 0.175, 1) 80ms,
+    transform 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955) 80ms;
+}
+
+.button-box {
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.button-elem {
+  display: block;
+  width: 20px;
+  height: 20px;
+  margin: 17px 18px 0 18px;
+  transform: rotate(180deg);
+  fill: #f0eeef;
+}
+
+.button:hover .button-box,
+.button:focus .button-box {
+  transition: 0.4s;
+  transform: translateX(-56px);
+}
+
+@media (max-width: 1024px) {
+    header {
+        justify-content: center;
+        padding: 18px 12px;
+    }
+
+    h1 {
+        font-size: clamp(2rem, 5vw, 3.2rem);
+    }
+
+    .conte {
+        flex-direction: column;
+    }
+
+    .contenedor {
+        width: 100%;
+        height: 220px;
+    }
+
+    .form-basico {
+        padding: 30px 18px 50px;
+    }
+
+    .entrada {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 640px) {
+    header {
+        justify-content: space-between;
+        padding: 14px 12px;
+    }
+
+    h1 {
+        font-size: clamp(1.5rem, 7vw, 2.2rem);
+        line-height: 1.2;
+    }
+
+    .contenedor {
+        display: none;
+    }
+
+    .form-basico {
+        padding: 20px 14px 36px;
+    }
+
+    .entrada {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+        padding: 10px 12px;
+    }
+
+    .form-basico label {
+        width: 100%;
+        font-size: 18px;
+    }
+
+    .entrada input,
+    .entrada select,
+    .entrada textarea {
+        width: 100%;
+    }
+
+    .form-basico small.error {
+        margin-left: 0;
+    }
+
+    .button {
+        width: 48px;
+        height: 48px;
+    }
+
+    .button-elem {
+        width: 18px;
+        height: 18px;
+        margin: 15px 15px 0 15px;
+    }
+}

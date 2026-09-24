@@ -19,7 +19,7 @@ export default defineConfig({
                 'resources/css/mas_info.css',
                 'resources/css/admin.css',
                 'resources/js/calendario-modal.js',
-
+                'resources/css/carrito.css'
             ],
             refresh: true,
             fonts: [
