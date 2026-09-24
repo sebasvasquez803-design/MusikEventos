@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GeneroController;
 use App\Http\Controllers\SubgeneroController;
 use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\ReservaController;
 
 // Página principal del sitio. Aquí se muestra el home con la lista de grupos musicales.
 Route::get('/', [GrupoMusicalController::class, 'home'])->name('home');
@@ -54,6 +55,18 @@ Route::resource('generos', GeneroController::class);
 Route::resource('grupos', GrupoMusicalController::class);
 Route::resource('sub-generos', SubgeneroController::class);
 Route::resource('usuarios', UsuarioController::class);
+
+// API interna (AJAX)
+Route::get('/api/eventos-bloqueados/{nit}', [ReservaController::class, 'eventosBloqueados']);
+Route::post('/reservas', [ReservaController::class, 'store'])->middleware('auth');
+
+// Vista calendario completo y API de eventos
+Route::get('/calendario', [ReservaController::class, 'calendarioCompleto'])
+    ->middleware('auth')
+    ->name('calendario');
+Route::get('/api/eventos-calendario', [ReservaController::class, 'eventosCalendario'])
+    ->middleware('auth')
+    ->name('calendario.eventos');
 
 
 Route::middleware('auth')->group(function () {

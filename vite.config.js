@@ -18,6 +18,7 @@ export default defineConfig({
                 'resources/js/transicion.js',
                 'resources/css/mas_info.css',
                 'resources/css/admin.css',
+                'resources/js/calendario-modal.js',
 
             ],
             refresh: true,

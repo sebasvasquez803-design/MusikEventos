@@ -60,13 +60,13 @@ class Usuario extends Model
         return $this->hasMany(Resena::class, 'numero_doc', 'numero_doc');
     }
 
-    public function reservas(): HasMany
-    {
-        return $this->hasMany(Reserva::class, 'numero_doc', 'numero_doc');
-    }
-
     public function subgeneros(): HasMany
     {
         return $this->hasMany(Subgenero::class, 'numero_doc', 'numero_doc');
     }
+
+    public function reservas()
+{
+    return $this->hasMany(Reserva::class, 'numero_doc', 'numero_doc');
+}
 }
