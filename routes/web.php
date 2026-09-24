@@ -87,3 +87,4 @@ Route::prefix('{current_team}')
 
 require __DIR__.'/settings.php';
 
+Route::view('/carrito',('carrito'))-> name ('carrito');
