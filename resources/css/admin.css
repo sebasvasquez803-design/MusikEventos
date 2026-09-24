@@ -40,38 +40,276 @@ header {
     align-items: center;
     gap: 12px;
     position: relative;
-     border-bottom:4px solid #C9A24A;
+    border-bottom:4px solid #C9A24A;
+    justify-content: center; 
 }
 
-
-.button1 {
-  background-color: #ffffff00;
-  color: #000000;
-  width: 8.5em;
-  height: 2.9em;
-  border: #CAA24A 0.2em solid;
-  border-radius: 11px;
-  text-align: right;
-  transition: all 0.6s ease;
+h1 {
+    color: #C9A24A;            /* color dorado del texto */
+    font-size: 46px;           /* tamaño grande de letra */
+    text-align: center;        /* centra el texto dentro de su propia caja */
+    font-family: "Roboto", sans-serif;
 }
 
-.button1:hover {
-  background-color: #CAA24A;
+.logo {
+    display: flex;    /* activa flexbox para organizar lo que haya adentro (ej. imagen del logo) */
+          /* espacio de 10px entre los elementos hijos (ej. imagen y texto) */
+    width: 100px;     /* ancho fijo de la caja del logo */
+}
+
+/* Contenedor principal del panel */
+.admin-panel {
+    padding: 40px 24px 60px;
+}
+
+/* Grid con 2 columnas y 5 tarjetas */
+.admin-grid {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(240px, 1fr));
+    gap: 24px;
+}
+
+/* Tarjeta simple con borde inferior dorado */
+.admin-card {
+    background: #fff;
+    border-radius: 18px;
+    padding: 24px 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    border-bottom: 4px solid #C9A24A;
+}
+
+.admin-card h2 {
+    color: #1a1a1a;
+    font-size: 1.3rem;
+    margin-bottom: 12px;
+    font-weight: 700;
+}
+
+.admin-list {
+    list-style: none;
+    margin: 16px 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.admin-list li {
+    background: #f7f7f7;
+    border-left: 3px solid #C9A24A;
+    padding: 8px 10px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    color: #222;
+}
+
+.admin-card p {
+    color: #444;
+    line-height: 1.6;
+    font-size: 0.98rem;
+}
+
+.admin-list {
+    list-style: none;
+    margin: 16px 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.admin-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    background: #f7f7f7;
+    border-left: 3px solid #C9A24A;
+    padding: 10px 12px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    color: #222;
+}
+
+.admin-item-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.admin-item-actions a,
+.admin-item-actions button,
+.admin-actions a,
+.admin-actions button {
+    font-size: 0.8rem;
+    padding: 6px 10px;
+    border-radius: 8px;
+    border: none;
+    text-decoration: none;
+    background: #C9A24A;
+    color: #fff;
+    cursor: pointer;
+}
+
+.admin-item-actions form {
+    margin: 0;
+}
+
+/* Botón de regreso estilo Uiverse.io */
+.button {
+  display: block;
+  position: relative;
+  width: 56px;
+  height: 56px;
+  margin: 0;
+  overflow: hidden;
+  outline: none;
+  background-color: transparent;
   cursor: pointer;
+  border: 0;
+
 }
 
-.button1 svg {
-  width: 1.6em;
-  margin: -0.2em 0.8em 1em;
+.button:before,
+.button:after {
+  content: "";
   position: absolute;
+  border-radius: 50%;
+  inset: 7px;
+}
+
+.button:before {
+  border: 4px solid #C9A24A;
+  transition: opacity 0.4s cubic-bezier(0.77, 0, 0.175, 1) 80ms,
+    transform 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955) 80ms;
+}
+
+.button:after {
+  border: 4px solid #C9A24A;
+  transform: scale(1.3);
+  transition: opacity 0.4s cubic-bezier(0.165, 0.84, 0.44, 1),
+    transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  opacity: 0;
+}
+
+.button:hover:before,
+.button:focus:before {
+  opacity: 0;
+  transform: scale(0.7);
+  transition: opacity 0.4s cubic-bezier(0.165, 0.84, 0.44, 1),
+    transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.button:hover:after,
+.button:focus:after {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 0.4s cubic-bezier(0.77, 0, 0.175, 1) 80ms,
+    transform 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955) 80ms;
+}
+
+.button-box {
   display: flex;
-  transition: all 0.6s ease;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
-.button1:hover svg {
-  transform: translateX(5px);
+.button-elem {
+  display: block;
+  width: 20px;
+  height: 20px;
+  margin: 17px 18px 0 18px;
+  transform: rotate(180deg);
+  fill: #f0eeef;
 }
 
-.text {
-  margin: 0 1.5em
+.button:hover .button-box,
+.button:focus .button-box {
+  transition: 0.4s;
+  transform: translateX(-56px);
+}
+
+@media (max-width: 1024px) {
+    header {
+        justify-content: center;
+        padding: 18px 12px;
+    }
+
+    h1 {
+        font-size: clamp(2rem, 5vw, 3.2rem);
+    }
+
+    .conte {
+        flex-direction: column;
+    }
+
+    .contenedor {
+        width: 100%;
+        height: 220px;
+    }
+
+    .form-basico {
+        padding: 30px 18px 50px;
+    }
+
+    .entrada {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 640px) {
+    header {
+        justify-content: space-between;
+        padding: 14px 12px;
+    }
+
+    h1 {
+        font-size: clamp(1.5rem, 7vw, 2.2rem);
+        line-height: 1.2;
+    }
+
+    .contenedor {
+        display: none;
+    }
+
+    .form-basico {
+        padding: 20px 14px 36px;
+    }
+
+    .entrada {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+        padding: 10px 12px;
+    }
+
+    .form-basico label {
+        width: 100%;
+        font-size: 18px;
+    }
+
+    .entrada input,
+    .entrada select,
+    .entrada textarea {
+        width: 100%;
+    }
+
+    .form-basico small.error {
+        margin-left: 0;
+    }
+
+    .button {
+        width: 48px;
+        height: 48px;
+    }
+
+    .button-elem {
+        width: 18px;
+        height: 18px;
+        margin: 15px 15px 0 15px;
+    }
 }

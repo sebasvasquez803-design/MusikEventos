@@ -3,55 +3,73 @@
 namespace App\Http\Controllers;
 
 use App\Models\Subgenero;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class SubgeneroController extends Controller
 {
-    public function index(): JsonResponse
+    // index(): muestra todos los subgéneros y permite buscar por ID.
+    public function index(Request $request)
     {
-        return response()->json([
-            'data' => Subgenero::query()->latest('id_subgenero')->paginate(15),
-        ]);
+        $query = Subgenero::query();
+
+        if ($request->filled('id')) {
+            $query->where('id_subgenero', $request->id);
+        }
+
+        $subgeneros = $query->get();
+
+        return view('CRUD.subgeneros.index', compact('subgeneros'));
     }
 
-    public function store(Request $request): JsonResponse
+    // create(): muestra el formulario para crear un nuevo subgénero.
+    public function create()
     {
-        $validated = $request->validate([
-            'nombre_subgenero' => ['nullable', 'string', 'max:50'],
-            'id_genero' => ['nullable', 'integer', 'exists:genero,id_genero'],
-            'numero_doc' => ['nullable', 'string', 'max:10', 'exists:usuario,numero_doc'],
-            'nit' => ['nullable', 'integer', 'exists:grupo_musical,nit'],
-        ]);
-
-        $subgenero = Subgenero::create($validated);
-
-        return response()->json(['data' => $subgenero], 201);
+        return view('CRUD.subgeneros.create');
     }
 
-    public function show(Subgenero $subgenero): JsonResponse
+    // store(): valida y guarda el nuevo subgénero relacionado con un género.
+    public function store(Request $request)
     {
-        return response()->json(['data' => $subgenero]);
-    }
-
-    public function update(Request $request, Subgenero $subgenero): JsonResponse
-    {
-        $validated = $request->validate([
-            'nombre_subgenero' => ['sometimes', 'nullable', 'string', 'max:50'],
-            'id_genero' => ['sometimes', 'nullable', 'integer', 'exists:genero,id_genero'],
-            'numero_doc' => ['sometimes', 'nullable', 'string', 'max:10', 'exists:usuario,numero_doc'],
-            'nit' => ['sometimes', 'nullable', 'integer', 'exists:grupo_musical,nit'],
+        $request->validate([
+            'nombre_subgenero' => 'required|string|max:100',
+            'id_genero' => 'required|exists:genero,id_genero',
         ]);
 
-        $subgenero->update($validated);
+        Subgenero::create([
+            'nombre_subgenero' => $request->nombre_subgenero,
+            'id_genero' => $request->id_genero,
+        ]);
 
-        return response()->json(['data' => $subgenero->fresh()]);
+        return redirect()->route('sub-generos.index');
     }
 
-    public function destroy(Subgenero $subgenero): JsonResponse
+    // edit(): carga el subgénero que se quiere modificar.
+    public function edit(Subgenero $subgenero)
+    {
+        return view('CRUD.subgeneros.edit', compact('subgenero'));
+    }
+
+    // update(): guarda los cambios del subgénero actual.
+    public function update(Request $request, Subgenero $subgenero)
+    {
+        $request->validate([
+            'nombre_subgenero' => 'required|string|max:100',
+            'id_genero' => 'required|exists:genero,id_genero',
+        ]);
+
+        $subgenero->update([
+            'nombre_subgenero' => $request->nombre_subgenero,
+            'id_genero' => $request->id_genero,
+        ]);
+
+        return redirect()->route('sub-generos.index');
+    }
+
+    // destroy(): elimina el subgénero seleccionado.
+    public function destroy(Subgenero $subgenero)
     {
         $subgenero->delete();
 
-        return response()->json(status: 204);
+        return redirect()->route('sub-generos.index');
     }
 }

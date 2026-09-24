@@ -6,7 +6,11 @@ use App\Http\Controllers\ResenaController;
 use App\Http\Middleware\EnsureTeamMembership;
 use Illuminate\Support\Facades\Route;
 
-// Página principal con grupos musicales.
+use App\Http\Controllers\GeneroController;
+use App\Http\Controllers\SubgeneroController;
+use App\Http\Controllers\UsuarioController;
+
+// Página principal del sitio. Aquí se muestra el home con la lista de grupos musicales.
 Route::get('/', [GrupoMusicalController::class, 'home'])->name('home');
 Route::view('/welcome', 'welcome')->name('welcome');
 Route::view('/grupo-musical', 'sesion.registro_grp')->name('grupo.musical');
@@ -16,6 +20,8 @@ Route::view('/sesion-rep_leg', 'formularios.sesion_rep_leg')->name('sesion.rep.l
 Route::view('/dash-rep', 'dash_rep')
     ->middleware('auth')
     ->name('dash.rep');
+
+// Sección administrativa del panel principal, donde se manejan géneros, subgéneros y usuarios.
 // Rutas web para crear, editar y eliminar grupos musicales.
 Route::post('/grupo-musical', [GrupoMusicalController::class, 'storeFromForm'])->name('grupo-musical.store');
 Route::get('/grupo-musical/{grupoMusical}/editar', [GrupoMusicalController::class, 'edit'])
@@ -38,6 +44,16 @@ Route::delete('/resenas/{resena}', [ResenaController::class, 'destroyFromForm'])
 Route::view('/mas-info', 'formularios.mas_info')->name('mas_info');
 Route::view('/regGrupMusc','sesion.regGrupSig')->name('siguiente');
 Route::view('/panel-admin','panel_admin')->name('panel.admin');
+
+// CRUD web estándar del panel administrativo:
+// - generos: administración de géneros
+// - grupos: administración de grupos musicales
+// - sub-generos: administración de subgéneros
+// - usuarios: administración de clientes, representante legal y artista solista
+Route::resource('generos', GeneroController::class);
+Route::resource('grupos', GrupoMusicalController::class);
+Route::resource('sub-generos', SubgeneroController::class);
+Route::resource('usuarios', UsuarioController::class);
 
 
 Route::middleware('auth')->group(function () {

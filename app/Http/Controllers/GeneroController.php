@@ -3,49 +3,72 @@
 namespace App\Http\Controllers;
 
 use App\Models\Genero;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class GeneroController extends Controller
 {
-    public function index(): JsonResponse
+    // index(): lista los géneros y permite filtrar por ID desde la búsqueda.
+    public function index(Request $request)
     {
-        return response()->json([
-            'data' => Genero::query()->latest('id_genero')->paginate(15),
+        $query = Genero::query();
+
+        // Si llega un id en la URL, filtramos por ese valor.
+        if ($request->filled('id')) {
+            $query->where('id_genero', $request->id);
+        }
+
+        // Traemos el resultado final para mostrarlos en la vista.
+        $generos = $query->get();
+
+        // Retornamos la vista de Blade con la lista.
+        return view('CRUD.generos.index', compact('generos'));
+    }
+
+    // create(): muestra el formulario para registrar un nuevo género.
+    public function create()
+    {
+        return view('CRUD.generos.create');
+    }
+
+    // store(): guarda el género enviado por el formulario.
+    public function store(Request $request)
+    {
+        $request->validate([
+            'nombre_genero' => 'required|string|max:100',
         ]);
-    }
 
-    public function store(Request $request): JsonResponse
-    {
-        $validated = $request->validate([
-            'nombre_genero' => ['required', 'string', 'max:50'],
+        Genero::create([
+            'nombre_genero' => $request->nombre_genero,
         ]);
 
-        $genero = Genero::create($validated);
-
-        return response()->json(['data' => $genero], 201);
+        return redirect()->route('generos.index');
     }
 
-    public function show(Genero $genero): JsonResponse
+    // edit(): carga el registro que se desea editar.
+    public function edit(Genero $genero)
     {
-        return response()->json(['data' => $genero]);
+        return view('CRUD.generos.edit', compact('genero'));
     }
 
-    public function update(Request $request, Genero $genero): JsonResponse
+    // update(): recibe los cambios y los guarda en la fila actual.
+    public function update(Request $request, Genero $genero)
     {
-        $validated = $request->validate([
-            'nombre_genero' => ['sometimes', 'required', 'string', 'max:50'],
+        $request->validate([
+            'nombre_genero' => 'required|string|max:100',
         ]);
 
-        $genero->update($validated);
+        $genero->update([
+            'nombre_genero' => $request->nombre_genero,
+        ]);
 
-        return response()->json(['data' => $genero->fresh()]);
+        return redirect()->route('generos.index');
     }
 
-    public function destroy(Genero $genero): JsonResponse
+    // destroy(): elimina el género seleccionado.
+    public function destroy(Genero $genero)
     {
         $genero->delete();
 
-        return response()->json(status: 204);
+        return redirect()->route('generos.index');
     }
 }
