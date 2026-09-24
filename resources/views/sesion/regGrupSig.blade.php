@@ -87,7 +87,7 @@
         const previousStepFields = ['nit', 'nombre_grupo', 'telefono', 'email', 'descripcion', 'id_subgenero', 'precio_hora'];
 
         function restoreHiddenFields() {
-            const stored = sessionStorage.getItem(storageKey);
+            const stored = localStorage.getItem(storageKey);
             if (!stored) return;
 
             try {
@@ -104,7 +104,7 @@
         }
 
         function restoreFormData() {
-            const stored = sessionStorage.getItem(storageKey);
+            const stored = localStorage.getItem(storageKey);
             if (!stored) return;
 
             try {
@@ -140,6 +140,25 @@
 
         restoreHiddenFields();
         restoreFormData();
+        function preserveStoredData() {
+            const data = {};
+            const stored = localStorage.getItem(storageKey);
+
+            try {
+                Object.assign(data, stored ? JSON.parse(stored) : {});
+            } catch (error) {
+                console.warn('No se pudieron conservar los datos del registro:', error);
+            }
+
+            localStorage.setItem(storageKey, JSON.stringify(data));
+        }
+
+        window.addEventListener('beforeunload', preserveStoredData);
+        window.addEventListener('pagehide', preserveStoredData);
+        window.addEventListener('pageshow', () => {
+            restoreHiddenFields();
+            restoreFormData();
+        });
     </script>
 
     @if(session('success'))
