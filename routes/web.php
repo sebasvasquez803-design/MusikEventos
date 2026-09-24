@@ -5,11 +5,11 @@ use App\Http\Controllers\GrupoMusicalController;
 use App\Http\Controllers\ResenaController;
 use App\Http\Middleware\EnsureTeamMembership;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\ReservaController;
 use App\Http\Controllers\GeneroController;
 use App\Http\Controllers\SubgeneroController;
 use App\Http\Controllers\UsuarioController;
-use App\Http\Controllers\ReservaController;
+use App\Http\Controllers\PanelAdminController;
 
 // Página principal del sitio. Aquí se muestra el home con la lista de grupos musicales.
 Route::get('/', [GrupoMusicalController::class, 'home'])->name('home');
@@ -44,7 +44,9 @@ Route::delete('/resenas/{resena}', [ResenaController::class, 'destroyFromForm'])
     ->name('resenas.destroy');
 Route::view('/mas-info', 'formularios.mas_info')->name('mas_info');
 Route::view('/regGrupMusc','sesion.regGrupSig')->name('siguiente');
-Route::view('/panel-admin','panel_admin')->name('panel.admin');
+Route::get('/panel-admin', [PanelAdminController::class, 'index'])
+    ->middleware('auth')
+    ->name('panel.admin');
 
 // CRUD web estándar del panel administrativo:
 // - generos: administración de géneros

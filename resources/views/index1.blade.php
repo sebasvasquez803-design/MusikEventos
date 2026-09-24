@@ -97,11 +97,13 @@
     </div>
     </div>
 
-    <a href="{{ route('panel.admin') }}" class="setting-btn" role="button">
-        <span class="bar bar1"></span>
-        <span class="bar bar2"></span>
-        <span class="bar bar1"></span>
-    </a>
+    @auth
+        <a href="{{ route('panel.admin') }}" class="setting-btn" role="button">
+            <span class="bar bar1"></span>
+            <span class="bar bar2"></span>
+            <span class="bar bar1"></span>
+        </a>
+    @endauth
 
 
     <div>
