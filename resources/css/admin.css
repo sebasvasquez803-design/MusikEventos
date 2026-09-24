@@ -19,12 +19,12 @@ html, body {
 body {
     background: rgb(241, 237, 237);
     font-family: "Roboto", sans-serif;
-    
+
 }
 
 body::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Edge moderno */
-}   
+}
 
 /* ================================
    ENCABEZADO
@@ -41,7 +41,7 @@ header {
     gap: 12px;
     position: relative;
     border-bottom:4px solid #C9A24A;
-    justify-content: center; 
+    justify-content: center;
 }
 
 h1 {
@@ -76,8 +76,24 @@ h1 {
     background: #fff;
     border-radius: 18px;
     padding: 24px 20px;
+    max-height: 520px;
+    overflow-y: auto;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
     border-bottom: 4px solid #C9A24A;
+}
+
+.admin-card::-webkit-scrollbar {
+    width: 8px;
+}
+
+.admin-card::-webkit-scrollbar-thumb {
+    background: #C9A24A;
+    border-radius: 8px;
+}
+
+.admin-card {
+    scrollbar-color: #C9A24A #f1eded;
+    scrollbar-width: thin;
 }
 
 .admin-card h2 {
