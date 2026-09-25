@@ -30,7 +30,7 @@ class ReservaController extends Controller
         $validated = $request->validate([
             'fecha' => ['required', 'date'],
             'hora' => ['required', 'date_format:H:i:s'],
-            'direccion' => ['nullable', 'string', 'max:60'],
+            'direccion' => ['required', 'string', 'max:60'],
             'nit' => ['required', 'integer', 'exists:grupo_musical,nit'],
         ]);
 

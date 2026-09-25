@@ -314,13 +314,26 @@ if (infoPanel) {
         confirmReservaBtn.addEventListener('click', (event) => {
             event.preventDefault();
 
+            if (confirmReservaBtn.dataset.authenticated !== '1') {
+                alert('Debes iniciar sesión para reservar un grupo musical.');
+                window.location.href = '/login';
+                return;
+            }
+
             const fecha = document.getElementById('reserva-fecha')?.value || '';
             const hora = document.getElementById('reserva-hora')?.value || '';
-            const direccion = document.getElementById('reserva-direccion')?.value.trim() || '';
+            const direccionInput = document.getElementById('reserva-direccion');
+            const direccion = direccionInput?.value.trim() || '';
             const nit = document.getElementById('reserva-nit')?.value || '';
             const grupo = document.getElementById('info-panel-name')?.textContent?.trim() || 'Grupo musical';
             const precio = selectedGroupPrice || 0;
             const currentRoute = window.carritoRoute || '/carrito';
+
+            if (!direccion) {
+                alert('Ingresa la dirección del evento para continuar.');
+                direccionInput?.focus();
+                return;
+            }
 
             const params = new URLSearchParams({
                 fecha,
