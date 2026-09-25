@@ -10,7 +10,7 @@ return new class extends Migration
     {
         // 1. Relaciones de Usuario y Tipo Persona
         Schema::table('usuario', function (Blueprint $table) {
-            $table->foreign('id_tipo_persona')
+            $table->foreign('id_tipo_persona','fk_usuario_tipo_persona')
                 ->references('id_tipo_persona')
                 ->on('tipo_persona')
                 ->nullOnDelete();
