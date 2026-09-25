@@ -101,11 +101,13 @@
     </div>
 
     @auth
-        <a href="{{ route('panel.admin') }}" class="setting-btn" role="button">
-            <span class="bar bar1"></span>
-            <span class="bar bar2"></span>
-            <span class="bar bar1"></span>
-        </a>
+        @if (auth()->user()->canManageMusicalGroups())
+            <a href="{{ route('panel.admin') }}" class="setting-btn" role="button">
+                <span class="bar bar1"></span>
+                <span class="bar bar2"></span>
+                <span class="bar bar1"></span>
+            </a>
+        @endif
     @endauth
 
 
@@ -339,7 +341,11 @@
                            placeholder="Ej: Calle 45 #23-10, Bogotá" maxlength="60">
                 </div>
 
-                <button id="btn-confirmar-reserva" class="btn-reserva">
+                <button
+                    id="btn-confirmar-reserva"
+                    class="btn-reserva"
+                    data-authenticated="{{ auth()->check() ? '1' : '0' }}"
+                >
                     Confirmar reserva
                 </button>
 
