@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Curriculum;
+use App\Models\TipoPersona;
 use App\Models\Usuario;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -66,6 +67,11 @@ class CurriculumController extends Controller
         $apellido = $validated['apellido'] ?? '';
 
         DB::transaction(function () use ($numeroDoc, $nombreUsuario, $apellido, $validated) {
+            TipoPersona::firstOrCreate(
+                ['id_tipo_persona' => 1],
+                ['nombre_tipo' => 'Representante_legal'],
+            );
+
             Usuario::updateOrCreate(
                 ['numero_doc' => $numeroDoc],
                 [

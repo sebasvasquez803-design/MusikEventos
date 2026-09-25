@@ -6,7 +6,6 @@ use App\Enums\TeamRole;
 use App\Models\Team;
 use App\Models\TeamInvitation;
 use App\Models\User;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Notification;
 use Livewire\Livewire;
@@ -127,10 +126,15 @@ class TeamInvitationTest extends TestCase
 
         $this->actingAs($invitedUser);
 
-        $this->expectException(ModelNotFoundException::class);
-
         Livewire::test('pages::teams.pending-invitations-modal')
             ->call('acceptInvitation', $invitation->code);
+
+        $this->assertDatabaseHas('team_invitations', [
+            'id' => $invitation->id,
+            'accepted_at' => $invitation->accepted_at,
+        ]);
+
+        $this->assertFalse($invitedUser->fresh()->belongsToTeam($team));
     }
 
     public function test_accepted_invitation_toast_is_shown_on_the_dashboard(): void
