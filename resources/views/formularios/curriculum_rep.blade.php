@@ -24,13 +24,15 @@
             <img class="img-contenedor" src="{{ asset('storage/img/inside.jpeg') }}" alt="Instrumentos musicales">
         </aside>
 
-        <form class="form-basico" action="#" method="POST">
+        <form class="form-basico" action="{{ route('curriculum.rep.store') }}" method="POST">
             @csrf
+            <input type="hidden" name="nombre" value="{{ auth()->user()->name ?? '' }}">
+            <input type="hidden" name="email" value="{{ auth()->user()->email ?? '' }}">
             <div class="titulo"><h2>INFORMACIÓN DEL CURRÍCULO</h2></div>
-            <div class="entrada"><label for="nombre">Nombre completo</label><input id="nombre" type="text" name="nombre" maxlength="100" class="campo"></div>
-            <div class="entrada"><label for="apellido">Correo</label><input id="apellido" type="text" name="apellido" maxlength="100" class="campo"></div>
+            <div class="entrada"><label for="nombre">Nombre completo</label><input id="nombre" type="text" name="nombre_visible" maxlength="100" class="campo" value="{{ auth()->user()->name ?? '' }}" disabled></div>
+            <div class="entrada"><label for="apellido">Apellido</label><input id="apellido" type="text" name="apellido" maxlength="25" class="campo"></div>
 
-            <div class="entrada"><label for="numero_doc">Número de documento</label><input id="numero_doc" type="text" name="numero_doc" maxlength="10" inputmode="numeric" class="campo"></div>
+            <div class="entrada"><label for="numero_doc">Número de documento</label><input id="numero_doc" type="text" name="numero_doc" maxlength="10" inputmode="numeric" class="campo" required></div>
             <div class="entrada"><label for="anio_inicio">Año de inicio</label><input id="anio_inicio" type="number" name="anio_inicio" min="1900" max="2100" class="campo"></div>
             <div class="entrada"><label for="anio_fin">Año de finalización</label><input id="anio_fin" type="number" name="anio_fin" min="1900" max="2100" class="campo"></div>
             <div class="entrada"><label for="eventos_realizados">Eventos realizados</label><input id="eventos_realizados" type="number" name="eventos_realizados" min="0" class="campo"></div>

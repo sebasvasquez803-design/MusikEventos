@@ -45,7 +45,7 @@
 					<button class="auth-submit" type="submit">Iniciar sesión</button>
 				</form>
 
-				<p class="auth-register">¿No tienes una cuenta? <a href="{{ route('curriculum.rep') }}">Regístrate aquí</a></p>
+				<p class="auth-register">¿No tienes una cuenta? <a href="{{ route('sesion.artista') }}">Regístrate aquí</a></p>
 			</section>
 		</main>
 	</div>

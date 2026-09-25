@@ -53,6 +53,7 @@ import { iniciarCalendarioModal } from './calendario-modal.js';
 
 const infoToggleButtons = document.querySelectorAll('.info-toggle');
 const infoPanel = document.getElementById('info-panel');
+let selectedGroupPrice = 0;
 
 if (infoPanel) {
     const nameEl = document.getElementById('info-panel-name');
@@ -81,6 +82,7 @@ if (infoPanel) {
             const logo = button.dataset.logo || '/storage/img/logo_arca.jpg';
             const description = button.dataset.description || 'Grupo musical disponible para eventos.';
             const price = button.dataset.price || 'Consultar precio';
+            selectedGroupPrice = Number(String(price).replace(/[^\d]/g, '')) || 0;
             const tag = button.dataset.tag || 'Grupo musical';
             const genre = button.dataset.genre || '';
             const videoUrl = button.dataset.video || '';
@@ -306,6 +308,32 @@ if (infoPanel) {
             if (label) label.textContent = `${value} estrellas`;
         });
     })();
+
+    const confirmReservaBtn = document.getElementById('btn-confirmar-reserva');
+    if (confirmReservaBtn) {
+        confirmReservaBtn.addEventListener('click', (event) => {
+            event.preventDefault();
+
+            const fecha = document.getElementById('reserva-fecha')?.value || '';
+            const hora = document.getElementById('reserva-hora')?.value || '';
+            const direccion = document.getElementById('reserva-direccion')?.value.trim() || '';
+            const nit = document.getElementById('reserva-nit')?.value || '';
+            const grupo = document.getElementById('info-panel-name')?.textContent?.trim() || 'Grupo musical';
+            const precio = selectedGroupPrice || 0;
+            const currentRoute = window.carritoRoute || '/carrito';
+
+            const params = new URLSearchParams({
+                fecha,
+                hora,
+                direccion,
+                nit,
+                grupo,
+                precio_hora: String(precio),
+            });
+
+            window.location.href = `${currentRoute}?${params.toString()}`;
+        });
+    }
 
     (function setupFormHandlers() {
         const reviewForm = document.querySelector('.info-panel__review-form');

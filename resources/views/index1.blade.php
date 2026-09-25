@@ -12,6 +12,9 @@
 
 </head>
 <body>
+<script>
+    window.carritoRoute = "{{ route('carrito') }}";
+</script>
 
 <!-- Encabezado con navegación pública y acceso de usuario. -->
 

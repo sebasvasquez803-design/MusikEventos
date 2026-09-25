@@ -18,14 +18,10 @@ export default defineConfig({
                 'resources/js/transicion.js',
                 'resources/css/mas_info.css',
                 'resources/css/admin.css',
-<<<<<<< HEAD
                 'resources/css/login.css',
                 'resources/css/sesion_rep.css',
-
-=======
                 'resources/js/calendario-modal.js',
-                'resources/css/carrito.css'
->>>>>>> b82b60268cd9c8a63b4b5c4a48514626cb4471e3
+                'resources/css/carrito.css',
             ],
             refresh: true,
             fonts: [

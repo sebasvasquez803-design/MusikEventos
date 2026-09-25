@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UsuarioController extends Controller
 {
@@ -25,6 +28,37 @@ class UsuarioController extends Controller
         $usuarios = $query->get();
     
         return view('CRUD.usuarios.index', compact('usuarios'));
+    }
+
+    public function registerArtista(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+
+        $user = User::create([
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'password' => Hash::make($validated['password']),
+        ]);
+
+        $numeroDoc = $request->input('numero_doc') ?: str_pad((string) $user->id, 10, '0', STR_PAD_LEFT);
+
+        Usuario::create([
+            'tipo_doc' => 'CC',
+            'numero_doc' => $numeroDoc,
+            'id_tipo_persona' => 2,
+            'nombre' => $validated['name'],
+            'apellido' => $request->input('apellido'),
+            'estado' => true,
+            'fecha_registro' => now()->toDateString(),
+        ]);
+
+        Auth::login($user);
+
+        return redirect()->route('dash.rep');
     }
 
     // create(): muestra el formulario para crear un usuario nuevo.

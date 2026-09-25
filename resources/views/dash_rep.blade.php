@@ -39,7 +39,7 @@
         Bienvenido al sistema de registro de grupos de MusikEventos.
     </p>
     <div class="dashboard-cards">
-        <a href="{{ route('iniciar.repleg') }}" class="dashboard-card">
+        <a href="{{ route('iniciar.rep.leg') }}" class="dashboard-card">
             <i class="fa-solid fa-user-tie"></i>
             <h3>Registrar Representante</h3>
             <p>Registrar representantes en la plataforma.</p>
@@ -51,10 +51,10 @@
             <p>Registrar grupos musicales con representante legal.</p>
         </a>
 
-        <a href="{{ route('sesion.rep.leg') }}" class="dashboard-card">
+        <a href="{{ route('sesion.artista') }}" class="dashboard-card">
             <i class="fa-solid fa-user-tie"></i>
             <h3>Registrar Artista</h3>
-            <p>Registrar artistas en la plataforma.</p>
+            <p>Registrar artistas solistas con su curriculum.</p>
         </a>
 
         <a href="{{ route('grupo.musical') }}" class="dashboard-card">

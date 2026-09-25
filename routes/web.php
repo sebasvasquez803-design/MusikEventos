@@ -1,7 +1,9 @@
 <?php
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\GrupoMusicalController;
+use App\Http\Controllers\CurriculumController;
 use App\Http\Controllers\ResenaController;
 use App\Http\Middleware\EnsureTeamMembership;
 use Illuminate\Support\Facades\Route;
@@ -19,17 +21,22 @@ Route::view('/reserva', 'formularios.reserva')->name('reserva');
 Route::view('/registro-clientes', 'formularios.registro_clientes')->name('registro.clientes');
 Route::get('/iniciar-rep_leg', function (Request $request) {
     if ($request->user()) {
-        return redirect()->route('curriculum.rep');
+        return redirect()->route('dash.rep');
     }
 
-    $request->session()->put('url.intended', route('curriculum.rep'));
+    $request->session()->put('url.intended', route('dash.rep'));
 
     return view('iniciar_repleg');
 })->name('iniciar.rep.leg');
 Route::view('/sesion-rep_leg', 'formularios.sesion_rep_leg')->name('sesion.rep.leg');
+Route::view('/sesion-artista', 'formularios.sesion_artista')->name('sesion.artista');
+Route::post('/registro-artista', [UsuarioController::class, 'registerArtista'])->name('register.artista');
 Route::view('/curriculum-representante', 'formularios.curriculum_rep')
     ->middleware('auth')
     ->name('curriculum.rep');
+Route::post('/curriculum-representante', [CurriculumController::class, 'storeFromRepresentative'])
+    ->middleware('auth')
+    ->name('curriculum.rep.store');
 Route::view('/dash-rep', 'dash_rep')
     ->middleware('auth')
     ->name('dash.rep');
