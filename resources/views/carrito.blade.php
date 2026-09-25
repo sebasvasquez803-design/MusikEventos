@@ -9,6 +9,12 @@
 
 <body>
 
+    @if(isset($grupo) && $grupo)
+        <script>window.__CART_GROUP = {!! json_encode($grupo) !!};</script>
+    @else
+        <script>window.__CART_GROUP = null;</script>
+    @endif
+
     <!-- HEADER -->
  <header>
     <a href="{{ route('home') }}" class="button" aria-label="Volver al inicio">
@@ -48,14 +54,14 @@
 
                 <div class="group-image">
 
-                    <img src="assets/grupo.jpg"
+                    <img id="cart-group-image" src="{{ isset($grupo) && $grupo->logo_url ? $grupo->logo_url : asset('storage/img/grupos/logoMusikEventos.png') }}"
                          alt="Grupo musical">
 
                 </div>
 
                 <div class="group-info">
 
-                    <h2 id="cart-group-name">Grupo Musical</h2>
+                    <h2 id="cart-group-name">{{ $grupo->nombre_grupo ?? 'Grupo Musical' }}</h2>
 
                     <span class="group-category" id="cart-group-category">
                         Grupo musical
@@ -71,7 +77,7 @@
                         <span>Precio por hora</span>
 
                         <strong id="cart-price-value">
-                            $0
+                            {{ isset($grupo) && $grupo->precio_hora ? ('$' . number_format($grupo->precio_hora, 0, ',', '.')) : '$0' }}
                         </strong>
 
                     </div>
@@ -240,8 +246,15 @@
             const fecha = params.get('fecha') || '';
             const hora = params.get('hora') || '';
             const direccion = params.get('direccion') || '';
-            const grupo = params.get('grupo') || 'Grupo Musical';
-            const precioHora = Number(String(params.get('precio_hora') || '0').replace(/[^\d]/g, '')) || 0;
+
+            const serverGroup = window.__CART_GROUP || null;
+            const grupo = serverGroup?.nombre_grupo || params.get('grupo') || 'Grupo Musical';
+            let precioHora = 0;
+            if (serverGroup && serverGroup.precio_hora) {
+                precioHora = Number(serverGroup.precio_hora) || 0;
+            } else {
+                precioHora = Number(String(params.get('precio_hora') || '0').replace(/[^\d]/g, '')) || 0;
+            }
 
             const fechaInput = document.getElementById('fecha');
             const horaInput = document.getElementById('hora');
@@ -258,8 +271,8 @@
             if (direccionInput) direccionInput.value = direccion;
             if (cartGroupName) cartGroupName.textContent = grupo;
             if (cartGroupCategory) cartGroupCategory.textContent = 'Grupo musical';
-            if (precioHoraInput) precioHoraInput.value = formatearPrecio(precioHora);
-            if (cartPriceValue) cartPriceValue.textContent = formatearPrecio(precioHora);
+            if (precioHoraInput) precioHoraInput.value = formatearPrecio(precioHora || (precioHoraInput.value ? Number(String(precioHoraInput.value).replace(/[^\d]/g,'')) : 0));
+            if (cartPriceValue) cartPriceValue.textContent = formatearPrecio(precioHora || (cartPriceValue.textContent ? Number(String(cartPriceValue.textContent).replace(/[^\d]/g,'')) : 0));
 
             if (horasInput) {
                 horasInput.value = horasInput.value || '1';

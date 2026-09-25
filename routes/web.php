@@ -106,4 +106,13 @@ Route::prefix('{current_team}')
 
 require __DIR__.'/settings.php';
 
-Route::view('/carrito',('carrito'))-> name ('carrito');
+use App\Models\GrupoMusical;
+
+Route::get('/carrito', function (Request $request) {
+    $grupo = null;
+    $nit = $request->query('nit');
+    if ($nit) {
+        $grupo = GrupoMusical::where('nit', $nit)->first();
+    }
+    return view('carrito', ['grupo' => $grupo]);
+})->name('carrito');
