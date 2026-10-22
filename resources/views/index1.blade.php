@@ -5,7 +5,6 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @vite('resources/css/style.css')
-    @vite(['resources/js/calendario-modal.js'])
     <title>MusikEventos</title>
     <link rel="shortcut icon" href="{{ asset('storage/img/grupos/logoMusikEventos.png') }}" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -158,7 +157,7 @@
         @forelse ($grupos as $grupo)
             <div class="contenedor" data-artista="{{ $grupo->artista_nombre }}" data-genero="{{ $grupo->genero_attr }}">
                 <div class="img-contenedor">
-                    <img class="img_art" src="{{ $grupo->artista_imagen }}" alt="{{ $grupo->artista_nombre }}">
+                    <img class="img_art" src="{{ $grupo->artista_imagen }}" alt="{{ $grupo->artista_nombre }}" loading="lazy" decoding="async">
                     <div class="img-texto">
                         <p>{{ $grupo->artista_nombre }}</p>
                         <p>Grupo musical</p>
@@ -248,12 +247,12 @@
 
         <div class="info-panel__hero">
             <div class="info-panel__portrait">
-                <img id="info-panel-image" src="{{ asset('storage/img/inside.jpeg') }}" alt="Grupo musical">
+                <img id="info-panel-image" alt="Grupo musical">
             </div>
 
             <div class="info-panel__identity">
                 <div class="info-panel__logo">
-                    <img id="info-panel-logo" src="{{ asset('storage/img/logo_arca.jpg') }}" alt="Logo grupo musical">
+                    <img id="info-panel-logo" alt="Logo grupo musical">
                 </div>
                 <h2 id="info-panel-name">Grupo musical</h2>
                 <div class="info-panel__tags">
@@ -272,7 +271,7 @@
 
                 <div class="info-panel__artist-block">
                     <div class="info-panel__artist-thumb">
-                        <img id="info-panel-thumb" src="{{ asset('storage/img/inside.jpeg') }}" alt="Grupo musical">
+                        <img id="info-panel-thumb" alt="Grupo musical">
                     </div>
                     <div class="info-panel__artist-copy">
                         <h4 id="info-panel-title">Grupo musical</h4>

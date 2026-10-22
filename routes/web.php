@@ -115,4 +115,4 @@ Route::get('/carrito', function (Request $request) {
         $grupo = GrupoMusical::where('nit', $nit)->first();
     }
     return view('carrito', ['grupo' => $grupo]);
-})->name('carrito');
+})->middleware('auth')->name('carrito');

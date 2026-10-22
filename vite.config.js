@@ -20,7 +20,7 @@ export default defineConfig({
                 'resources/css/admin.css',
                 'resources/css/login.css',
                 'resources/css/sesion_rep.css',
-                'resources/js/calendario-modal.js',
+                'resources/js/carrito.js',
                 'resources/css/carrito.css',
             ],
             refresh: true,

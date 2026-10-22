@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @vite('resources/css/carrito.css')
+    @vite('resources/js/carrito.js')
     <title>MUSIKEVENTOS | Carrito</title>
 </head>
 
@@ -16,24 +17,24 @@
     @endif
 
     <!-- HEADER -->
- <header>
+<header>
     <a href="{{ route('home') }}" class="button" aria-label="Volver al inicio">
-      <div class="button-box">
+    <div class="button-box">
         <span class="button-elem">
-          <svg viewBox="0 0 46 40" xmlns="http://www.w3.org/2000/svg">
+        <svg viewBox="0 0 46 40" xmlns="http://www.w3.org/2000/svg">
             <path
-              d="M46 20.038c0-.7-.3-1.5-.8-2.1l-16-17c-1.1-1-3.2-1.4-4.4-.3-1.2 1.1-1.2 3.3 0 4.4l11.3 11.9H3c-1.7 0-3 1.3-3 3s1.3 3 3 3h33.1l-11.3 11.9c-1 1-1.2 3.3 0 4.4 1.2 1.1 3.3.8 4.4-.3l16-17c.5-.5.8-1.1.8-1.9z"
+            d="M46 20.038c0-.7-.3-1.5-.8-2.1l-16-17c-1.1-1-3.2-1.4-4.4-.3-1.2 1.1-1.2 3.3 0 4.4l11.3 11.9H3c-1.7 0-3 1.3-3 3s1.3 3 3 3h33.1l-11.3 11.9c-1 1-1.2 3.3 0 4.4 1.2 1.1 3.3.8 4.4-.3l16-17c.5-.5.8-1.1.8-1.9z"
             ></path>
-          </svg>
+        </svg>
         </span>
         <span class="button-elem">
-          <svg viewBox="0 0 46 40">
+        <svg viewBox="0 0 46 40">
             <path
-              d="M46 20.038c0-.7-.3-1.5-.8-2.1l-16-17c-1.1-1-3.2-1.4-4.4-.3-1.2 1.1-1.2 3.3 0 4.4l11.3 11.9H3c-1.7 0-3 1.3-3 3s1.3 3 3 3h33.1l-11.3 11.9c-1 1-1.2 3.3 0 4.4 1.2 1.1 3.3.8 4.4-.3l16-17c.5-.5.8-1.1.8-1.9z"
+            d="M46 20.038c0-.7-.3-1.5-.8-2.1l-16-17c-1.1-1-3.2-1.4-4.4-.3-1.2 1.1-1.2 3.3 0 4.4l11.3 11.9H3c-1.7 0-3 1.3-3 3s1.3 3 3 3h33.1l-11.3 11.9c-1 1-1.2 3.3 0 4.4 1.2 1.1 3.3.8 4.4-.3l16-17c.5-.5.8-1.1.8-1.9z"
             ></path>
-          </svg>
+        </svg>
         </span>
-      </div>
+    </div>
     </a>
 
         <h1>RESERVA AQUÍ !!!</h1>
@@ -55,7 +56,7 @@
                 <div class="group-image">
 
                     <img id="cart-group-image" src="{{ isset($grupo) && $grupo->logo_url ? $grupo->logo_url : asset('storage/img/grupos/logoMusikEventos.png') }}"
-                         alt="Grupo musical">
+                        alt="Grupo musical">
 
                 </div>
 
@@ -230,68 +231,6 @@
         </div>
 
     </main>
-
-    <script>
-        function formatearPrecio(valor) {
-            const numero = Number(valor) || 0;
-            return new Intl.NumberFormat('es-CO', {
-                style: 'currency',
-                currency: 'COP',
-                maximumFractionDigits: 0,
-            }).format(numero);
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const params = new URLSearchParams(window.location.search);
-            const fecha = params.get('fecha') || '';
-            const hora = params.get('hora') || '';
-            const direccion = params.get('direccion') || '';
-
-            const serverGroup = window.__CART_GROUP || null;
-            const grupo = serverGroup?.nombre_grupo || params.get('grupo') || 'Grupo Musical';
-            let precioHora = 0;
-            if (serverGroup && serverGroup.precio_hora) {
-                precioHora = Number(serverGroup.precio_hora) || 0;
-            } else {
-                precioHora = Number(String(params.get('precio_hora') || '0').replace(/[^\d]/g, '')) || 0;
-            }
-
-            const fechaInput = document.getElementById('fecha');
-            const horaInput = document.getElementById('hora');
-            const direccionInput = document.getElementById('direccion');
-            const horasInput = document.getElementById('horas');
-            const precioHoraInput = document.getElementById('precio_hora');
-            const valorInput = document.getElementById('valor');
-            const cartGroupName = document.getElementById('cart-group-name');
-            const cartGroupCategory = document.getElementById('cart-group-category');
-            const cartPriceValue = document.getElementById('cart-price-value');
-
-            if (fechaInput) fechaInput.value = fecha;
-            if (horaInput) horaInput.value = hora;
-            if (direccionInput) direccionInput.value = direccion;
-            if (cartGroupName) cartGroupName.textContent = grupo;
-            if (cartGroupCategory) cartGroupCategory.textContent = 'Grupo musical';
-            if (precioHoraInput) precioHoraInput.value = formatearPrecio(precioHora || (precioHoraInput.value ? Number(String(precioHoraInput.value).replace(/[^\d]/g,'')) : 0));
-            if (cartPriceValue) cartPriceValue.textContent = formatearPrecio(precioHora || (cartPriceValue.textContent ? Number(String(cartPriceValue.textContent).replace(/[^\d]/g,'')) : 0));
-
-            if (horasInput) {
-                horasInput.value = horasInput.value || '1';
-            }
-
-            const actualizarTotal = () => {
-                const horas = Number(horasInput?.value || 0) || 0;
-                const total = horas * precioHora;
-                if (valorInput) valorInput.value = formatearPrecio(total);
-                if (cartPriceValue) cartPriceValue.textContent = formatearPrecio(precioHora);
-            };
-
-            if (horasInput) {
-                horasInput.addEventListener('input', actualizarTotal);
-            }
-
-            actualizarTotal();
-        });
-    </script>
 
 </body>
 </html>

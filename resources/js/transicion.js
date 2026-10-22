@@ -48,9 +48,6 @@ function filterByGenre(genre) {
     });
 }
 
-// ✅ Import del calendario modal
-import { iniciarCalendarioModal } from './calendario-modal.js';
-
 const infoToggleButtons = document.querySelectorAll('.info-toggle');
 const infoPanel = document.getElementById('info-panel');
 let selectedGroupPrice = 0;
@@ -264,7 +261,9 @@ if (infoPanel) {
 
             // ✅ Iniciar calendario DESPUÉS de que el modal es visible
             setTimeout(() => {
-                iniciarCalendarioModal(groupNit);
+                import('./calendario-modal.js').then(({ iniciarCalendarioModal }) => {
+                    iniciarCalendarioModal(groupNit);
+                });
             }, 150);
         });
     });
