@@ -52,6 +52,13 @@ const infoToggleButtons = document.querySelectorAll('.info-toggle');
 const infoPanel = document.getElementById('info-panel');
 let selectedGroupPrice = 0;
 
+document.querySelectorAll('.home-hero__artist-card:not([aria-hidden="true"])').forEach((card) => {
+    card.addEventListener('click', () => {
+        const groupButton = Array.from(infoToggleButtons).find((button) => button.dataset.nit === card.dataset.groupNit);
+        groupButton?.click();
+    });
+});
+
 if (infoPanel) {
     const nameEl = document.getElementById('info-panel-name');
     const tagEl = document.getElementById('info-panel-tag');

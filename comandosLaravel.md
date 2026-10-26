@@ -229,6 +229,30 @@ Route::middleware(['auth'])->group(function () {
 
 ## 5. 🧹 Caché y Optimización
 
+### Preparar la aplicación para producción
+
+Ejecuta estos comandos durante el despliegue, no mientras desarrollas localmente:
+
+```bash
+# Instala solo dependencias PHP de producción con autoload optimizado
+composer install --no-dev --optimize-autoloader
+
+# Compila los recursos Vite minificados y con nombres basados en contenido
+npm ci
+npm run build
+
+# Aplica los índices nuevos y las demás migraciones pendientes
+php artisan migrate --force
+
+# Precalienta las cachés de configuración, rutas, eventos y vistas de Laravel
+php artisan optimize
+```
+
+Después de cambiar configuración o rutas, vuelve a ejecutar `php artisan optimize`.
+Para regresar al modo de desarrollo, limpia esas cachés con `php artisan optimize:clear`.
+La compresión HTTP y el caché del navegador de los archivos estáticos se habilitan
+en `public/.htaccess` cuando Apache tiene `mod_deflate` y `mod_headers` activos.
+
 Cuando hagas cambios en configuraciones (`.env`), rutas o eventos que no se reflejen, ejecuta estos comandos:
 
 ```bash

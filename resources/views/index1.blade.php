@@ -122,14 +122,10 @@
 
 </header>
 
-
-<!-- LAYOUT PRINCIPAL: sub_menu al lado izquierdo + contenido a la derecha -->
-<div class="layout">
-
-    <!-- Menu lateral: oculto por defecto, se muestra con la clase "active" -->
-    <div class="sub_menu">
+<div class="page-shell">
+    <aside class="sub_menu" aria-label="Filtrar grupos por género">
         <ul>
-            <li><a href="#" data-genre=""> <strong>DESCUBRIR</strong></a></li>
+            <li><a href="#" data-genre=""><strong>DESCUBRIR</strong></a></li>
             <li><a href="#" data-genre="POP">POP</a></li>
             <li><a href="#" data-genre="REGGAETON">REGGAETON</a></li>
             <li><a href="#" data-genre="ROCK">ROCK</a></li>
@@ -140,15 +136,76 @@
             <li><a href="#" data-genre="CUMBIA">CUMBIA</a></li>
             <li><a href="#" data-genre="RANCHERA">RANCHERA</a></li>
         </ul>
-    </div>
+    </aside>
 
+    <div class="page-shell__content">
+<section class="home-hero" aria-labelledby="home-hero-title">
+    <div class="home-hero__content">
+        <span class="home-hero__eyebrow">
+            <i class="fa-solid fa-music" aria-hidden="true"></i>
+            MusikEventos · música para celebrar
+        </span>
+        <h1 id="home-hero-title">Tu evento merece<br><span>un ritmo inolvidable.</span></h1>
+        <p>Encuentra el grupo perfecto, descubre nuevos sonidos y dale vida a ese momento especial.</p>
+        <a class="home-hero__action" href="#explorar">
+            Explorar grupos
+            <i class="fa-solid fa-arrow-down" aria-hidden="true"></i>
+        </a>
+    </div>
+    <div class="home-hero__visual" role="region" aria-label="Artistas destacados: {{ $grupos->pluck('artista_nombre')->implode(', ') }}">
+        @if ($grupos->isNotEmpty())
+            <span class="home-hero__showcase-label">
+                <i class="fa-solid fa-sparkles" aria-hidden="true"></i>
+                Artistas para tu evento
+            </span>
+            <div class="home-hero__showcase">
+                <div class="home-hero__showcase-track">
+                    @foreach ($grupos as $grupo)
+                        <button type="button" class="home-hero__artist-card" data-group-nit="{{ $grupo->nit }}" aria-label="Ver perfil de {{ $grupo->artista_nombre }}">
+                            <img src="{{ $grupo->artista_imagen }}" alt="" loading="lazy" decoding="async">
+                            <div class="home-hero__artist-info">
+                                <span>Grupo musical</span>
+                                <strong>{{ $grupo->artista_nombre }}</strong>
+                            </div>
+                        </button>
+                    @endforeach
+                    @foreach ($grupos as $grupo)
+                        <button type="button" class="home-hero__artist-card" data-group-nit="{{ $grupo->nit }}" aria-label="Ver perfil de {{ $grupo->artista_nombre }}" aria-hidden="true" inert tabindex="-1">
+                            <img src="{{ $grupo->artista_imagen }}" alt="" loading="lazy" decoding="async">
+                            <div class="home-hero__artist-info">
+                                <span>Grupo musical</span>
+                                <strong>{{ $grupo->artista_nombre }}</strong>
+                            </div>
+                        </button>
+                    @endforeach
+                </div>
+            </div>
+        @endif
+    </div>
+</section>
+
+<!-- Catálogo principal -->
+<div class="layout">
     <!-- Contenido principal: búsqueda, tarjetas y paginación. -->
-    <div class="contenido-principal">
+    <main class="contenido-principal" id="explorar">
+        <div class="catalogo-heading">
+            <div>
+                <span class="catalogo-heading__eyebrow">ENCUENTRA TU SONIDO</span>
+                <h2>Grupos para cada ocasión</h2>
+                <p>Explora artistas y encuentra la música que hará especial tu evento.</p>
+            </div>
+            <span class="catalogo-heading__count">
+                {{ $grupos->total() }} {{ $grupos->total() === 1 ? 'grupo disponible' : 'grupos disponibles' }}
+            </span>
+        </div>
 
         <!-- Barra de busqueda -->
         <form class="barra-busqueda" method="GET" action="{{ route('home') }}">
-            <input type="search" name="buscar" value="{{ request('buscar') }}" placeholder="Busca tu grupo de genero">
-            <button type="submit">Buscar</button>
+            <label class="barra-busqueda__field">
+                <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                <input type="search" name="buscar" value="{{ request('buscar') }}" placeholder="Busca un grupo musical..." aria-label="Busca un grupo musical">
+            </label>
+            <button type="submit"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i> Buscar</button>
         </form>
 
         <!-- Grid de tarjetas de grupos registrados. -->
@@ -198,7 +255,14 @@
                 @endauth
             </div>
         @empty
-            <p>No hay grupos musicales registrados.</p>
+            <div class="empty-state">
+                <span class="empty-state__icon"><i class="fa-solid fa-music" aria-hidden="true"></i></span>
+                <h3>Aún no encontramos grupos</h3>
+                <p>Prueba con otro nombre o vuelve a descubrir toda la música disponible.</p>
+                @if (request()->filled('buscar'))
+                    <a href="{{ route('home') }}">Ver todos los grupos</a>
+                @endif
+            </div>
         @endforelse
 
         </div><!-- fin grid-cards -->
@@ -237,7 +301,7 @@
                     @endif
                 </div>
 
-    </div><!-- fin contenido-principal -->
+    </main><!-- fin contenido-principal -->
 
 </div><!-- fin layout -->
 
@@ -383,7 +447,8 @@
     </div>
 </footer>
 
-
+    </div>
+</div>
 
 @vite('resources/js/transicion.js')
 </body>

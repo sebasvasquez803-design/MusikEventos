@@ -17,6 +17,12 @@ class GrupoMusicalController extends Controller
         $buscar = trim((string) request('buscar'));
 
         $grupos = GrupoMusical::query()
+            ->with([
+                'resenas:id_resena,nit,nombre_usuario,comentario,numero_estrellas',
+                'subgeneros:id_subgenero,nit,nombre_subgenero',
+                'subgenero:id_subgenero,id_genero,nombre_subgenero',
+                'subgenero.genero:id_genero,nombre_genero',
+            ])
             ->when($buscar !== '', function ($consulta) use ($buscar) {
                 $consulta->where('nombre_grupo', 'like', "%{$buscar}%");
             })
@@ -62,39 +68,18 @@ class GrupoMusicalController extends Controller
                 ]];
             }
 
-            $grupoGeneros = [];
+            $grupoGeneros = $grupo->subgeneros
+                ->pluck('nombre_subgenero')
+                ->filter()
+                ->all();
+            $subGenero = $grupo->subgenero;
 
-            try {
-                $grupoGeneros = DB::table('subgenero')
-                    ->where('nit', $grupo->nit)
-                    ->pluck('nombre_subgenero')
-                    ->toArray();
-            } catch (\Throwable $e) {
-                $grupoGeneros = [];
+            if ($subGenero?->nombre_subgenero) {
+                $grupoGeneros[] = $subGenero->nombre_subgenero;
             }
 
-            if (!empty($grupo->id_subgenero)) {
-                try {
-                    $subGenero = DB::table('subgenero')
-                        ->where('id_subgenero', $grupo->id_subgenero)
-                        ->first();
-
-                    if ($subGenero && !empty($subGenero->nombre_subgenero)) {
-                        $grupoGeneros[] = $subGenero->nombre_subgenero;
-                    }
-
-                    if ($subGenero && !empty($subGenero->id_genero)) {
-                        $genero = DB::table('genero')
-                            ->where('id_genero', $subGenero->id_genero)
-                            ->value('nombre_genero');
-
-                        if ($genero) {
-                            $grupoGeneros[] = $genero;
-                        }
-                    }
-                } catch (\Throwable $e) {
-                    // Ignora errores si la relación de géneros no está disponible.
-                }
+            if ($subGenero?->genero?->nombre_genero) {
+                $grupoGeneros[] = $subGenero->genero->nombre_genero;
             }
 
             $grupo->generos = array_values(array_unique(array_filter($grupoGeneros, fn ($genero) => !empty($genero))));

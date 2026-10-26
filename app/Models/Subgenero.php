@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Subgenero extends Model
 {
@@ -22,7 +23,8 @@ class Subgenero extends Model
         'numero_doc',
         'nit',
     ];
-    public function genero()
+    /** @return BelongsTo<Genero, $this> */
+    public function genero(): BelongsTo
     {
         return $this->belongsTo(Genero::class, 'id_genero', 'id_genero');
     }

@@ -3,9 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Storage;
-use App\Models\Resena;
 
 class GrupoMusical extends Model
 {
@@ -53,12 +53,14 @@ class GrupoMusical extends Model
         return $this->hasMany(Reserva::class, 'nit', 'nit');
     }
 
+    /** @return HasMany<Subgenero, $this> */
     public function subgeneros(): HasMany
     {
         return $this->hasMany(Subgenero::class, 'nit', 'nit');
     }
 
-    public function subgenero()
+    /** @return BelongsTo<Subgenero, $this> */
+    public function subgenero(): BelongsTo
     {
         return $this->belongsTo(Subgenero::class, 'id_subgenero', 'id_subgenero');
     }
@@ -68,6 +70,7 @@ class GrupoMusical extends Model
         return $this->hasMany(PaqueteGrupo::class, 'nit', 'nit');
     }
 
+    /** @return HasMany<Resena, $this> */
     public function resenas(): HasMany
     {
         return $this->hasMany(Resena::class, 'nit', 'nit');
