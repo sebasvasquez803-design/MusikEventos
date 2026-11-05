@@ -357,3 +357,698 @@ input[type=submit] {
 .text {
   margin: 0 1.5em
 }
+
+.registro-grupo-page {
+    min-height: 100vh;
+    background: #f4f1eb;
+    color: #201e19;
+    font-family: "Roboto", sans-serif;
+}
+
+.registro-grupo-page .registro-header {
+    min-height: 82px;
+    padding: 12px clamp(18px, 5vw, 72px);
+    justify-content: space-between;
+    background: #171613;
+    border-bottom: 1px solid rgba(201, 162, 74, 0.6);
+}
+
+.registro-header .button {
+    flex: 0 0 56px;
+}
+
+.registro-header__brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-right: auto;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.registro-header__brand .logo {
+    width: 42px;
+    height: 42px;
+    object-fit: contain;
+}
+
+.registro-header__brand span span {
+    color: #d7b66a;
+}
+
+.registro-header__context {
+    color: #c8c0af;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+}
+
+.registro-grupo-page .registro-layout {
+    min-height: calc(100vh - 82px);
+    padding: clamp(18px, 3vw, 42px);
+    align-items: stretch;
+    gap: clamp(18px, 2.4vw, 34px);
+}
+
+.registro-grupo-page .registro-visual {
+    position: relative;
+    display: flex;
+    flex: 0 0 38%;
+    width: 38%;
+    min-height: 670px;
+    overflow: hidden;
+    align-items: flex-end;
+    border-radius: 12px;
+    background: #171613;
+    box-shadow: 0 22px 60px rgba(34, 29, 19, 0.16);
+}
+
+.registro-visual::after {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(20, 19, 16, 0.05) 12%, rgba(20, 19, 16, 0.22) 36%, rgba(20, 19, 16, 0.94) 100%);
+    content: "";
+}
+
+.registro-grupo-page .registro-visual .img-contenedor {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.88;
+}
+
+.registro-visual__content {
+    position: relative;
+    z-index: 1;
+    padding: clamp(24px, 3.2vw, 46px);
+    color: #fff;
+    text-align: left;
+}
+
+.registro-visual__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    margin-bottom: 18px;
+    color: #e2c476;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+}
+
+.registro-visual__content h1 {
+    margin-bottom: 16px;
+    color: #fff;
+    font-family: "Roboto", sans-serif;
+    font-size: clamp(2rem, 3vw, 3.25rem);
+    font-weight: 700;
+    line-height: 1.08;
+    text-align: left;
+}
+
+.registro-visual__content > p {
+    max-width: 430px;
+    color: rgba(255, 255, 255, 0.78);
+    font-size: 0.98rem;
+    font-weight: 400;
+    line-height: 1.75;
+}
+
+.registro-visual__note {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.24);
+    color: #e9e3d6;
+    font-size: 0.82rem;
+    font-weight: 400;
+}
+
+.registro-visual__note i {
+    color: #e2c476;
+    font-size: 1rem;
+}
+
+.registro-grupo-page .form-basico {
+    min-width: 0;
+    padding: clamp(24px, 3.4vw, 48px);
+    align-items: stretch;
+    justify-content: center;
+    border: 1px solid #e8e1d3;
+    border-radius: 12px;
+    background: #fffefa;
+    box-shadow: 0 18px 48px rgba(34, 29, 19, 0.07);
+    text-align: left;
+}
+
+.form-heading {
+    width: 100%;
+    max-width: 790px;
+    margin: 0 auto 28px;
+}
+
+.form-heading__step {
+    display: inline-flex;
+    gap: 7px;
+    margin-bottom: 10px;
+    color: #8b6a2b;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+}
+
+.form-heading__step span {
+    color: #a7a196;
+}
+
+.registro-grupo-page .form-heading h2 {
+    margin: 0 0 8px;
+    padding: 0;
+    border: 0;
+    color: #201e19;
+    font-family: "Roboto", sans-serif;
+    font-size: clamp(1.7rem, 2.4vw, 2.35rem);
+    font-weight: 700;
+    line-height: 1.2;
+    text-align: left;
+}
+
+.form-heading p {
+    color: #79756c;
+    font-size: 0.9rem;
+    font-weight: 400;
+    line-height: 1.6;
+}
+
+.form-fields {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px 18px;
+    width: 100%;
+    max-width: 790px;
+    margin: 0 auto;
+}
+
+.registro-grupo-page .entrada {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 18px;
+    gap: 7px 8px;
+    width: 100%;
+    max-width: none;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.registro-grupo-page .entrada--wide {
+    grid-column: 1 / -1;
+}
+
+.registro-grupo-page .form-basico label {
+    grid-column: 1 / -1;
+    width: auto;
+    padding: 0;
+    color: #39362f;
+    font-size: 0.78rem;
+    font-weight: 700;
+}
+
+.campo-wrap {
+    display: flex;
+    grid-column: 1;
+    align-items: center;
+    min-width: 0;
+    min-height: 48px;
+    padding: 0 13px;
+    border: 1px solid #ded8cb;
+    border-radius: 7px;
+    background: #fff;
+    color: #958d7d;
+    transition: border-color 160ms ease, box-shadow 160ms ease, background 160ms ease;
+}
+
+.campo-wrap:focus-within {
+    border-color: #b48b3b;
+    background: #fffefa;
+    box-shadow: 0 0 0 3px rgba(201, 162, 74, 0.15);
+}
+
+.campo-wrap > i {
+    flex: 0 0 auto;
+    margin-right: 10px;
+    color: #a28a56;
+    font-size: 0.9rem;
+}
+
+.registro-grupo-page .entrada input.campo,
+.registro-grupo-page .entrada select.campo,
+.registro-grupo-page .entrada textarea.campo {
+    width: 100%;
+    min-width: 0;
+    padding: 12px 0;
+    border: 0;
+    border-radius: 0;
+    outline: none;
+    background: transparent;
+    color: #201e19;
+    font: 400 0.88rem "Roboto", sans-serif;
+}
+
+.registro-grupo-page .entrada .campo::placeholder {
+    color: #a6a093;
+}
+
+.registro-grupo-page .entrada select.campo {
+    cursor: pointer;
+}
+
+.registro-grupo-page .campo-wrap--textarea {
+    align-items: flex-start;
+    min-height: 100px;
+    padding-top: 12px;
+}
+
+.registro-grupo-page .entrada textarea.campo {
+    min-height: 78px;
+    padding: 0;
+    resize: vertical;
+}
+
+.registro-grupo-page .entrada .icon {
+    grid-column: 2;
+    grid-row: 2;
+    align-self: center;
+    color: #a28a56;
+    font-size: 0.85rem;
+    opacity: 0;
+    transition: opacity 160ms ease;
+}
+
+.registro-grupo-page .entrada .icon i {
+    color: inherit;
+}
+
+.registro-grupo-page .entrada.is-filled .icon,
+.registro-grupo-page .entrada.is-filled .icon i {
+    color: #73936e;
+}
+
+.registro-grupo-page .entrada.is-filled .icon {
+    opacity: 1;
+}
+
+.registro-grupo-page .form-basico small.error {
+    grid-column: 1 / -1;
+    margin: 0;
+    color: #b23a32;
+    font-size: 0.75rem;
+}
+
+.registro-grupo-page .genero-seleccionado {
+    display: flex;
+    grid-column: 1;
+    align-items: center;
+    min-height: 48px;
+    padding: 12px 13px;
+    border: 1px dashed #d8c99e;
+    border-radius: 7px;
+    background: #faf7ee;
+    color: #726b5d;
+    font-size: 0.82rem;
+}
+
+.genero-seleccionado i {
+    margin-right: 9px;
+    color: #a28a56;
+}
+
+.registro-grupo-page .boton {
+    width: 100%;
+    max-width: 790px;
+    margin: 25px auto 0;
+}
+
+.registro-grupo-page .button1 {
+    display: flex;
+    width: 100%;
+    min-height: 52px;
+    height: auto;
+    padding: 0 18px;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    border: 1px solid #b48b3b;
+    border-radius: 7px;
+    background: #c9a24a;
+    color: #1d1b16;
+    font: 700 0.9rem "Roboto", sans-serif;
+    text-align: center;
+    transition: background 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+}
+
+.registro-grupo-page .button1:hover {
+    transform: translateY(-1px);
+    background: #d8b65f;
+    box-shadow: 0 8px 18px rgba(123, 92, 29, 0.18);
+}
+
+.registro-grupo-page .button1 svg {
+    position: static;
+    display: block;
+    width: 19px;
+    height: 19px;
+    margin: 0;
+}
+
+@media (max-width: 1024px) {
+    .registro-grupo-page .registro-layout {
+        flex-direction: column;
+    }
+
+    .registro-grupo-page .registro-visual {
+        flex: 0 0 auto;
+        width: 100%;
+        min-height: 300px;
+    }
+
+    .registro-grupo-page .form-basico {
+        padding: clamp(22px, 5vw, 42px);
+    }
+}
+
+@media (max-width: 640px) {
+    .registro-grupo-page .registro-header {
+        min-height: 70px;
+        padding: 10px 14px;
+        gap: 10px;
+    }
+
+    .registro-header .button {
+        flex-basis: 48px;
+        width: 48px;
+        height: 48px;
+    }
+
+    .registro-header__brand .logo {
+        width: 34px;
+        height: 34px;
+    }
+
+    .registro-header__context {
+        display: none;
+    }
+
+    .registro-grupo-page .registro-layout {
+        min-height: calc(100vh - 70px);
+        padding: 14px;
+        gap: 14px;
+    }
+
+    .registro-grupo-page .registro-visual {
+        min-height: 230px;
+        border-radius: 9px;
+    }
+
+    .registro-visual__content {
+        padding: 22px;
+    }
+
+    .registro-visual__content h1 {
+        margin-bottom: 9px;
+        font-size: 1.8rem;
+    }
+
+    .registro-visual__content > p {
+        font-size: 0.84rem;
+        line-height: 1.55;
+    }
+
+    .registro-visual__note {
+        display: none;
+    }
+
+    .registro-grupo-page .form-basico {
+        padding: 24px 18px;
+        border-radius: 9px;
+    }
+
+    .form-heading {
+        margin-bottom: 22px;
+    }
+
+    .form-fields {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .registro-grupo-page .entrada--wide {
+        grid-column: auto;
+    }
+
+    .registro-grupo-page .boton {
+        margin-top: 20px;
+    }
+}
+
+.registro-grupo-page .registro-form-step-two {
+    justify-content: center;
+}
+
+.registro-media-fields {
+    align-items: start;
+}
+
+.registro-grupo-page .registro-upload-entry {
+    display: block;
+}
+
+.registro-grupo-page .registro-upload-entry > label:first-child {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.registro-upload-entry > label:first-child span {
+    color: #8d7a4f;
+    font-size: 0.66rem;
+    font-weight: 600;
+}
+
+.registro-grupo-page .registro-upload-card {
+    position: relative;
+    display: flex;
+    min-height: 186px;
+    width: 100%;
+    padding: 14px;
+    align-items: center;
+    gap: 14px;
+    overflow: hidden;
+    border: 1px dashed #d4c7a6;
+    border-radius: 8px;
+    background: #fcfaf5;
+    cursor: pointer;
+    text-align: left;
+    transition: border-color 160ms ease, background 160ms ease, box-shadow 160ms ease;
+}
+
+.registro-upload-card:hover,
+.registro-upload-card:focus-within {
+    border-color: #b48b3b;
+    background: #fffdf8;
+    box-shadow: 0 0 0 3px rgba(201, 162, 74, 0.12);
+}
+
+.registro-grupo-page .registro-upload-card input[type="file"] {
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.registro-upload-card__preview {
+    display: grid;
+    flex: 0 0 112px;
+    width: 112px;
+    height: 140px;
+    place-items: center;
+    overflow: hidden;
+    border-radius: 6px;
+    background: #eee9dc;
+    color: #a28a56;
+    font-size: 1.7rem;
+}
+
+.registro-upload-card--logo .registro-upload-card__preview {
+    height: 112px;
+    border: 1px solid #e6decb;
+    border-radius: 50%;
+    background: #fff;
+}
+
+.registro-upload-card__preview img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.registro-upload-card--logo .registro-upload-card__preview img {
+    object-fit: contain;
+    padding: 9px;
+}
+
+.registro-upload-card__copy {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 7px;
+}
+
+.registro-upload-card__copy strong {
+    overflow: hidden;
+    max-width: 100%;
+    color: #302d26;
+    font-size: 0.84rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.registro-upload-card__copy small,
+.registro-field-hint {
+    color: #817c70;
+    font-size: 0.72rem;
+    font-weight: 400;
+}
+
+.registro-upload-card__action {
+    display: inline-flex;
+    margin-top: 5px;
+    padding: 8px 10px;
+    align-items: center;
+    gap: 7px;
+    border: 1px solid #ddd3bd;
+    border-radius: 5px;
+    background: #fff;
+    color: #514936;
+    font-size: 0.7rem;
+    font-weight: 700;
+}
+
+.registro-upload-card.has-file {
+    border-style: solid;
+    border-color: #9bab85;
+    background: #fbfcf8;
+}
+
+.registro-upload-entry .error {
+    display: block;
+    margin-top: 7px !important;
+}
+
+.registro-grupo-page .registro-video-entry .campo-wrap {
+    grid-column: 1 / -1;
+}
+
+.registro-video-entry .registro-field-hint {
+    grid-column: 1 / -1;
+    line-height: 1.5;
+}
+
+.registro-grupo-page .registro-submit-row {
+    display: flex;
+    width: 100%;
+    max-width: 790px;
+    margin: 28px auto 0;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.registro-back-link {
+    display: inline-flex;
+    min-height: 48px;
+    align-items: center;
+    gap: 9px;
+    color: #625b4d;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.registro-back-link:hover {
+    color: #8b6a2b;
+}
+
+.registro-grupo-page .registro-submit-button {
+    display: inline-flex;
+    min-height: 50px;
+    padding: 0 19px;
+    align-items: center;
+    justify-content: center;
+    gap: 11px;
+    border: 1px solid #b48b3b;
+    border-radius: 7px;
+    background: #c9a24a;
+    color: #1d1b16;
+    font: 700 0.85rem "Roboto", sans-serif;
+    cursor: pointer;
+    transition: background 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+}
+
+.registro-grupo-page .registro-submit-button:hover {
+    transform: translateY(-1px);
+    background: #d8b65f;
+    box-shadow: 0 8px 18px rgba(123, 92, 29, 0.18);
+}
+
+@media (max-width: 640px) {
+    .registro-grupo-page .registro-upload-card {
+        min-height: 146px;
+        padding: 11px;
+        gap: 11px;
+    }
+
+    .registro-upload-card__preview {
+        flex-basis: 84px;
+        width: 84px;
+        height: 118px;
+    }
+
+    .registro-upload-card--logo .registro-upload-card__preview {
+        height: 84px;
+    }
+
+    .registro-upload-card__copy strong {
+        font-size: 0.76rem;
+    }
+
+    .registro-upload-card__copy small {
+        font-size: 0.66rem;
+    }
+
+    .registro-grupo-page .registro-submit-row {
+        align-items: stretch;
+        flex-direction: column-reverse;
+        gap: 8px;
+    }
+
+    .registro-grupo-page .registro-submit-button {
+        width: 100%;
+    }
+
+    .registro-back-link {
+        justify-content: center;
+    }
+}

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,9 +12,8 @@
         integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
-<body>
-    <!-- Formulario para registrar grupos musicales en la base de datos. -->
-        <header>
+<body class="registro-grupo-page">
+    <header class="registro-header">
     <a href="{{ route('dash.rep') }}" class="button" aria-label="Volver al inicio">
       <div class="button-box">
         <span class="button-elem">
@@ -34,16 +33,28 @@
       </div>
     </a>
 
-        <h1>REGISTRO DE GRUPOS MUSICALES</h1>
-            <img class="logo" src="{{ asset('storage/img/grupos/logoMusikEventos.png') }}" alt="logo">
+        <div class="registro-header__brand">
+            <img class="logo" src="{{ asset('storage/img/grupos/logoMusikEventos.png') }}" alt="">
+            <span>Musik<span>Eventos</span></span>
+        </div>
+        <span class="registro-header__context">REGISTRO DE ARTISTAS</span>
     </header>
 
-    <div class="conte">
-        <aside class="contenedor">
-            <img class="img-contenedor" src="{{ asset('storage/img/inside.jpeg') }}" alt="barra lateral">
+    <main class="conte registro-layout">
+        <aside class="contenedor registro-visual">
+            <img class="img-contenedor" src="{{ asset('storage/img/inside.jpeg') }}" alt="Artistas musicales en vivo">
+            <div class="registro-visual__content">
+                <span class="registro-visual__eyebrow"><i class="fa-solid fa-sparkles" aria-hidden="true"></i> CASI ESTÁ TODO LISTO</span>
+                <h1>Muéstrales<br>quiénes son.</h1>
+                <p>Una buena imagen ayuda a que tu grupo destaque. Sube una portada y un logo para completar tu perfil.</p>
+                <div class="registro-visual__note">
+                    <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                    <span>Último paso: revisa tus archivos antes de registrar.</span>
+                </div>
+            </div>
         </aside>
 
-        <form class="form-basico" name="formulario" action="{{ route('grupo-musical.store') }}" method="POST" enctype="multipart/form-data">
+        <form class="form-basico registro-form-step-two" name="formulario" action="{{ route('grupo-musical.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="nit" value="">
             <input type="hidden" name="nombre_grupo" value="">
@@ -52,34 +63,69 @@
             <input type="hidden" name="descripcion" value="">
             <input type="hidden" name="id_subgenero" value="">
             <input type="hidden" name="precio_hora" value="">
-            <h2> Información y Archivos Multimedia </h2>
-        <div class="entrada">
-                <label for="inputImagen">Portada del grupo</label>
-                <input type="file" id="inputImagen" name="avatar" accept="image/jpeg,image/png,image/jpg,image/webp" class="campo" required>
-                <span class="icon"><i class="fa-solid fa-circle-check"></i></span>
-                @error('avatar') <small class="error">{{ $message }}</small> @enderror
-        </div>
 
-    <div class="entrada">
-                <label for="inputLogo">Logo del grupo</label>
-                <input type="file" id="inputLogo" name="logo" accept="image/jpeg,image/png,image/jpg,image/webp" class="campo" required>
-                <span class="icon"><i class="fa-solid fa-circle-check"></i></span>
-                @error('logo') <small class="error">{{ $message }}</small> @enderror
-        </div>
+            <div class="form-heading">
+                <span class="form-heading__step">PASO 2 <span>DE 2</span></span>
+                <h2>Agrega imágenes a tu perfil</h2>
+                <p>Sube una portada y el logo de tu grupo. El video de presentación es opcional.</p>
+            </div>
 
+            <div class="form-fields registro-media-fields">
+                <div class="entrada registro-upload-entry">
+                    <label for="inputImagen">Portada del grupo <span>Requerida</span></label>
+                    <label class="registro-upload-card" for="inputImagen">
+                        <input type="file" id="inputImagen" name="avatar" accept="image/jpeg,image/png,image/jpg,image/webp" class="campo" required aria-describedby="portada-ayuda">
+                        <span class="registro-upload-card__preview" data-preview="inputImagen">
+                            <i class="fa-regular fa-image" aria-hidden="true"></i>
+                        </span>
+                        <span class="registro-upload-card__copy">
+                            <strong data-file-name="inputImagen">Elige una imagen de portada</strong>
+                            <small id="portada-ayuda">JPG, PNG o WEBP · hasta 2 MB</small>
+                            <span class="registro-upload-card__action"><i class="fa-solid fa-arrow-up-from-bracket" aria-hidden="true"></i> Seleccionar archivo</span>
+                        </span>
+                    </label>
+                    @error('avatar') <small class="error">{{ $message }}</small> @enderror
+                </div>
 
-        <div class="entrada">
-                <label>Video de presentación (link)</label>
-                <input type="url" name="video_url" class="campo" value="{{ old('video_url') }}" placeholder="https://youtu.be/...">
-                <span class="icon"><i class="fa-solid fa-circle-check"></i></span>
-                @error('video_url') <small class="error">{{ $message }}</small> @enderror
-        </div>
+                <div class="entrada registro-upload-entry">
+                    <label for="inputLogo">Logo del grupo <span>Requerido</span></label>
+                    <label class="registro-upload-card registro-upload-card--logo" for="inputLogo">
+                        <input type="file" id="inputLogo" name="logo" accept="image/jpeg,image/png,image/jpg,image/webp" class="campo" required aria-describedby="logo-ayuda">
+                        <span class="registro-upload-card__preview" data-preview="inputLogo">
+                            <i class="fa-solid fa-music" aria-hidden="true"></i>
+                        </span>
+                        <span class="registro-upload-card__copy">
+                            <strong data-file-name="inputLogo">Elige el logo de tu grupo</strong>
+                            <small id="logo-ayuda">JPG, PNG o WEBP · hasta 2 MB</small>
+                            <span class="registro-upload-card__action"><i class="fa-solid fa-arrow-up-from-bracket" aria-hidden="true"></i> Seleccionar archivo</span>
+                        </span>
+                    </label>
+                    @error('logo') <small class="error">{{ $message }}</small> @enderror
+                </div>
 
-          <div class="boton">
-                <input type="submit" value="Registrar" name="botingresar">
+                <div class="entrada entrada--wide registro-video-entry">
+                    <label for="video-url">Video de presentación <span>Opcional</span></label>
+                    <div class="campo-wrap">
+                        <i class="fa-brands fa-youtube" aria-hidden="true"></i>
+                        <input type="url" id="video-url" name="video_url" class="campo" value="{{ old('video_url') }}" placeholder="https://youtu.be/...">
+                    </div>
+                    <small class="registro-field-hint">Comparte un enlace de YouTube para que puedan conocerlos en acción.</small>
+                    @error('video_url') <small class="error">{{ $message }}</small> @enderror
+                </div>
+            </div>
+
+            <div class="registro-submit-row">
+                <a class="registro-back-link" href="{{ route('grupo.musical') }}">
+                    <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+                    Volver al paso anterior
+                </a>
+                <button type="submit" class="registro-submit-button" name="botingresar">
+                    <span>Registrar grupo</span>
+                    <i class="fa-solid fa-check" aria-hidden="true"></i>
+                </button>
             </div>
         </form>
-    </div>
+    </main>
 
     <script>
         const form = document.forms.formulario;
@@ -121,21 +167,35 @@
             }
         }
 
-        document.querySelectorAll('.form-basico .entrada .campo').forEach((field) => {
-            const parent = field.closest('.entrada');
-            if (!parent) return;
+        document.querySelectorAll('.registro-upload-card input[type="file"]').forEach((field) => {
+            field.addEventListener('change', () => {
+                const file = field.files && field.files[0];
+                const preview = document.querySelector(`[data-preview="${field.id}"]`);
+                const fileName = document.querySelector(`[data-file-name="${field.id}"]`);
+                const card = field.closest('.registro-upload-card');
+                if (!preview || !fileName || !card) return;
 
-            const syncState = () => {
-                const hasValue = field.type === 'file'
-                    ? !!field.files && field.files.length > 0
-                    : field.value.trim() !== '';
-
-                parent.classList.toggle('is-filled', hasValue);
-            };
-
-            field.addEventListener('input', syncState);
-            field.addEventListener('change', syncState);
-            syncState();
+                const previousPreview = preview.querySelector('img');
+                if (previousPreview?.src.startsWith('blob:')) {
+                    URL.revokeObjectURL(previousPreview.src);
+                }
+                preview.replaceChildren();
+                if (file) {
+                    const image = document.createElement('img');
+                    image.alt = '';
+                    image.src = URL.createObjectURL(file);
+                    preview.append(image);
+                    fileName.textContent = file.name;
+                    card.classList.add('has-file');
+                } else {
+                    const icon = document.createElement('i');
+                    icon.className = field.id === 'inputImagen' ? 'fa-regular fa-image' : 'fa-solid fa-music';
+                    icon.setAttribute('aria-hidden', 'true');
+                    preview.append(icon);
+                    fileName.textContent = field.id === 'inputImagen' ? 'Elige una imagen de portada' : 'Elige el logo de tu grupo';
+                    card.classList.remove('has-file');
+                }
+            });
         });
 
         restoreHiddenFields();
@@ -150,7 +210,15 @@
                 console.warn('No se pudieron conservar los datos del registro:', error);
             }
 
+            const videoUrl = form.elements.namedItem('video_url');
+            if (videoUrl) data.video_url = videoUrl.value;
             localStorage.setItem(storageKey, JSON.stringify(data));
+        }
+
+        const videoField = form.elements.namedItem('video_url');
+        if (videoField) {
+            videoField.addEventListener('input', preserveStoredData);
+            videoField.addEventListener('change', preserveStoredData);
         }
 
         window.addEventListener('beforeunload', preserveStoredData);
