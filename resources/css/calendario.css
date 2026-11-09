@@ -1,0 +1,277 @@
+.calendario-site-header {
+    border-bottom: 4px solid #c9a24a;
+}
+
+.calendario-site-header .menu a[aria-current="page"] {
+    color: #c9a24a;
+}
+
+.calendario-site-header .menu a.wooden-cart-button {
+    padding: 0;
+    color: #fff;
+    text-decoration: none;
+}
+
+.calendario-site-header .menu a.wooden-cart-button:hover {
+    color: #fff;
+}
+
+.calendario-site-header .wooden-cart-button-inner {
+    gap: 0.4rem;
+}
+
+.calendario-site-header .wooden-cart-button-inner i {
+    color: #fff;
+    font-size: 1.15rem;
+}
+
+.calendario-site__brand {
+    display: block;
+    flex: 0 0 auto;
+}
+
+.calendario-page {
+    --calendar-gold: #c9a24a;
+    --calendar-gold-light: #f7f0df;
+    --calendar-ink: #1a1a1a;
+
+    width: min(100% - 2rem, 1200px);
+    margin: 0 auto;
+    padding: clamp(1.5rem, 4vw, 3rem) 0;
+}
+
+.calendario-page__header {
+    margin: 0 auto 1.5rem;
+    text-align: center;
+}
+
+.calendario-page__eyebrow {
+    margin: 0 0 0.4rem;
+    color: var(--calendar-gold);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.calendario-page__header h1 {
+    margin: 0;
+    color: var(--calendar-ink);
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 700;
+    line-height: 1.15;
+}
+
+.calendario-page__description {
+    margin: 0.65rem 0 0;
+    color: #666;
+    font-size: 0.98rem;
+}
+
+.calendario-page__card {
+    padding: clamp(0.75rem, 2vw, 1.5rem);
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid var(--calendar-gold);
+    border-radius: 18px;
+    box-shadow: 0 18px 45px rgb(0 0 0 / 22%);
+}
+
+#calendar-completo,
+#calendar-modal {
+    --fc-border-color: #e8e2d5;
+    --fc-button-text-color: #fff;
+    --fc-button-bg-color: var(--calendar-ink);
+    --fc-button-border-color: var(--calendar-ink);
+    --fc-button-hover-bg-color: #34312a;
+    --fc-button-hover-border-color: var(--calendar-gold);
+    --fc-button-active-bg-color: var(--calendar-gold);
+    --fc-button-active-border-color: var(--calendar-gold);
+    --fc-event-bg-color: var(--calendar-gold);
+    --fc-event-border-color: var(--calendar-gold);
+    --fc-event-text-color: #1a1a1a;
+    --fc-today-bg-color: rgb(201 162 74 / 13%);
+    --fc-now-indicator-color: #b83a32;
+
+    min-width: 0;
+    color: var(--calendar-ink);
+    font-family: inherit;
+}
+
+#calendar-completo {
+    width: 100%;
+}
+
+#calendar-modal {
+    height: clamp(390px, 60vh, 500px);
+    padding: 0.85rem;
+    overflow: auto;
+    background: #fff;
+    border: 1px solid #e8e2d5;
+    border-radius: 12px;
+}
+
+#calendar-completo .fc .fc-toolbar,
+#calendar-modal .fc .fc-toolbar {
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+}
+
+#calendar-completo .fc .fc-toolbar-title,
+#calendar-modal .fc .fc-toolbar-title {
+    color: var(--calendar-ink);
+    font-size: clamp(1.1rem, 2vw, 1.45rem);
+    font-weight: 700;
+}
+
+#calendar-completo .fc .fc-button,
+#calendar-modal .fc .fc-button {
+    min-height: 2.35rem;
+    padding: 0.45rem 0.7rem;
+    border-radius: 8px;
+    box-shadow: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: capitalize;
+    transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+}
+
+#calendar-completo .fc .fc-button-primary:not(:disabled).fc-button-active,
+#calendar-completo .fc .fc-button-primary:not(:disabled):active,
+#calendar-modal .fc .fc-button-primary:not(:disabled).fc-button-active,
+#calendar-modal .fc .fc-button-primary:not(:disabled):active {
+    color: #1a1a1a;
+}
+
+#calendar-completo .fc .fc-button:focus-visible,
+#calendar-modal .fc .fc-button:focus-visible {
+    outline: 3px solid rgb(201 162 74 / 45%);
+    outline-offset: 2px;
+}
+
+#calendar-completo .fc .fc-col-header-cell,
+#calendar-modal .fc .fc-col-header-cell {
+    background: #f7f5f0;
+}
+
+#calendar-completo .fc .fc-col-header-cell-cushion,
+#calendar-completo .fc .fc-daygrid-day-number,
+#calendar-modal .fc .fc-col-header-cell-cushion,
+#calendar-modal .fc .fc-daygrid-day-number {
+    padding: 0.55rem;
+    color: var(--calendar-ink);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+#calendar-completo .fc .fc-day-other .fc-daygrid-day-number,
+#calendar-modal .fc .fc-day-other .fc-daygrid-day-number {
+    color: #a7a7a7;
+}
+
+#calendar-completo .fc .fc-daygrid-event,
+#calendar-completo .fc .fc-timegrid-event,
+#calendar-modal .fc .fc-daygrid-event,
+#calendar-modal .fc .fc-timegrid-event {
+    border-radius: 5px;
+    font-size: 0.78rem;
+}
+
+.modal-calendario-section {
+    --calendar-gold: #c9a24a;
+    --calendar-gold-light: #f7f0df;
+    --calendar-ink: #1a1a1a;
+
+    margin: 1.5rem 0 1rem;
+    padding: 1.5rem clamp(1rem, 3vw, 2rem);
+    border-top: 1px solid #e8e2d5;
+    background: #fff;
+}
+
+.modal-calendario-section__header {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    margin-bottom: 1rem;
+}
+
+.modal-calendario-section__header > i {
+    display: grid;
+    width: 2.4rem;
+    height: 2.4rem;
+    place-items: center;
+    flex: 0 0 auto;
+    color: #1a1a1a;
+    background: var(--calendar-gold-light);
+    border-radius: 10px;
+}
+
+.modal-calendario-section__header h3 {
+    margin: 0;
+    color: #1a1a1a;
+    font-size: 1.15rem;
+    font-weight: 700;
+}
+
+#form-reserva {
+    padding: 1rem;
+    background: #faf9f6;
+    border: 1px solid #e8e2d5;
+    border-radius: 12px;
+}
+
+#reserva-resumen {
+    margin: 0 0 1rem;
+    color: #1a1a1a;
+    font-weight: 600;
+}
+
+.btn-reserva {
+    min-height: 2.75rem;
+    padding: 0.65rem 1.25rem;
+    color: #1a1a1a;
+    background: #c9a24a;
+    border: 1px solid #c9a24a;
+    border-radius: 9px;
+    font-weight: 700;
+    transition: background-color 0.18s ease, color 0.18s ease;
+}
+
+.btn-reserva:hover {
+    color: #fff;
+    background: #1a1a1a;
+}
+
+@media (max-width: 640px) {
+    .calendario-page {
+        width: min(100% - 1rem, 1200px);
+    }
+
+    .calendario-page__card {
+        padding: 0.5rem;
+        border-radius: 12px;
+    }
+
+    #calendar-completo .fc .fc-toolbar,
+    #calendar-modal .fc .fc-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+    }
+
+    #calendar-completo .fc .fc-toolbar-chunk,
+    #calendar-modal .fc .fc-toolbar-chunk {
+        display: flex;
+        justify-content: center;
+    }
+
+    #calendar-completo .fc .fc-toolbar-title,
+    #calendar-modal .fc .fc-toolbar-title {
+        margin: 0.2rem 0;
+    }
+
+    #calendar-modal {
+        height: 420px;
+        padding: 0.5rem;
+    }
+}

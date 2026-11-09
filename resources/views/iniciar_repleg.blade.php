@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    @include('partials.theme')
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Iniciar sesión | Representante legal</title>
@@ -51,4 +52,3 @@
 	</div>
 </body>
 </html>
-

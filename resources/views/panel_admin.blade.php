@@ -1,35 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @include('partials.theme')
     @vite('resources/css/admin.css')
     <title>Administrador</title>
 </head>
-<header>
-    <a href="{{ route('home') }}" class="button" aria-label="Volver al inicio">
-      <div class="button-box">
-        <span class="button-elem">
-          <svg viewBox="0 0 46 40" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M46 20.038c0-.7-.3-1.5-.8-2.1l-16-17c-1.1-1-3.2-1.4-4.4-.3-1.2 1.1-1.2 3.3 0 4.4l11.3 11.9H3c-1.7 0-3 1.3-3 3s1.3 3 3 3h33.1l-11.3 11.9c-1 1-1.2 3.3 0 4.4 1.2 1.1 3.3.8 4.4-.3l16-17c.5-.5.8-1.1.8-1.9z"
-            ></path>
-          </svg>
-        </span>
-        <span class="button-elem">
-          <svg viewBox="0 0 46 40">
-            <path
-              d="M46 20.038c0-.7-.3-1.5-.8-2.1l-16-17c-1.1-1-3.2-1.4-4.4-.3-1.2 1.1-1.2 3.3 0 4.4l11.3 11.9H3c-1.7 0-3 1.3-3 3s1.3 3 3 3h33.1l-11.3 11.9c-1 1-1.2 3.3 0 4.4 1.2 1.1 3.3.8 4.4-.3l16-17c.5-.5.8-1.1.8-1.9z"
-            ></path>
-          </svg>
-        </span>
-      </div>
-    </a>
-
-        <h1>PANEL DE ADMINISTRACIÓN</h1>
-            <img class="logo" src="{{ asset('storage/img/grupos/logoMusikEventos.png') }}" alt="logo">
+<body class="admin-page">
+    <header class="admin-header">
+        <div class="admin-header__inner">
+            <a href="{{ route('home') }}" class="button" aria-label="Volver al inicio">
+                <div class="button-box">
+                    <span class="button-elem">
+                        <svg viewBox="0 0 46 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path d="M46 20.038c0-.7-.3-1.5-.8-2.1l-16-17c-1.1-1-3.2-1.4-4.4-.3-1.2 1.1-1.2 3.3 0 4.4l11.3 11.9H3c-1.7 0-3 1.3-3 3s1.3 3 3 3h33.1l-11.3 11.9c-1 1-1.2 3.3 0 4.4 1.2 1.1 3.3.8 4.4-.3l16-17c.5-.5.8-1.1.8-1.9z"></path>
+                        </svg>
+                    </span>
+                    <span class="button-elem">
+                        <svg viewBox="0 0 46 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path d="M46 20.038c0-.7-.3-1.5-.8-2.1l-16-17c-1.1-1-3.2-1.4-4.4-.3-1.2 1.1-1.2 3.3 0 4.4l11.3 11.9H3c-1.7 0-3 1.3-3 3s1.3 3 3 3h33.1l-11.3 11.9c-1 1-1.2 3.3 0 4.4 1.2 1.1 3.3.8 4.4-.3l16-17c.5-.5.8-1.1.8-1.9z"></path>
+                        </svg>
+                    </span>
+                </div>
+            </a>
+            <div class="admin-header__content">
+                <span class="admin-header__eyebrow">MUSIKEVENTOS · GESTIÓN</span>
+                <h1>Panel de administración</h1>
+                <p>Administra el catálogo y las cuentas de la plataforma desde un solo lugar.</p>
+            </div>
+            <img class="logo" src="{{ asset('storage/img/grupos/logoMusikEventos.png') }}" alt="MusikEventos">
+        </div>
     </header>
-<body>
     <main class="admin-panel">
       <section class="admin-grid">
           {{-- Tarjeta de géneros. --}}
@@ -62,7 +64,7 @@
 
               <div class="admin-actions">
                   <a href="{{ route('generos.create') }}">Nuevo</a>
-                  <a href="{{ route('panel.admin', ['entidad' => 'genero', 'nombre' => $entidad === 'genero' ? $nombre : null, 'mostrar' => $mostrar === 'genero' ? null : 'genero']) }}">{{ $mostrar === 'genero' ? 'Mostrar menos' : 'Mostrar más' }}</a>
+                  <a class="admin-expand-toggle" aria-expanded="{{ $mostrar === 'genero' ? 'true' : 'false' }}" href="{{ route('panel.admin', ['entidad' => 'genero', 'nombre' => $entidad === 'genero' ? $nombre : null, 'mostrar' => $mostrar === 'genero' ? null : 'genero']) }}">{{ $mostrar === 'genero' ? 'Mostrar menos' : 'Mostrar más' }}</a>
               </div>
           </article>
 
@@ -95,7 +97,7 @@
 
               <div class="admin-actions">
                   <a href="{{ route('sub-generos.create') }}">Nuevo</a>
-                  <a href="{{ route('panel.admin', ['entidad' => 'subgenero', 'nombre' => $entidad === 'subgenero' ? $nombre : null, 'mostrar' => $mostrar === 'subgenero' ? null : 'subgenero']) }}">{{ $mostrar === 'subgenero' ? 'Mostrar menos' : 'Mostrar más' }}</a>
+                  <a class="admin-expand-toggle" aria-expanded="{{ $mostrar === 'subgenero' ? 'true' : 'false' }}" href="{{ route('panel.admin', ['entidad' => 'subgenero', 'nombre' => $entidad === 'subgenero' ? $nombre : null, 'mostrar' => $mostrar === 'subgenero' ? null : 'subgenero']) }}">{{ $mostrar === 'subgenero' ? 'Mostrar menos' : 'Mostrar más' }}</a>
               </div>
           </article>
 
@@ -130,7 +132,7 @@
 
               <div class="admin-actions">
                   <a href="{{ route('usuarios.create') }}?tipo_persona=3">Nuevo</a>
-                  <a href="{{ route('panel.admin', ['entidad' => 'cliente', 'nombre' => $entidad === 'cliente' ? $nombre : null, 'mostrar' => $mostrar === 'cliente' ? null : 'cliente']) }}">{{ $mostrar === 'cliente' ? 'Mostrar menos' : 'Mostrar más' }}</a>
+                  <a class="admin-expand-toggle" aria-expanded="{{ $mostrar === 'cliente' ? 'true' : 'false' }}" href="{{ route('panel.admin', ['entidad' => 'cliente', 'nombre' => $entidad === 'cliente' ? $nombre : null, 'mostrar' => $mostrar === 'cliente' ? null : 'cliente']) }}">{{ $mostrar === 'cliente' ? 'Mostrar menos' : 'Mostrar más' }}</a>
               </div>
           </article>
 
@@ -163,7 +165,7 @@
 
               <div class="admin-actions">
                   <a href="{{ route('grupos.create') }}">Nuevo</a>
-                  <a href="{{ route('panel.admin', ['entidad' => 'grupo', 'nombre' => $entidad === 'grupo' ? $nombre : null, 'mostrar' => $mostrar === 'grupo' ? null : 'grupo']) }}">{{ $mostrar === 'grupo' ? 'Mostrar menos' : 'Mostrar más' }}</a>
+                  <a class="admin-expand-toggle" aria-expanded="{{ $mostrar === 'grupo' ? 'true' : 'false' }}" href="{{ route('panel.admin', ['entidad' => 'grupo', 'nombre' => $entidad === 'grupo' ? $nombre : null, 'mostrar' => $mostrar === 'grupo' ? null : 'grupo']) }}">{{ $mostrar === 'grupo' ? 'Mostrar menos' : 'Mostrar más' }}</a>
               </div>
           </article>
 
@@ -197,7 +199,7 @@
 
               <div class="admin-actions">
                   <a href="{{ route('usuarios.create') }}?tipo_persona=1">Nuevo</a>
-                  <a href="{{ route('panel.admin', ['entidad' => 'representante', 'nombre' => $entidad === 'representante' ? $nombre : null, 'mostrar' => $mostrar === 'representante' ? null : 'representante']) }}">{{ $mostrar === 'representante' ? 'Mostrar menos' : 'Mostrar más' }}</a>
+                  <a class="admin-expand-toggle" aria-expanded="{{ $mostrar === 'representante' ? 'true' : 'false' }}" href="{{ route('panel.admin', ['entidad' => 'representante', 'nombre' => $entidad === 'representante' ? $nombre : null, 'mostrar' => $mostrar === 'representante' ? null : 'representante']) }}">{{ $mostrar === 'representante' ? 'Mostrar menos' : 'Mostrar más' }}</a>
               </div>
           </article>
 
@@ -231,7 +233,7 @@
 
               <div class="admin-actions">
                   <a href="{{ route('usuarios.create') }}?tipo_persona=2">Nuevo</a>
-                  <a href="{{ route('panel.admin', ['entidad' => 'artista', 'nombre' => $entidad === 'artista' ? $nombre : null, 'mostrar' => $mostrar === 'artista' ? null : 'artista']) }}">{{ $mostrar === 'artista' ? 'Mostrar menos' : 'Mostrar más' }}</a>
+                  <a class="admin-expand-toggle" aria-expanded="{{ $mostrar === 'artista' ? 'true' : 'false' }}" href="{{ route('panel.admin', ['entidad' => 'artista', 'nombre' => $entidad === 'artista' ? $nombre : null, 'mostrar' => $mostrar === 'artista' ? null : 'artista']) }}">{{ $mostrar === 'artista' ? 'Mostrar menos' : 'Mostrar más' }}</a>
               </div>
           </article>
     </main>

@@ -1,6 +1,7 @@
 /* Fuentes utilizadas por la interfaz principal. */
 @import url('https://fonts.googleapis.com/css2?family=Aguafina+Script&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap');
+@import './calendario.css';
 
 
 /* ================================
@@ -2061,60 +2062,4 @@ max-height: 300px;
 }
 .setting-btn:hover .bar2::before {
   transform: translateX(-4px);
-}
-
-
-/* -- CALENDARIO --*/
-
-/* Calendario modal */
-.modal-calendario-section {
-    padding: 1rem 1.5rem;
-    border-top: 1px solid #2a2a2a;
-    margin-bottom: 1rem;
-}
-
-.modal-calendario-section h3 {
-    color: #f39c12;
-    margin-bottom: 0.75rem;
-    font-size: 1rem;
-}
-
-#calendar-modal {
-    height: 450px;
-    background: #1a1a1a;
-    border-radius: 8px;
-    padding: 0.5rem;
-}
-
-.btn-reserva {
-    background: #f39c12;
-    color: #000;
-    border: none;
-    padding: 0.6rem 1.5rem;
-    border-radius: 20px;
-    font-weight: bold;
-    cursor: pointer;
-    margin-top: 0.5rem;
-}
-
-.btn-reserva:hover {
-    background: #d68910;
-}
-
-/* Calendario completo */
-.calendario-page {
-    padding: 2rem;
-}
-
-.calendario-page h2 {
-    color: #f39c12;
-    margin-bottom: 1.5rem;
-    text-align: center;
-}
-
-#calendar-completo {
-    background: #fff;
-    border-radius: 10px;
-    padding: 1rem;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
 }

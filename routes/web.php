@@ -12,6 +12,7 @@ use App\Http\Controllers\GeneroController;
 use App\Http\Controllers\SubgeneroController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\PanelAdminController;
+use App\Http\Controllers\ThemePreferenceController;
 
 // Página principal del sitio. Aquí se muestra el home con la lista de grupos musicales.
 Route::get('/', [GrupoMusicalController::class, 'home'])->name('home');
@@ -91,6 +92,9 @@ Route::get('/api/eventos-calendario', [ReservaController::class, 'eventosCalenda
 
 
 Route::middleware('auth')->group(function () {
+    Route::patch('/preferences/theme', [ThemePreferenceController::class, 'update'])
+        ->name('preferences.theme.update');
+
     Route::apiResource('users', UserController::class);
 });
 
