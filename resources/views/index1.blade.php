@@ -20,59 +20,29 @@
 
 <!-- ENCABEZADO -->
 <header>
-
-
-
-    <!-- Boton hamburguesa: el JS le agrega/quita la clase "active" al sub_menu -->
-
-    <div class="hambu">
-        <a href="#"><i class="fa-solid fa-bars"></i></a>
+<!-- Fm Uiverse.io by reglobby -->
+<div class="usuario">
+    @auth
+    <!-- BOTÓN CUANDO EL USUARIO ESTÁ AUTENTICADO (LOG OUT) -->
+    <form method="POST" action="{{ route('logout') }}" id="logout-form" style="display: inline;">
+        @csrf
+        <div
+            aria-label="Cerrar sesión
+            tabindex="0"
+            role="button"
+            class="user-profile"
+            onclick="document.getElementById('logout-form').submit();"
+            onkeydown="if(event.key === 'Enter' || event.key === ' ') { event.preventDefault(); document.getElementById('logout-form').submit(); }"
+        >
+            <div class="user-profile-inner">
+                <!-- Icono SVG de cerrar sesión (puerta/salida) -->
+                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+                    <path d="M5 22a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h7a1 1 0 0 1 0 2H6v16h6a1 1 0 0 1 0 2H5zm10.707-11H9a1 1 0 0 0 0 2h6.707l-2.354 2.354a1 1 0 1 0 1.414 1.414l4-4a1 1 0 0 0 0-1.414l-4-4a1 1 0 1 0-1.414 1.414L15.707 11z"/>
+                </svg>
+                <p>Cerrar Sesión</p>
+            </div>
     </div>
-
-    <!-- Menu de navegacion principal -->
-    <div class="menu">
-        <ul>
-            @auth
-                <li><a href="{{ route('dash.rep') }}"> UNETE O REGÍSTRA TU GRUPO </a></li>
-            @endauth
-            <li><a href="{{ route('calendario') }}">CALENDARIO</a></li>
-            <button class="wooden-cart-button" type="button" aria-label="Carrito">
-                <a href="{{ route('carrito') }}"><div class="wooden-cart-button-inner">
-                    <svg viewBox="0 0 24 24">
-                    <path
-                        d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A.996.996 0 0 0 21.42 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"
-                    ></path>
-                    </svg>
-                    <span class="button-text">Carrito</span>
-                </div>
-            </button></a>
-        </ul>
-
-
-            <!-- From Uiverse.io by reglobby -->
-        <div class="usuario">
-            @auth
-                <!-- BOTÓN CUANDO EL USUARIO ESTÁ AUTENTICADO (LOG OUT) -->
-                <form method="POST" action="{{ route('logout') }}" id="logout-form" style="display: inline;">
-                    @csrf
-                    <div
-                        aria-label="Cerrar sesión"
-
-                        tabindex="0"
-                        role="button"
-                        class="user-profile"
-                        onclick="document.getElementById('logout-form').submit();"
-                        onkeydown="if(event.key === 'Enter' || event.key === ' ') { event.preventDefault(); document.getElementById('logout-form').submit(); }"
-                    >
-                        <div class="user-profile-inner">
-                            <!-- Icono SVG de cerrar sesión (puerta/salida) -->
-                            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
-                                <path d="M5 22a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h7a1 1 0 0 1 0 2H6v16h6a1 1 0 0 1 0 2H5zm10.707-11H9a1 1 0 0 0 0 2h6.707l-2.354 2.354a1 1 0 1 0 1.414 1.414l4-4a1 1 0 0 0 0-1.414l-4-4a1 1 0 1 0-1.414 1.414L15.707 11z"/>
-                            </svg>
-                            <p>Cerrar Sesión</p>
-                        </div>
-                    </div>
-                </form>
+</form>
 
             @else
                 <!-- BOTÓN CUANDO EL USUARIO ES UN INVITADO (LOG IN) -->
@@ -124,21 +94,6 @@
 </header>
 
 <div class="page-shell">
-    <aside class="sub_menu" aria-label="Filtrar grupos por género">
-        <ul>
-            <li><a href="#" data-genre=""><strong>DESCUBRIR</strong></a></li>
-            <li><a href="#" data-genre="POP">POP</a></li>
-            <li><a href="#" data-genre="REGGAETON">REGGAETON</a></li>
-            <li><a href="#" data-genre="ROCK">ROCK</a></li>
-            <li><a href="#" data-genre="ELECTRONICA">ELECTRONICA</a></li>
-            <li><a href="#" data-genre="SALSA">SALSA</a></li>
-            <li><a href="#" data-genre="BACHATA">BACHATA</a></li>
-            <li><a href="#" data-genre="VALLENATO">VALLENATO</a></li>
-            <li><a href="#" data-genre="CUMBIA">CUMBIA</a></li>
-            <li><a href="#" data-genre="RANCHERA">RANCHERA</a></li>
-        </ul>
-    </aside>
-
     <div class="page-shell__content">
 <section class="home-hero" aria-labelledby="home-hero-title">
     <div class="home-hero__content">
@@ -186,7 +141,24 @@
 </section>
 
 <!-- Catálogo principal -->
-<div class="layout">
+<div class="catalogo-layout">
+    <aside class="sub_menu" aria-label="Filtrar grupos por género">
+        <div class="sub_menu__heading">
+            <span class="sub_menu__icon" aria-hidden="true"><i class="fa-solid fa-sliders"></i></span>
+            <div>
+                <span class="sub_menu__eyebrow">DESCUBRE TU PRÓXIMO SHOW</span>
+                <strong>¿Qué música buscas?</strong>
+                <span>Elige un género y encuentra tu grupo ideal.</span>
+            </div>
+        </div>
+        <ul>
+            <li><a href="#explorar" data-genre=""><strong>DESCUBRIR</strong></a></li>
+            @foreach ($generos as $genero)
+                <li><a href="#explorar" data-genre="{{ $genero->nombre_genero }}">{{ $genero->nombre_genero }}</a></li>
+            @endforeach
+        </ul>
+    </aside>
+
     <!-- Contenido principal: búsqueda, tarjetas y paginación. -->
     <main class="contenido-principal" id="explorar">
         <div class="catalogo-heading">
@@ -208,6 +180,8 @@
             </label>
             <button type="submit"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i> Buscar</button>
         </form>
+
+        <p class="genre-filter-status" id="genre-filter-status" aria-live="polite"></p>
 
         <!-- Grid de tarjetas de grupos registrados. -->
         <div class="grid-cards">
@@ -304,7 +278,7 @@
 
     </main><!-- fin contenido-principal -->
 
-</div><!-- fin layout -->
+</div><!-- fin catalogo-layout -->
 
 <section class="info-panel" id="info-panel" aria-hidden="true"> <!-- Modal -->
     <div class="info-panel__content info-panel__content--arcangel">

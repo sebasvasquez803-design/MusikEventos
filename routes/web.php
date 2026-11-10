@@ -45,15 +45,6 @@ Route::view('/dash-rep', 'dash_rep')
 // Sección administrativa del panel principal, donde se manejan géneros, subgéneros y usuarios.
 // Rutas web para crear, editar y eliminar grupos musicales.
 Route::post('/grupo-musical', [GrupoMusicalController::class, 'storeFromForm'])->name('grupo-musical.store');
-Route::get('/grupo-musical/{grupoMusical}/editar', [GrupoMusicalController::class, 'edit'])
-    ->middleware('auth')
-    ->name('grupo-musical.edit');
-Route::put('/grupo-musical/{grupoMusical}', [GrupoMusicalController::class, 'updateFromForm'])
-    ->middleware('auth')
-    ->name('grupo-musical.update');
-Route::delete('/grupo-musical/{grupoMusical}', [GrupoMusicalController::class, 'destroyFromForm'])
-    ->middleware('auth')
-    ->name('grupo-musical.destroy');
 Route::post('/resenas', [ResenaController::class, 'storeFromForm'])
     ->name('resenas.store');
 Route::put('/resenas/{resena}', [ResenaController::class, 'updateFromForm'])
@@ -64,19 +55,23 @@ Route::delete('/resenas/{resena}', [ResenaController::class, 'destroyFromForm'])
     ->name('resenas.destroy');
 Route::view('/mas-info', 'formularios.mas_info')->name('mas_info');
 Route::view('/regGrupMusc','sesion.regGrupSig')->name('siguiente');
-Route::get('/panel-admin', [PanelAdminController::class, 'index'])
-    ->middleware('auth')
-    ->name('panel.admin');
 
-// CRUD web estándar del panel administrativo:
-// - generos: administración de géneros
-// - grupos: administración de grupos musicales
-// - sub-generos: administración de subgéneros
-// - usuarios: administración de clientes, representante legal y artista solista
-Route::resource('generos', GeneroController::class);
-Route::resource('grupos', GrupoMusicalController::class);
-Route::resource('sub-generos', SubgeneroController::class);
-Route::resource('usuarios', UsuarioController::class);
+Route::middleware(['auth', 'can:access-admin-panel'])->group(function () {
+    Route::get('/grupo-musical/{grupoMusical}/editar', [GrupoMusicalController::class, 'edit'])
+        ->name('grupo-musical.edit');
+    Route::put('/grupo-musical/{grupoMusical}', [GrupoMusicalController::class, 'updateFromForm'])
+        ->name('grupo-musical.update');
+    Route::delete('/grupo-musical/{grupoMusical}', [GrupoMusicalController::class, 'destroyFromForm'])
+        ->name('grupo-musical.destroy');
+
+    Route::get('/panel-admin', [PanelAdminController::class, 'index'])
+        ->name('panel.admin');
+
+    Route::resource('generos', GeneroController::class);
+    Route::resource('grupos', GrupoMusicalController::class);
+    Route::resource('sub-generos', SubgeneroController::class);
+    Route::resource('usuarios', UsuarioController::class);
+});
 
 // API interna (AJAX)
 Route::get('/api/eventos-bloqueados/{nit}', [ReservaController::class, 'eventosBloqueados']);

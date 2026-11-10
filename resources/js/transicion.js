@@ -1,51 +1,47 @@
-const hambu = document.querySelector('.hambu');
 const sidebar = document.querySelector('.sub_menu');
 
-if (hambu && sidebar) {
-    const anchor = hambu.querySelector('a');
-    const toggle = (evt) => {
-        if (evt) evt.preventDefault();
-        sidebar.classList.toggle('active');
-    };
-
-    if (anchor) {
-        anchor.addEventListener('click', toggle);
-    } else {
-        hambu.addEventListener('click', toggle);
-    }
-
-    document.addEventListener('click', (e) => {
-        if (!sidebar.contains(e.target) && !hambu.contains(e.target) && sidebar.classList.contains('active')) {
-            sidebar.classList.remove('active');
-        }
-    });
-
+if (sidebar) {
     sidebar.addEventListener('click', (evt) => {
         const link = evt.target.closest('a[data-genre]');
         if (!link) return;
         evt.preventDefault();
         const genre = link.dataset.genre || '';
-        filterByGenre(genre);
-        Array.from(sidebar.querySelectorAll('a[data-genre]')).forEach(a => a.classList.remove('selected-genre'));
-        link.classList.add('selected-genre');
-        sidebar.classList.remove('active');
+        filterByGenre(genre, link.textContent.trim());
+
+        sidebar.querySelectorAll('a[data-genre]').forEach((item) => {
+            const isSelected = item === link;
+            item.classList.toggle('selected-genre', isSelected);
+            if (isSelected) {
+                item.setAttribute('aria-current', 'true');
+            } else {
+                item.removeAttribute('aria-current');
+            }
+        });
     });
 }
 
-function filterByGenre(genre) {
+function filterByGenre(genre, genreLabel) {
     const cards = document.querySelectorAll('.contenedor');
-    const normalized = (s) => (s || '').toString().toLowerCase();
+    const normalized = (s) => (s || '')
+        .toString()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase();
     const g = normalized(genre);
+    let visibleCards = 0;
+
     cards.forEach((card) => {
         const cardGenres = normalized(card.dataset.genero || '');
-        if (!g) {
-            card.style.display = '';
-        } else if (cardGenres.split(',').map(x => x.trim().toLowerCase()).some(x => x === g)) {
-            card.style.display = '';
-        } else {
-            card.style.display = 'none';
-        }
+        const matchesGenre = !g || cardGenres.split(',').some((item) => item.trim() === g);
+        card.hidden = !matchesGenre;
+        if (matchesGenre) visibleCards++;
     });
+
+    const status = document.getElementById('genre-filter-status');
+    if (status) {
+        const genreName = genreLabel || 'todos los géneros';
+        status.textContent = `${visibleCards} ${visibleCards === 1 ? 'grupo visible' : 'grupos visibles'} de ${genreName} en esta página.`;
+    }
 }
 
 const infoToggleButtons = document.querySelectorAll('.info-toggle');

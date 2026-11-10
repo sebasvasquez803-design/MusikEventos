@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Genero;
 use App\Models\GrupoMusical;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -15,6 +16,9 @@ class GrupoMusicalController extends Controller
     public function home()
     {
         $buscar = trim((string) request('buscar'));
+        $generos = Genero::query()
+            ->orderBy('nombre_genero')
+            ->get(['nombre_genero']);
 
         $grupos = GrupoMusical::query()
             ->with([
@@ -90,6 +94,7 @@ class GrupoMusicalController extends Controller
         });
 
         return view('index1', [
+            'generos' => $generos,
             'grupos' => $grupos,
         ]);
     }

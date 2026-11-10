@@ -18,6 +18,20 @@ class ExampleTest extends TestCase
         $response->assertOk();
     }
 
+    public function test_homepage_lists_genres_from_the_database_as_filters(): void
+    {
+        DB::table('genero')->insert([
+            ['nombre_genero' => 'Jazz'],
+            ['nombre_genero' => 'Música urbana'],
+        ]);
+
+        $response = $this->get(route('home'));
+
+        $response->assertOk()
+            ->assertSee('data-genre="Jazz"', false)
+            ->assertSee('data-genre="Música urbana"', false);
+    }
+
     public function test_homepage_loads_group_details_without_per_group_review_queries(): void
     {
         $genreId = DB::table('genero')->insertGetId(['nombre_genero' => 'Cumbia']);
