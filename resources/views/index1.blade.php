@@ -24,16 +24,9 @@
 <div class="usuario">
     @auth
     <!-- BOTÓN CUANDO EL USUARIO ESTÁ AUTENTICADO (LOG OUT) -->
-    <form method="POST" action="{{ route('logout') }}" id="logout-form" style="display: inline;">
+    <form method="POST" action="{{ route('logout') }}">
         @csrf
-        <div
-            aria-label="Cerrar sesión
-            tabindex="0"
-            role="button"
-            class="user-profile"
-            onclick="document.getElementById('logout-form').submit();"
-            onkeydown="if(event.key === 'Enter' || event.key === ' ') { event.preventDefault(); document.getElementById('logout-form').submit(); }"
-        >
+        <button type="submit" class="user-profile" aria-label="Cerrar sesión">
             <div class="user-profile-inner">
                 <!-- Icono SVG de cerrar sesión (puerta/salida) -->
                 <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
@@ -41,19 +34,12 @@
                 </svg>
                 <p>Cerrar Sesión</p>
             </div>
-    </div>
+        </button>
 </form>
 
             @else
                 <!-- BOTÓN CUANDO EL USUARIO ES UN INVITADO (LOG IN) -->
-                <a href="{{ route('login') }}" style="text-decoration: none; color: inherit;">
-                    <div
-                        aria-label="User Login Button"
-
-                        tabindex="0"
-                        role="button"
-                        class="user-profile"
-                    >
+                <a href="{{ route('login') }}" class="user-profile" aria-label="Iniciar sesión">
                         <div class="user-profile-inner">
                             <!-- Icono SVG original de usuario -->
                             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -64,15 +50,32 @@
 
                             <p>Iniciar Sesión</p>
                         </div>
-                    </div>
                 </a>
             @endauth
     </div>
-    </div>
+
+    <nav class="menu" aria-label="Navegación principal">
+        <ul>
+            @auth
+                <li><a href="{{ route('dash.rep') }}">ÚNETE O REGISTRA TU GRUPO</a></li>
+            @endauth
+            <li><a href="{{ route('calendario') }}">CALENDARIO</a></li>
+            <li>
+                <a class="user-profile" href="{{ route('carrito') }}" aria-label="Ir al carrito">
+                    <span class="user-profile-inner">
+                        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+                            <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A.996.996 0 0 0 21.42 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"></path>
+                        </svg>
+                        <span class="button-text">Carrito</span>
+                    </span>
+                </a>
+            </li>
+        </ul>
+    </nav>
 
     @auth
         @if (auth()->user()->canManageMusicalGroups())
-            <a href="{{ route('panel.admin') }}" class="setting-btn" role="button">
+            <a href="{{ route('panel.admin') }}" class="setting-btn" aria-label="Panel de administración">
                 <span class="bar bar1"></span>
                 <span class="bar bar2"></span>
                 <span class="bar bar1"></span>
@@ -81,16 +84,9 @@
     @endauth
 
 
-    <div>
-        <div class="logo">
-                <img class="logito" src="{{ asset('storage/img/grupos/logoMusikEventos.png') }}" alt="logo">
-        </div>
-        <!-- Logo -->
-
-    </div>
-
-
-
+    <a class="header-logo" href="{{ route('home') }}" aria-label="Inicio MusikEventos">
+        <img class="logito" src="{{ asset('storage/img/grupos/logoMusikEventos.png') }}" alt="MusikEventos">
+    </a>
 </header>
 
 <div class="page-shell">

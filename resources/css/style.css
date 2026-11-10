@@ -107,6 +107,10 @@ header {
     white-space: nowrap;
 }
 
+.menu a.user-profile {
+    padding: 0;
+}
+
 .menu a:hover {
     color: #C9A24A;
 }
@@ -163,6 +167,13 @@ header > .logito {
     margin-left: auto;
     margin-right: 0;
     padding-right: 12px;
+}
+
+.header-logo {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    margin-left: auto;
 }
 
 
@@ -936,6 +947,7 @@ header > .logito {
     .hambu { order: 1; }
     .menu { order: 2; }
     header > .logito { order: 3; margin-left: 0; }
+    .header-logo { order: 3; margin-left: 0; }
 
     .contenido-principal {
         padding: 16px;
