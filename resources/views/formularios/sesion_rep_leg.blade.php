@@ -63,7 +63,7 @@
                   <button class="auth-submit" type="submit">Iniciar sesión</button>
                 </form>
 
-                <p class="auth-register">¿No tienes cuenta? <a href="{{ route('iniciar.rep.leg') }}">Crear cuenta</a></p>
+                <p class="auth-register">¿No tienes cuenta? <a href="{{ route('registro.representante') }}">Crear cuenta</a></p>
             </section>
         </main>
     </div>

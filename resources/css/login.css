@@ -854,6 +854,22 @@ body::-webkit-scrollbar {
     color: #a6a093;
 }
 
+.auth-account-input select {
+    width: 100%;
+    min-width: 0;
+    min-height: 46px;
+    padding: 10px 0;
+    border: 0;
+    outline: none;
+    background: transparent;
+    color: #201e19;
+    font: 400 0.9rem "Roboto", sans-serif;
+}
+
+.auth-account-input select option {
+    color: #201e19;
+}
+
 .auth-account-error {
     color: #a52d24;
     font-size: 0.77rem;
@@ -947,6 +963,10 @@ body::-webkit-scrollbar {
 .auth-account-page--register .auth-account-form {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 16px 18px;
+}
+
+.auth-account-page--register .auth-account-field--full {
+    grid-column: 1 / -1;
 }
 
 .auth-account-page--register .auth-account-field {

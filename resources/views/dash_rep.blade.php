@@ -40,7 +40,7 @@
         Bienvenido al sistema de registro de grupos de MusikEventos.
     </p>
     <div class="dashboard-cards">
-        <a href="{{ route('iniciar.rep.leg') }}" class="dashboard-card">
+        <a href="{{ route('registro.representante') }}" class="dashboard-card">
             <i class="fa-solid fa-user-tie"></i>
             <h3>Registrar Representante</h3>
             <p>Registrar representantes en la plataforma.</p>

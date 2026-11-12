@@ -12,6 +12,7 @@ use App\Http\Controllers\GeneroController;
 use App\Http\Controllers\SubgeneroController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\PanelAdminController;
+use App\Http\Controllers\RepresentanteLegalRegistrationController;
 use App\Http\Controllers\ThemePreferenceController;
 
 // Página principal del sitio. Aquí se muestra el home con la lista de grupos musicales.
@@ -31,6 +32,10 @@ Route::get('/iniciar-rep_leg', function (Request $request) {
 
     return view('iniciar_repleg');
 })->name('iniciar.rep.leg');
+Route::get('/registro-representante', [RepresentanteLegalRegistrationController::class, 'create'])
+    ->name('registro.representante');
+Route::post('/registro-representante', [RepresentanteLegalRegistrationController::class, 'store'])
+    ->name('registro.representante.store');
 Route::view('/sesion-rep_leg', 'formularios.sesion_rep_leg')->name('sesion.rep.leg');
 Route::view('/sesion-artista', 'formularios.sesion_artista')->name('sesion.artista');
 Route::post('/registro-artista', [UsuarioController::class, 'registerArtista'])->name('register.artista');

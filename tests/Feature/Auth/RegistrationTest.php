@@ -5,6 +5,7 @@ namespace Tests\Feature\Auth;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
+use Database\Seeders\TipoPersonaSeeder;
 use Tests\TestCase;
 
 class RegistrationTest extends TestCase
@@ -39,6 +40,51 @@ class RegistrationTest extends TestCase
             'email' => 'test@example.com',
         ]);
         $this->assertTrue(Hash::check('password', $user->password));
+    }
+
+    public function test_legal_representative_registration_screen_can_be_rendered(): void
+    {
+        $this->get(route('registro.representante'))
+            ->assertOk()
+            ->assertSee('Crear cuenta de representante');
+    }
+
+    public function test_legal_representative_registration_creates_a_linked_user_with_the_correct_type(): void
+    {
+        $this->seed(TipoPersonaSeeder::class);
+
+        $response = $this->post(route('registro.representante.store'), [
+            'nombre' => 'Ana',
+            'apellido' => 'Torres',
+            'tipo_doc' => 'CC',
+            'numero_doc' => '1234567890',
+            'celular' => '3001234567',
+            'fecha_nacimiento' => '1990-05-10',
+            'id_tipo_persona' => 3,
+            'email' => 'ana.representante@example.com',
+            'password' => 'ClaveSegura123!',
+            'password_confirmation' => 'ClaveSegura123!',
+        ]);
+
+        $user = User::query()->where('email', 'ana.representante@example.com')->firstOrFail();
+
+        $response->assertSessionHasNoErrors()
+            ->assertRedirect(route('dash.rep', absolute: false));
+
+        $this->assertAuthenticatedAs($user);
+        $this->assertDatabaseHas('users', [
+            'id' => $user->id,
+            'name' => 'Ana Torres',
+            'email' => 'ana.representante@example.com',
+        ]);
+        $this->assertDatabaseHas('usuario', [
+            'user_id' => $user->id,
+            'tipo_doc' => 'CC',
+            'numero_doc' => '1234567890',
+            'id_tipo_persona' => 1,
+        ]);
+        $this->assertSame(1, $user->id_tipo_persona);
+        $this->assertTrue(Hash::check('ClaveSegura123!', $user->password));
     }
 
     public function test_authenticated_user_can_create_legal_representative_from_user_and_curriculum(): void

@@ -15,6 +15,7 @@ class Usuario extends Model
     public $timestamps = true;
 
     protected $fillable = [
+        'user_id',
         'tipo_doc',
         'numero_doc',
         'id_tipo_persona',
@@ -38,6 +39,11 @@ class Usuario extends Model
     public function tipoPersona(): BelongsTo
     {
         return $this->belongsTo(TipoPersona::class, 'id_tipo_persona', 'id_tipo_persona');
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
     public function experienciaLaboral(): HasMany

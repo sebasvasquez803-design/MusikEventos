@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
@@ -87,5 +88,17 @@ class User extends Authenticatable implements PasskeyUser
     {
         // Mantiene una comprobación específica para la eliminación.
         return $this->canManageMusicalGroups();
+    }
+
+    public function usuario(): HasOne
+    {
+        return $this->hasOne(Usuario::class, 'user_id', 'id');
+    }
+
+    public function getIdTipoPersonaAttribute(): ?int
+    {
+        $idTipoPersona = $this->usuario?->id_tipo_persona;
+
+        return $idTipoPersona === null ? null : (int) $idTipoPersona;
     }
 }
