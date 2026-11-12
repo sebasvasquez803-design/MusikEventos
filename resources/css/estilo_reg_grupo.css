@@ -683,9 +683,19 @@ input[type=submit] {
     font-size: 0.82rem;
 }
 
+html[data-theme="dark"] .registro-grupo-page .genero-seleccionado {
+    border-color: #51452b;
+    background: #292929;
+    color: #f2f0eb;
+}
+
 .genero-seleccionado i {
     margin-right: 9px;
     color: #a28a56;
+}
+
+html[data-theme="dark"] .registro-grupo-page .genero-seleccionado i {
+    color: #d6b25d;
 }
 
 .registro-grupo-page .boton {

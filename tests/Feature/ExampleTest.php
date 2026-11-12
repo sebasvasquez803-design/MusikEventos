@@ -32,7 +32,7 @@ class ExampleTest extends TestCase
             ->assertSee('data-genre="Música urbana"', false);
     }
 
-    public function test_homepage_loads_group_details_without_per_group_review_queries(): void
+    public function test_homepage_defers_review_query_until_review_endpoint_is_requested(): void
     {
         $genreId = DB::table('genero')->insertGetId(['nombre_genero' => 'Cumbia']);
         $subgenreId = DB::table('subgenero')->insertGetId([
@@ -66,7 +66,15 @@ class ExampleTest extends TestCase
 
         $response->assertOk()
             ->assertSee('Grupo de prueba')
-            ->assertSee('data-genero="Salsa,Cumbia"', false);
+            ->assertSee('data-genero="Salsa,Cumbia"', false)
+            ->assertSee('data-reviews-url=', false)
+            ->assertDontSee('data-reviews=', false);
+        $this->assertSame(0, $reviewQueries);
+
+        $this->getJson(route('grupo-musical.reviews', ['nit' => '1234567890']))
+            ->assertOk()
+            ->assertJsonPath('reviews.0.nombre', 'Usuario de prueba')
+            ->assertJsonPath('reviews.0.texto', 'Buena presentación');
         $this->assertSame(1, $reviewQueries);
     }
 }

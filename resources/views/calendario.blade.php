@@ -11,47 +11,28 @@
     @vite(['resources/css/style.css', 'resources/js/app.js'])
 </head>
 <body>
-    <header class="calendario-site-header">
-        <nav class="menu" aria-label="Navegación principal">
-            <ul>
-                @auth
-                    <li><a href="{{ route('dash.rep') }}">ÚNETE O REGISTRA TU GRUPO</a></li>
-                @endauth
-                <li><a href="{{ route('calendario') }}" aria-current="page">CALENDARIO</a></li>
-                <li>
-                    <a class="wooden-cart-button" href="{{ route('carrito') }}" aria-label="Ir al carrito">
-                        <span class="wooden-cart-button-inner">
-                            <i class="fa-solid fa-cart-shopping" aria-hidden="true"></i>
-                            <span class="button-text">Carrito</span>
-                        </span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-
-        <div class="usuario">
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
-                <button type="submit" class="user-profile" aria-label="Cerrar sesión">
-                    <span class="user-profile-inner">
-                        <i class="fa-solid fa-arrow-right-from-bracket" aria-hidden="true"></i>
-                        <span class="button-text">Cerrar sesión</span>
-                    </span>
-                </button>
-            </form>
-        </div>
-
-        @if (auth()->user()->canManageMusicalGroups())
-            <a href="{{ route('panel.admin') }}" class="setting-btn" aria-label="Panel de administración">
-                <span class="bar bar1"></span>
-                <span class="bar bar2"></span>
-                <span class="bar bar1"></span>
-            </a>
-        @endif
-
-        <a class="calendario-site__brand" href="{{ route('home') }}" aria-label="MusikEventos, inicio">
-            <img class="logito" src="{{ asset('storage/img/grupos/logoMusikEventos.png') }}" alt="MusikEventos">
-        </a>
+    <header>
+        <div class="dashboard">
+        <a href="{{ route('home') }}" class="button" aria-label="Volver al inicio">
+    <div class="button-box">
+        <span class="button-elem">
+        <svg viewBox="0 0 46 40" xmlns="http://www.w3.org/2000/svg">
+            <path
+            d="M46 20.038c0-.7-.3-1.5-.8-2.1l-16-17c-1.1-1-3.2-1.4-4.4-.3-1.2 1.1-1.2 3.3 0 4.4l11.3 11.9H3c-1.7 0-3 1.3-3 3s1.3 3 3 3h33.1l-11.3 11.9c-1 1-1.2 3.3 0 4.4 1.2 1.1 3.3.8 4.4-.3l16-17c.5-.5.8-1.1.8-1.9z"
+            ></path>
+        </svg>
+        </span>
+        <span class="button-elem">
+        <svg viewBox="0 0 46 40">
+            <path
+            d="M46 20.038c0-.7-.3-1.5-.8-2.1l-16-17c-1.1-1-3.2-1.4-4.4-.3-1.2 1.1-1.2 3.3 0 4.4l11.3 11.9H3c-1.7 0-3 1.3-3 3s1.3 3 3 3h33.1l-11.3 11.9c-1 1-1.2 3.3 0 4.4 1.2 1.1 3.3.8 4.4-.3l16-17c.5-.5.8-1.1.8-1.9z"
+            ></path>
+        </svg>
+        </span>
+    </div>
+    </a>
+            <h1>RESERVA AQUÍ !!!</h1>
+            <img class="logo" src="{{ asset('storage/img/grupos/logoMusikEventos.png') }}" alt="logo">
     </header>
 
     <main class="calendario-page">

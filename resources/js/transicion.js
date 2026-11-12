@@ -68,6 +68,78 @@ if (infoPanel) {
     const reviewsContainer = document.getElementById('info-panel-reviews');
     const videoFrame = document.getElementById('info-panel-iframe');
     const videoElement = document.getElementById('info-panel-video');
+    const reviewsCache = new Map();
+    let activeReviews = [];
+    let activeReviewGroupNit = '';
+    let activeReviewCanManage = false;
+
+    const loadReviews = (url) => {
+        if (!reviewsCache.has(url)) {
+            const request = fetch(url, { headers: { Accept: 'application/json' } })
+                .then((response) => {
+                    if (!response.ok) throw new Error(`No se pudieron cargar las reseñas (${response.status}).`);
+                    return response.json();
+                })
+                .then((payload) => {
+                    if (!Array.isArray(payload.reviews)) throw new Error('La respuesta de reseñas no es válida.');
+                    return payload.reviews;
+                })
+                .catch((error) => {
+                    reviewsCache.delete(url);
+                    throw error;
+                });
+
+            reviewsCache.set(url, request);
+        }
+
+        return reviewsCache.get(url);
+    };
+
+    const renderReviews = (reviews) => {
+        if (!reviewsContainer) return;
+
+        activeReviews = reviews;
+        const cards = reviews.map((review) => {
+            const article = document.createElement('article');
+            article.className = 'info-panel__review-card';
+
+            const header = document.createElement('div');
+            header.className = 'info-panel__review-header';
+            const avatar = document.createElement('div');
+            avatar.className = 'info-panel__review-avatar';
+            avatar.textContent = review.avatar || (review.nombre || 'U').charAt(0).toUpperCase();
+
+            const meta = document.createElement('div');
+            meta.className = 'info-panel__review-meta';
+            const name = document.createElement('h4');
+            name.textContent = review.nombre || 'Usuario';
+            const stars = document.createElement('div');
+            stars.className = 'info-panel__stars';
+            stars.setAttribute('aria-label', `${review.estrellas || 5} estrellas`);
+            stars.textContent = Array.from({ length: 5 }, (_, index) => (
+                index < (review.estrellas || 5) ? '★' : '☆'
+            )).join('');
+            meta.append(name, stars);
+            header.append(avatar, meta);
+
+            const text = document.createElement('p');
+            text.textContent = review.texto || 'Excelente experiencia.';
+            article.append(header, text);
+
+            if (activeReviewCanManage && review.id_resena !== null) {
+                const actions = document.createElement('div');
+                actions.className = 'review-actions';
+                actions.innerHTML = '<button type="button" class="review-edit">Editar</button><button type="button" class="review-delete">Eliminar</button>';
+                actions.querySelector('.review-edit').dataset.id = review.id_resena;
+                actions.querySelector('.review-delete').dataset.id = review.id_resena;
+                article.append(actions);
+            }
+
+            return article;
+        });
+
+        reviewsContainer.replaceChildren(...cards);
+    };
 
     const closeInfoPanel = () => {
         infoPanel.classList.remove('active');
@@ -86,11 +158,14 @@ if (infoPanel) {
             const tag = button.dataset.tag || 'Grupo musical';
             const genre = button.dataset.genre || '';
             const videoUrl = button.dataset.video || '';
-            const reviews = button.dataset.reviews ? JSON.parse(button.dataset.reviews) : [];
+            const reviewsUrl = button.dataset.reviewsUrl || '';
             const canAdmin = button.dataset.canAdmin === '1';
             const reviewForm = document.querySelector('.info-panel__review-form');
             const nitInput = reviewForm ? reviewForm.querySelector('input[name="nit"]') : null;
             const groupNit = button.dataset.nit || '';
+            activeReviewGroupNit = groupNit;
+            activeReviewCanManage = canAdmin;
+            activeReviews = [];
 
             if (nitInput) {
                 nitInput.value = groupNit;
@@ -121,73 +196,7 @@ if (infoPanel) {
             if (descriptionEl) descriptionEl.textContent = description;
             if (priceEl) priceEl.textContent = price;
             if (reviewsContainer) {
-                reviewsContainer.innerHTML = reviews.map((review) => `
-                    <article class="info-panel__review-card">
-                        <div class="info-panel__review-header">
-                            <div class="info-panel__review-avatar">${review.avatar || review.nombre.charAt(0).toUpperCase()}</div>
-                            <div class="info-panel__review-meta">
-                                <h4>${review.nombre}</h4>
-                                <div class="info-panel__stars" aria-label="${review.estrellas || 5} estrellas">
-                                    ${Array.from({ length: 5 }).map((_, i) => i < (review.estrellas || 5) ? '★' : '☆').join('')}
-                                </div>
-                            </div>
-                        </div>
-                        <p>${review.texto}</p>
-                        ${canAdmin ? `
-                            <div class="review-actions">
-                                <button type="button" class="review-edit" data-id="${review.id_resena}">Editar</button>
-                                <button type="button" class="review-delete" data-id="${review.id_resena}">Eliminar</button>
-                            </div>
-                        ` : ''}
-                    </article>
-                `).join('');
-            }
-
-            if (canAdmin && reviewsContainer) {
-                reviewsContainer.addEventListener('click', (evt) => {
-                    const editBtn = evt.target.closest('.review-edit');
-                    if (editBtn) {
-                        const id = editBtn.dataset.id;
-                        const found = reviews.find(r => String(r.id_resena) === String(id));
-                        const reviewForm = document.querySelector('.info-panel__review-form');
-                        if (!reviewForm || !found) return;
-                        reviewForm.querySelector('input[name="nombre_usuario"]').value = found.nombre || '';
-                        reviewForm.querySelector('textarea[name="comentario"]').value = found.texto || '';
-                        const select = reviewForm.querySelector('select[name="numero_estrellas"]');
-                        if (select) select.value = String(found.estrellas || 5);
-                        const editingInput = reviewForm.querySelector('#editing_id');
-                        if (editingInput) editingInput.value = id;
-                        const ratingStars = infoPanel.querySelector('.rating-stars');
-                        const selectedLabel = infoPanel.querySelector('#selected-stars-label');
-                        if (ratingStars) {
-                            Array.from(ratingStars.querySelectorAll('.star')).forEach((btn) => {
-                                const val = parseInt(btn.dataset.value, 10);
-                                btn.textContent = val <= (found.estrellas || 5) ? '★' : '☆';
-                                btn.classList.toggle('selected', val <= (found.estrellas || 5));
-                            });
-                        }
-                        if (selectedLabel) selectedLabel.textContent = `${found.estrellas || 5} estrellas`;
-                        const cancelBtn = document.getElementById('cancel-edit');
-                        if (cancelBtn) cancelBtn.style.display = '';
-                        return;
-                    }
-
-                    const delBtn = evt.target.closest('.review-delete');
-                    if (delBtn) {
-                        const id = delBtn.dataset.id;
-                        if (!confirm('¿Deseas eliminar esta reseña?')) return;
-                        const csrf = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
-                        fetch(`/resenas/${id}`, {
-                            method: 'DELETE',
-                            headers: {
-                                'X-CSRF-TOKEN': csrf,
-                                'Accept': 'application/json',
-                            },
-                        }).then((res) => {
-                            if (res.ok) location.reload(); else alert('Error al eliminar');
-                        }).catch(() => alert('Error al eliminar'));
-                    }
-                });
+                reviewsContainer.textContent = 'Cargando reseñas...';
             }
 
             if (videoFrame || videoElement) {
@@ -262,6 +271,18 @@ if (infoPanel) {
             infoPanel.setAttribute('aria-hidden', 'false');
             document.body.style.overflow = 'hidden';
 
+            if (reviewsUrl && reviewsContainer) {
+                loadReviews(reviewsUrl)
+                    .then((reviews) => {
+                        if (activeReviewGroupNit === groupNit) renderReviews(reviews);
+                    })
+                    .catch((error) => {
+                        if (activeReviewGroupNit !== groupNit) return;
+                        reviewsContainer.textContent = 'No se pudieron cargar las reseñas. Intenta de nuevo.';
+                        console.error(error);
+                    });
+            }
+
             // ✅ Iniciar calendario DESPUÉS de que el modal es visible
             setTimeout(() => {
                 import('./calendario-modal.js').then(({ iniciarCalendarioModal }) => {
@@ -270,6 +291,53 @@ if (infoPanel) {
             }, 150);
         });
     });
+
+    if (reviewsContainer) {
+        reviewsContainer.addEventListener('click', (event) => {
+            const editButton = event.target.closest('.review-edit');
+            if (editButton && activeReviewCanManage) {
+                const review = activeReviews.find((item) => String(item.id_resena) === editButton.dataset.id);
+                const reviewForm = document.querySelector('.info-panel__review-form');
+                if (!reviewForm || !review) return;
+
+                reviewForm.querySelector('input[name="nombre_usuario"]').value = review.nombre || '';
+                reviewForm.querySelector('textarea[name="comentario"]').value = review.texto || '';
+                const select = reviewForm.querySelector('select[name="numero_estrellas"]');
+                if (select) select.value = String(review.estrellas || 5);
+                const editingInput = reviewForm.querySelector('#editing_id');
+                if (editingInput) editingInput.value = editButton.dataset.id;
+
+                const ratingStars = infoPanel.querySelector('.rating-stars');
+                const selectedLabel = infoPanel.querySelector('#selected-stars-label');
+                if (ratingStars) {
+                    Array.from(ratingStars.querySelectorAll('.star')).forEach((button) => {
+                        const value = parseInt(button.dataset.value, 10);
+                        button.textContent = value <= (review.estrellas || 5) ? '★' : '☆';
+                        button.classList.toggle('selected', value <= (review.estrellas || 5));
+                    });
+                }
+                if (selectedLabel) selectedLabel.textContent = `${review.estrellas || 5} estrellas`;
+                const cancelButton = document.getElementById('cancel-edit');
+                if (cancelButton) cancelButton.style.display = '';
+                return;
+            }
+
+            const deleteButton = event.target.closest('.review-delete');
+            if (!deleteButton || !activeReviewCanManage || !confirm('¿Deseas eliminar esta reseña?')) return;
+
+            const csrf = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
+            fetch(`/resenas/${deleteButton.dataset.id}`, {
+                method: 'DELETE',
+                headers: {
+                    'X-CSRF-TOKEN': csrf,
+                    Accept: 'application/json',
+                },
+            }).then((response) => {
+                if (response.ok) location.reload();
+                else alert('Error al eliminar');
+            }).catch(() => alert('Error al eliminar'));
+        });
+    }
 
     const closeButtons = infoPanel.querySelectorAll('.info-panel__close');
     closeButtons.forEach((button) => {

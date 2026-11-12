@@ -19,15 +19,15 @@
 <!-- Encabezado con navegación pública y acceso de usuario. -->
 
 <!-- ENCABEZADO -->
-<header>
+<header class="home-site-header">
 <!-- Fm Uiverse.io by reglobby -->
 <div class="usuario">
     @auth
     <!-- BOTÓN CUANDO EL USUARIO ESTÁ AUTENTICADO (LOG OUT) -->
     <form method="POST" action="{{ route('logout') }}">
         @csrf
-        <button type="submit" class="user-profile" aria-label="Cerrar sesión">
-            <div class="user-profile-inner">
+        <button type="submit" class="user-profile nav-logout-button" aria-label="Cerrar sesión">
+            <div class="user-profile-inner nav-logout-inner">
                 <!-- Icono SVG de cerrar sesión (puerta/salida) -->
                 <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
                     <path d="M5 22a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h7a1 1 0 0 1 0 2H6v16h6a1 1 0 0 1 0 2H5zm10.707-11H9a1 1 0 0 0 0 2h6.707l-2.354 2.354a1 1 0 1 0 1.414 1.414l4-4a1 1 0 0 0 0-1.414l-4-4a1 1 0 1 0-1.414 1.414L15.707 11z"/>
@@ -57,11 +57,21 @@
     <nav class="menu" aria-label="Navegación principal">
         <ul>
             @auth
-                <li><a href="{{ route('dash.rep') }}">ÚNETE O REGISTRA TU GRUPO</a></li>
+                <li>
+                    <a class="nav-register-link" href="{{ route('dash.rep') }}">
+                        <i class="fa-solid fa-people-group" aria-hidden="true"></i>
+                        <span>ÚNETE O REGISTRA TU GRUPO</span>
+                    </a>
+                </li>
             @endauth
-            <li><a href="{{ route('calendario') }}">CALENDARIO</a></li>
             <li>
-                <a class="user-profile" href="{{ route('carrito') }}" aria-label="Ir al carrito">
+                <a class="nav-calendar-link" href="{{ route('calendario') }}">
+                    <i class="fa-solid fa-calendar-days" aria-hidden="true"></i>
+                    <span>CALENDARIO</span>
+                </a>
+            </li>
+            <li>
+                <a class="user-profile nav-cart-link" href="{{ route('carrito') }}" aria-label="Ir al carrito">
                     <span class="user-profile-inner">
                         <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
                             <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A.996.996 0 0 0 21.42 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"></path>
@@ -114,7 +124,7 @@
                 <div class="home-hero__showcase-track">
                     @foreach ($grupos as $grupo)
                         <button type="button" class="home-hero__artist-card" data-group-nit="{{ $grupo->nit }}" aria-label="Ver perfil de {{ $grupo->artista_nombre }}">
-                            <img src="{{ $grupo->artista_imagen }}" alt="" loading="lazy" decoding="async">
+                            <img src="{{ $grupo->artista_imagen }}" alt="" loading="{{ $loop->first ? 'eager' : 'lazy' }}" fetchpriority="{{ $loop->first ? 'high' : 'auto' }}" decoding="async">
                             <div class="home-hero__artist-info">
                                 <span>Grupo musical</span>
                                 <strong>{{ $grupo->artista_nombre }}</strong>
@@ -206,7 +216,7 @@
                         data-genre="{{ $grupo->genero_attr }}"
                         data-video="{{ $grupo->artista_video }}"
                         data-nit="{{ $grupo->nit }}"
-                        data-reviews='@json($grupo->reseñas)'
+                        data-reviews-url="{{ route('grupo-musical.reviews', ['nit' => $grupo->nit]) }}"
                         data-can-admin="{{ $grupo->can_manage }}"
                     >
                         Mas Informacion

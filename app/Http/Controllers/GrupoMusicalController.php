@@ -22,10 +22,20 @@ class GrupoMusicalController extends Controller
 
         $grupos = GrupoMusical::query()
             ->with([
-                'resenas:id_resena,nit,nombre_usuario,comentario,numero_estrellas',
                 'subgeneros:id_subgenero,nit,nombre_subgenero',
                 'subgenero:id_subgenero,id_genero,nombre_subgenero',
                 'subgenero.genero:id_genero,nombre_genero',
+            ])
+            ->select([
+                'id_grupo_musical',
+                'nit',
+                'id_subgenero',
+                'nombre_grupo',
+                'avatar',
+                'logo',
+                'video_url',
+                'descripcion',
+                'precio_hora',
             ])
             ->when($buscar !== '', function ($consulta) use ($buscar) {
                 $consulta->where('nombre_grupo', 'like', "%{$buscar}%");
@@ -48,29 +58,6 @@ class GrupoMusicalController extends Controller
                     ? preg_replace('/\?.*/', '', $grupo->video_url)
                     : Storage::disk('public')->url($grupo->video_url))
                 : '';
-
-            $grupo->reseñas = $grupo->resenas
-                ->map(function ($resena) {
-                    return [
-                        'nombre' => $resena->nombre_usuario ?: 'Usuario',
-                        'avatar' => strtoupper(substr(($resena->nombre_usuario ?: 'U'), 0, 1)),
-                        'texto' => $resena->comentario ?: 'Excelente experiencia.',
-                        'estrellas' => $resena->numero_estrellas ?? 5,
-                        'id_resena' => $resena->id_resena,
-                    ];
-                })
-                ->values()
-                ->all();
-
-            if (empty($grupo->reseñas)) {
-                $grupo->reseñas = [[
-                    'nombre' => 'Nuevo usuario',
-                    'avatar' => 'N',
-                    'texto' => 'Aún no hay reseñas para este grupo. ¡Sé el primero en dejar tu opinión!',
-                    'estrellas' => 5,
-                    'id_resena' => null,
-                ]];
-            }
 
             $grupoGeneros = $grupo->subgeneros
                 ->pluck('nombre_subgenero')
@@ -97,6 +84,40 @@ class GrupoMusicalController extends Controller
             'generos' => $generos,
             'grupos' => $grupos,
         ]);
+    }
+
+    public function reviews(string $nit): JsonResponse
+    {
+        $grupo = GrupoMusical::query()
+            ->where('nit', $nit)
+            ->firstOrFail();
+
+        $reviews = $grupo->resenas()
+            ->select(['id_resena', 'nit', 'nombre_usuario', 'comentario', 'numero_estrellas'])
+            ->orderBy('id_resena')
+            ->get()
+            ->map(function ($resena) {
+                return [
+                    'nombre' => $resena->nombre_usuario ?: 'Usuario',
+                    'avatar' => strtoupper(substr(($resena->nombre_usuario ?: 'U'), 0, 1)),
+                    'texto' => $resena->comentario ?: 'Excelente experiencia.',
+                    'estrellas' => $resena->numero_estrellas ?? 5,
+                    'id_resena' => $resena->id_resena,
+                ];
+            })
+            ->values();
+
+        if ($reviews->isEmpty()) {
+            $reviews->push([
+                'nombre' => 'Nuevo usuario',
+                'avatar' => 'N',
+                'texto' => 'Aún no hay reseñas para este grupo. ¡Sé el primero en dejar tu opinión!',
+                'estrellas' => 5,
+                'id_resena' => null,
+            ]);
+        }
+
+        return response()->json(['reviews' => $reviews]);
     }
 
     // Valida y registra un grupo desde el formulario web

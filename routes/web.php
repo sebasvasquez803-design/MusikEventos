@@ -18,6 +18,8 @@ use App\Http\Controllers\ThemePreferenceController;
 Route::get('/', [GrupoMusicalController::class, 'home'])->name('home');
 Route::view('/welcome', 'welcome')->name('welcome');
 Route::view('/grupo-musical', 'sesion.registro_grp')->name('grupo.musical');
+Route::get('/grupo-musical/{nit}/resenas', [GrupoMusicalController::class, 'reviews'])
+    ->name('grupo-musical.reviews');
 Route::view('/reserva', 'formularios.reserva')->name('reserva');
 Route::view('/registro-clientes', 'formularios.registro_clientes')->name('registro.clientes');
 Route::get('/iniciar-rep_leg', function (Request $request) {
