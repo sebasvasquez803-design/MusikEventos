@@ -9,9 +9,116 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class GrupoMusicalController extends Controller
 {
+    public function joinGroup(Request $request)
+    {
+        $buscar = trim((string) $request->query('buscar'));
+        $genero = trim((string) $request->query('genero'));
+
+        $grupos = GrupoMusical::query()
+            ->with(['subgenero.genero'])
+            ->orderBy('nombre_grupo')
+            ->get();
+
+        $normalizar = static function (string $texto): string {
+            $texto = mb_strtolower(trim($texto), 'UTF-8');
+            $sinAcentos = @iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $texto);
+            return preg_replace('/[^a-z0-9]+/', ' ', $sinAcentos ?: $texto);
+        };
+
+        if ($buscar !== '') {
+            $busquedaNormalizada = $normalizar($buscar);
+            $grupos = $grupos->filter(function (GrupoMusical $grupo) use ($busquedaNormalizada, $normalizar) {
+                $nombreNormalizado = $normalizar((string) $grupo->nombre_grupo);
+                $coincideNombre = str_contains($nombreNormalizado, $busquedaNormalizada);
+
+                $palabras = array_values(array_filter(explode(' ', $nombreNormalizado)));
+                $iniciales = implode('', array_map(
+                    static fn (string $palabra): string => substr($palabra, 0, 1),
+                    $palabras
+                ));
+
+                return $coincideNombre || str_contains($iniciales, $busquedaNormalizada);
+            });
+        }
+
+        if ($genero !== '') {
+            $generoNormalizado = $normalizar($genero);
+            $grupos = $grupos->filter(function (GrupoMusical $grupo) use ($generoNormalizado, $normalizar) {
+                $subgenero = $normalizar((string) ($grupo->subgenero->nombre_subgenero ?? ''));
+                $generoPrincipal = $normalizar((string) ($grupo->subgenero->genero->nombre_genero ?? ''));
+
+                return $subgenero === $generoNormalizado
+                    || str_contains($subgenero, $generoNormalizado)
+                    || str_contains($generoPrincipal, $generoNormalizado);
+            });
+        }
+
+        $grupos = $grupos->values();
+
+        $generos = DB::table('subgenero')
+            ->whereNotNull('nombre_subgenero')
+            ->where('nombre_subgenero', '!=', '')
+            ->distinct()
+            ->orderBy('nombre_subgenero')
+            ->pluck('nombre_subgenero');
+
+        $usuario = Auth::user();
+        $solicitudes = DB::table('solicitudes_integrante')
+            ->where('user_id', $usuario?->id)
+            ->get()
+            ->keyBy('nit');
+
+        return view('sesion.unirse_grupo', [
+            'grupos' => $grupos,
+            'generos' => $generos,
+            'solicitudes' => $solicitudes,
+            'buscar' => $buscar,
+            'genero' => $genero,
+        ]);
+    }
+
+    public function joinGroupStore(Request $request): RedirectResponse
+    {
+        $validated = $request->validate([
+            'nit' => ['required', 'string', 'exists:grupo_musical,nit'],
+            'instrumento' => ['required', 'string', 'max:50'],
+            'rol' => ['required', 'string', 'in:Voz principal,Coros,Instrumentista,Productor,Otro'],
+            'mensaje' => ['nullable', 'string', 'max:500'],
+        ]);
+
+        $usuario = Auth::user();
+        if (!$usuario) {
+            abort(403);
+        }
+
+        $existente = DB::table('solicitudes_integrante')
+            ->where('nit', $validated['nit'])
+            ->where('user_id', $usuario->id)
+            ->exists();
+
+        if ($existente) {
+            return back()->with('warning', 'Ya enviaste una solicitud a este grupo.');
+        }
+
+        DB::table('solicitudes_integrante')->insert([
+            'nit' => $validated['nit'],
+            'user_id' => $usuario->id,
+            'numero_doc' => $usuario->usuario?->numero_doc,
+            'instrumento' => $validated['instrumento'],
+            'rol' => $validated['rol'],
+            'mensaje' => $validated['mensaje'] ?: null,
+            'estado' => 'pendiente',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        return back()->with('success', 'Solicitud enviada. El representante del grupo revisará tu perfil.');
+    }
+
     // Muestra los grupos procesando la presentación del 'segundo código' directamente aquí
     public function home()
     {

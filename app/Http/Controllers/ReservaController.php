@@ -4,10 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\GrupoMusical;
 use App\Models\Reserva;
+use App\Models\DetallePago;
+use App\Mail\ReservaConfirmada;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
 class ReservaController extends Controller
@@ -32,37 +36,88 @@ class ReservaController extends Controller
             'hora' => ['required', 'date_format:H:i:s'],
             'direccion' => ['required', 'string', 'max:60'],
             'nit' => ['required', 'integer', 'exists:grupo_musical,nit'],
+            'horas' => ['sometimes', 'integer', 'min:1', 'max:12'],
+            'metodo_pago' => ['sometimes', 'in:card,pse,wallet'],
         ]);
 
         $usuario = Auth::user();
+        $horaSolicitada = Carbon::createFromFormat('H:i:s', $validated['hora']);
 
-        // Validar choque de horarios (bloques de 2 horas)
-        $choque = Reserva::where('nit', $validated['nit'])
+        // Validación compatible con MySQL y SQLite.
+        $reservasDelDia = Reserva::where('nit', $validated['nit'])
             ->where('fecha', $validated['fecha'])
-            ->whereRaw("ABS(TIMESTAMPDIFF(MINUTE, hora, ?)) < 120", [$validated['hora']])
             ->whereIn('estado', ['activo', 'pendiente'])
-            ->exists();
+            ->get(['hora']);
+
+        $choque = $reservasDelDia->contains(function (Reserva $reserva) use ($horaSolicitada) {
+            if (!$reserva->hora) {
+                return false;
+            }
+
+            try {
+                $horaExistente = Carbon::createFromFormat('H:i:s', substr((string) $reserva->hora, 0, 8));
+            } catch (\Throwable) {
+                return false;
+            }
+
+            return abs($horaExistente->diffInMinutes($horaSolicitada, false)) < 120;
+        });
 
         if ($choque) {
             return response()->json(['error' => 'Esa fecha y hora ya están reservadas.'], 409);
         }
 
         $grupo = GrupoMusical::where('nit', $validated['nit'])->first();
+        $horas = $validated['horas'] ?? 1;
+        $precioPorHora = $grupo ? (float) $grupo->precio_hora : 0;
+        $total = $precioPorHora * $horas;
 
-        // Creación con datos calculados del usuario y del grupo
-        $reserva = Reserva::create([
-            'fecha' => $validated['fecha'],
-            'hora' => $validated['hora'],
-            'direccion' => $validated['direccion'] ?? null,
-            'valor' => $grupo ? $grupo->precio_hora : 0,
-            'estado' => 'pendiente',
-            'numero_doc' => $usuario ? $usuario->numero_doc : null,
-            'nit' => $validated['nit'],
-        ]);
+        $numeroDocumento = $usuario?->usuario?->numero_doc;
+
+        $reserva = DB::transaction(function () use ($validated, $total, $numeroDocumento, $usuario) {
+            $reserva = Reserva::create([
+                'fecha' => $validated['fecha'],
+                'hora' => $validated['hora'],
+                'direccion' => $validated['direccion'] ?? null,
+                'valor' => $total,
+                'estado' => 'pendiente',
+                'numero_doc' => $numeroDocumento,
+                'nit' => $validated['nit'],
+            ]);
+
+            DetallePago::create([
+                'fecha_pago' => now(),
+                'precio_total' => $total,
+                'precio_con_iva' => $total,
+                'descuento' => 0,
+                'estado_pago' => true,
+                'id_cliente' => $usuario?->id,
+                'id_reserva' => $reserva->id_reserva,
+            ]);
+
+            return $reserva;
+        });
+
+        $emailSent = null;
+        if ($usuario?->email) {
+            try {
+                Mail::to($usuario->email)->send(new ReservaConfirmada(
+                    $reserva,
+                    $grupo,
+                    $horas,
+                    $total,
+                    $validated['metodo_pago'] ?? 'card'
+                ));
+                $emailSent = $usuario->email;
+            } catch (\Throwable $exception) {
+                report($exception);
+            }
+        }
 
         return response()->json([
             'message' => 'Reserva creada correctamente.',
-            'data' => $reserva
+            'data' => $reserva,
+            'email_sent' => $emailSent,
         ], 201);
     }
 

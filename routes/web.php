@@ -39,6 +39,12 @@ Route::post('/registro-representante', [RepresentanteLegalRegistrationController
 Route::view('/sesion-rep_leg', 'formularios.sesion_rep_leg')->name('sesion.rep.leg');
 Route::view('/sesion-artista', 'formularios.sesion_artista')->name('sesion.artista');
 Route::post('/registro-artista', [UsuarioController::class, 'registerArtista'])->name('register.artista');
+Route::get('/unirse-a-un-grupo', [GrupoMusicalController::class, 'joinGroup'])
+    ->middleware('auth')
+    ->name('grupo.unirse');
+Route::post('/unirse-a-un-grupo', [GrupoMusicalController::class, 'joinGroupStore'])
+    ->middleware('auth')
+    ->name('grupo.unirse.store');
 Route::view('/curriculum-representante', 'formularios.curriculum_rep')
     ->middleware('auth')
     ->name('curriculum.rep');

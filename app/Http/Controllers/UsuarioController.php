@@ -49,6 +49,7 @@ class UsuarioController extends Controller
         Usuario::create([
             'tipo_doc' => 'CC',
             'numero_doc' => $numeroDoc,
+            'user_id' => $user->id,
             'id_tipo_persona' => 2,
             'nombre' => $validated['name'],
             'apellido' => $request->input('apellido'),

@@ -58,7 +58,7 @@
             <p>Registrar artistas solistas con su curriculum.</p>
         </a>
 
-        <a href="{{ route('grupo.musical') }}" class="dashboard-card">
+        <a href="{{ route('grupo.unirse') }}" class="dashboard-card">
             <i class="fa-solid fa-users"></i>
             <h3>Unirse a un Grupo</h3>
             <p>Unirse a un grupo musical existente.</p>
